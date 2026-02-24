@@ -360,23 +360,7 @@ footer p{font-family:var(--mono);font-size:.65rem;color:var(--muted)}
 .f-mail a{font-family:var(--mono);font-size:.65rem;color:var(--accent);transition:opacity .2s}
 .f-mail a:hover{opacity:.7}
 
-/* ====================== WA FLOAT ====================== */
-#wa-wrap{position:fixed;bottom:calc(1.5rem + env(safe-area-inset-bottom,0px));right:1.5rem;z-index:999;display:flex;flex-direction:column;align-items:flex-end;gap:.75rem}
-#wa-float{width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);animation:waPulse 2.5s ease-in-out infinite;transition:transform .2s;flex-shrink:0}
-#wa-float:hover{transform:scale(1.12)}
-#wa-float svg{width:28px;height:28px}
-#wa-wrap{position:fixed;bottom:calc(1.5rem + env(safe-area-inset-bottom,0px));right:1.5rem;z-index:999;display:flex;align-items:center;gap:.75rem;flex-direction:row-reverse}
-#wa-bubble{background:#1a1a2a;border:1px solid var(--border2);color:var(--text);font-family:var(--mono);font-size:.72rem;padding:.6rem 1rem;border-radius:12px 12px 0 12px;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.4);animation:waBubble 4s ease-in-out 2s both;opacity:0;pointer-events:none}
-#wa-bubble::after{content:'';position:absolute;right:-6px;bottom:0;border:6px solid transparent;border-left-color:#2a2a3e;border-bottom:0}
-@keyframes waBubble{0%{opacity:0;transform:translateX(10px)}15%{opacity:1;transform:none}85%{opacity:1;transform:none}100%{opacity:0;transform:translateX(10px)}}
-#wa-balloon{background:var(--bg2);border:1px solid rgba(37,211,102,.25);border-radius:12px 12px 4px 12px;padding:1rem 1.1rem;max-width:220px;box-shadow:0 8px 32px rgba(0,0,0,.4);position:relative;animation:fadeUp .4s ease forwards}
-#wa-balloon::after{content:'';position:absolute;bottom:-8px;right:16px;width:0;height:0;border-left:8px solid transparent;border-right:0px solid transparent;border-top:8px solid var(--border)}
-#wa-balloon p{font-size:.82rem;color:var(--muted);line-height:1.55;margin-bottom:.7rem}
-#wa-balloon p strong{color:var(--text)}
-#wa-balloon a{display:block;text-align:center;padding:.5rem .9rem;background:#25D366;color:#fff;font-family:var(--mono);font-size:.72rem;font-weight:700;border-radius:4px;letter-spacing:.04em;transition:background .2s}
-#wa-balloon a:hover{background:#1ebe5a}
-#wa-balloon-close{position:absolute;top:.4rem;right:.5rem;background:none;border:none;color:var(--muted);font-size:1rem;cursor:pointer;line-height:1;padding:.1rem .3rem}
-#wa-balloon-close:hover{color:var(--accent3)}
+/* ── WA FLOAT (replaced by va-wrap) ── */
 /* E-Learning Popup */
 #elearn-overlay{display:none;position:fixed;inset:0;z-index:9000;background:rgba(5,5,8,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);align-items:center;justify-content:center;padding:1rem}
 #elearn-overlay.show{display:flex}
@@ -876,9 +860,9 @@ footer p{font-family:var(--mono);font-size:.65rem;color:var(--muted)}
               <div class="c-link-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
               <div><div class="c-link-label">WhatsApp</div><div class="c-link-value">+351 967 263 260</div></div>
             </a>
-            <a href="/cdn-cgi/l/email-protection#aec7c0c8c1dcc3cfdac7cdcfdecfdbc2c1dcc7cdcfdccac1eec9c3cfc7c280cdc1c3" class="c-link">
+            <a href="mailto:informaticapauloricardo@gmail.com" class="c-link">
               <div class="c-link-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg></div>
-              <div><div class="c-link-label">Email</div><div class="c-link-value"><span class="__cf_email__" data-cfemail="10797e767f627d71647973716071657c7f6279737162747f50777d71797c3e737f7d">[email&#160;protected]</span></div></div>
+              <div><div class="c-link-label">Email</div><div class="c-link-value">informaticapauloricardo@gmail.com</div></div>
             </a>
           </div>
           <div class="online-badge"><span class="s-dot"></span>Resposta em <strong>&nbsp;menos de 24h</strong></div>
@@ -923,60 +907,181 @@ footer p{font-family:var(--mono);font-size:.65rem;color:var(--muted)}
   <div class="wrap">
     <div class="f-logo">PS<span>_tech</span></div>
     <p>© <span id="ano"></span> Paulo Silva Tech · Todos os direitos reservados</p>
-    <div class="f-mail"><a href="/cdn-cgi/l/email-protection#01686f676e736c60756862607160746d6e7368626073656e41666c60686d2f626e6c"><span class="__cf_email__" data-cfemail="e58c8b838a978884918c8684958490898a978c868497818aa58288848c89cb868a88">[email&#160;protected]</span></a></div>
+    <div class="f-mail"><a href="mailto:informaticapauloricardo@gmail.com">informaticapauloricardo@gmail.com</a></div>
   </div>
 </footer>
 
-<!-- WA FLOAT -->
-<a id="wa-float" href="https://wa.me/351967263260?text=Olá%20Paulo%2C%20gostaria%20de%20falar%20contigo!" target="_blank" rel="noopener" aria-label="WhatsApp">
-  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-</a>
+<!-- ══ ASSISTENTE VIRTUAL + WHATSAPP (canto inferior direito) ══ -->
+<style>
+/* ── WA ASSISTANT WIDGET ── */
+#va-wrap{position:fixed;bottom:calc(1.5rem + env(safe-area-inset-bottom,0px));right:1.5rem;z-index:9990;display:flex;flex-direction:column;align-items:flex-end;gap:.75rem}
+
+/* Bubble CTA */
+#va-bubble{
+  background:var(--bg2);
+  border:1px solid rgba(37,211,102,.3);
+  border-radius:14px 14px 4px 14px;
+  padding:1rem 1.15rem 1rem 1rem;
+  max-width:230px;
+  box-shadow:0 8px 32px rgba(0,0,0,.5);
+  position:relative;
+  display:none;
+  animation:vaSlideIn .4s cubic-bezier(.34,1.56,.64,1) forwards;
+}
+@keyframes vaSlideIn{from{opacity:0;transform:translateY(12px) scale(.92)}to{opacity:1;transform:none}}
+#va-bubble::after{
+  content:'';position:absolute;bottom:-8px;right:18px;
+  border-left:8px solid transparent;border-right:0 solid transparent;
+  border-top:8px solid rgba(37,211,102,.3);
+}
+#va-bubble-close{
+  position:absolute;top:.35rem;right:.5rem;
+  background:none;border:none;color:var(--muted);
+  font-size:.9rem;cursor:pointer;line-height:1;padding:.1rem .3rem;
+  transition:color .2s;
+}
+#va-bubble-close:hover{color:var(--accent3)}
+
+.va-agent{display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem}
+.va-avatar{
+  width:32px;height:32px;border-radius:50%;
+  background:linear-gradient(135deg,#00ff88,#00c8ff);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:.7rem;font-weight:700;color:var(--bg);
+  flex-shrink:0;
+}
+.va-name{font-family:var(--mono);font-size:.65rem;color:var(--text);font-weight:700;letter-spacing:.04em}
+.va-status{font-family:var(--mono);font-size:.56rem;color:var(--accent);margin-top:.1rem;display:flex;align-items:center;gap:.3rem}
+.va-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);animation:blink 2s ease-in-out infinite}
+
+#va-bubble p{font-size:.8rem;color:var(--muted);line-height:1.55;margin-bottom:.75rem}
+#va-bubble p strong{color:var(--text)}
+
+.va-btns{display:flex;flex-direction:column;gap:.4rem}
+.va-btn-wa{
+  display:flex;align-items:center;justify-content:center;gap:.45rem;
+  padding:.52rem .85rem;background:#25D366;color:#fff;
+  font-family:var(--mono);font-size:.7rem;font-weight:700;
+  border-radius:4px;letter-spacing:.04em;border:none;
+  transition:background .2s,transform .2s;text-decoration:none;cursor:pointer;
+}
+.va-btn-wa:hover{background:#1ebe5a;transform:translateY(-1px)}
+.va-btn-mail{
+  display:flex;align-items:center;justify-content:center;gap:.45rem;
+  padding:.48rem .85rem;border:1px solid var(--border2);color:var(--muted);
+  font-family:var(--mono);font-size:.68rem;border-radius:4px;letter-spacing:.04em;
+  transition:border-color .2s,color .2s;text-decoration:none;
+}
+.va-btn-mail:hover{border-color:var(--accent);color:var(--accent)}
+
+/* WA Float Button */
+#va-float{
+  width:58px;height:58px;border-radius:50%;
+  background:#25D366;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 20px rgba(37,211,102,.45);
+  animation:waPulse 2.5s ease-in-out infinite;
+  transition:transform .2s;
+  cursor:pointer;border:none;flex-shrink:0;
+  position:relative;
+}
+#va-float:hover{transform:scale(1.1)}
+#va-float svg{width:30px;height:30px;pointer-events:none}
+/* Notification dot */
+#va-notif{
+  position:absolute;top:2px;right:2px;
+  width:14px;height:14px;border-radius:50%;
+  background:var(--accent3);border:2px solid var(--bg);
+  font-family:var(--mono);font-size:.5rem;color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:700;
+}
+</style>
+
+<div id="va-wrap">
+  <!-- Bubble assistente virtual -->
+  <div id="va-bubble" role="complementary" aria-label="Assistente Virtual">
+    <button id="va-bubble-close" aria-label="Fechar">×</button>
+    <div class="va-agent">
+      <div class="va-avatar">PS</div>
+      <div>
+        <div class="va-name">Paulo Silva · PS Tech</div>
+        <div class="va-status"><span class="va-dot"></span>Online agora</div>
+      </div>
+    </div>
+    <p>Olá! 👋 Posso ajudar com <strong>IT, desenvolvimento web, design</strong> ou qualquer dúvida técnica.<br/>Como posso ajudá-lo hoje?</p>
+    <div class="va-btns">
+      <a class="va-btn-wa" href="https://wa.me/351967263260?text=Olá%20Paulo%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20seus%20serviços!" target="_blank" rel="noopener noreferrer">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Falar no WhatsApp
+      </a>
+      <a class="va-btn-mail" href="mailto:informaticapauloricardo@gmail.com">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg>
+        Enviar Email
+      </a>
+    </div>
+  </div>
+
+  <!-- Botão WA flutuante -->
+  <button id="va-float" aria-label="Abrir assistente virtual" onclick="toggleVaBubble()">
+    <div id="va-notif">1</div>
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </button>
+</div>
 
 <!-- ══════════════════ JAVASCRIPT ══════════════════ -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
+<script>
+'use strict';
+
 // ── ANTI-INSPECT PROTECTION ──
 (function(){
-  // Disable right-click context menu
-  document.addEventListener('contextmenu', function(e){ e.preventDefault(); return false; });
-  
-  // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C, Ctrl+U
-  document.addEventListener('keydown', function(e){
-    if(
-      e.key === 'F12' ||
-      (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C' || e.key === 'i' || e.key === 'j' || e.key === 'c')) ||
-      (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S'))
-    ){
-      e.preventDefault();
-      e.stopPropagation();
-      return false;
+  document.addEventListener('contextmenu',function(e){e.preventDefault();return false;});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&['I','J','C','i','j','c'].includes(e.key))||(e.ctrlKey&&['u','U','s','S'].includes(e.key))){
+      e.preventDefault();e.stopPropagation();return false;
     }
   });
-
-  // Detect devtools open via size difference
-  var threshold = 160;
-  var devOpen = false;
+  var threshold=160,devOpen=false;
   setInterval(function(){
-    var widthDiff = window.outerWidth - window.innerWidth > threshold;
-    var heightDiff = window.outerHeight - window.innerHeight > threshold;
-    if(widthDiff || heightDiff){
-      if(!devOpen){
-        devOpen = true;
-        document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#050508;color:#00ff88;font-family:monospace;font-size:1rem;text-align:center;padding:2rem;">Acesso restrito.<br/>Esta página está protegida.</div>';
+    var w=window.outerWidth-window.innerWidth>threshold;
+    var h=window.outerHeight-window.innerHeight>threshold;
+    if(w||h){
+      if(!devOpen){devOpen=true;
+        document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#050508;color:#00ff88;font-family:monospace;font-size:1rem;text-align:center;padding:2rem;">Acesso restrito.<br/>Esta página está protegida.</div>';
       }
-    } else {
-      devOpen = false;
-    }
-  }, 1000);
-
-  // Disable text selection
-  document.addEventListener('selectstart', function(e){ e.preventDefault(); });
-
-  // Disable drag
-  document.addEventListener('dragstart', function(e){ e.preventDefault(); });
+    }else{devOpen=false;}
+  },1000);
+  document.addEventListener('selectstart',function(e){e.preventDefault();});
+  document.addEventListener('dragstart',function(e){e.preventDefault();});
 })();
 
-</script><script>
-'use strict';
+// ── ASSISTENTE VIRTUAL TOGGLE ──
+function toggleVaBubble(){
+  var bubble = document.getElementById('va-bubble');
+  var notif  = document.getElementById('va-notif');
+  var isOpen = bubble.style.display === 'block';
+  if(isOpen){
+    bubble.style.display = 'none';
+  } else {
+    bubble.style.display = 'block';
+    // remove notification dot after first open
+    if(notif) { notif.style.display = 'none'; }
+  }
+}
+document.getElementById('va-bubble-close').addEventListener('click', function(){
+  document.getElementById('va-bubble').style.display = 'none';
+});
+// Auto-open after 5 seconds (once per session)
+(function(){
+  if(!sessionStorage.getItem('va_opened')){
+    setTimeout(function(){
+      var bubble = document.getElementById('va-bubble');
+      var notif  = document.getElementById('va-notif');
+      bubble.style.display = 'block';
+      if(notif) notif.style.display = 'none';
+      sessionStorage.setItem('va_opened','1');
+    }, 5000);
+  }
+})();
 
 // ── LOADER ──
 (function(){
@@ -1506,46 +1611,7 @@ async function submitElearn(e){
   });
 })();
 
-// ── ANTI-INSPECT PROTECTION ──
-(function(){
-  // Disable right-click context menu
-  document.addEventListener('contextmenu', function(e){ e.preventDefault(); return false; });
-  
-  // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C, Ctrl+U
-  document.addEventListener('keydown', function(e){
-    if(
-      e.key === 'F12' ||
-      (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C' || e.key === 'i' || e.key === 'j' || e.key === 'c')) ||
-      (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S'))
-    ){
-      e.preventDefault();
-      e.stopPropagation();
-      return false;
-    }
-  });
-
-  // Detect devtools open via size difference
-  var threshold = 160;
-  var devOpen = false;
-  setInterval(function(){
-    var widthDiff = window.outerWidth - window.innerWidth > threshold;
-    var heightDiff = window.outerHeight - window.innerHeight > threshold;
-    if(widthDiff || heightDiff){
-      if(!devOpen){
-        devOpen = true;
-        document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#050508;color:#00ff88;font-family:monospace;font-size:1rem;text-align:center;padding:2rem;">Acesso restrito.<br/>Esta página está protegida.</div>';
-      }
-    } else {
-      devOpen = false;
-    }
-  }, 1000);
-
-  // Disable text selection
-  document.addEventListener('selectstart', function(e){ e.preventDefault(); });
-
-  // Disable drag
-  document.addEventListener('dragstart', function(e){ e.preventDefault(); });
-})();
+// ── END ──
 
 </script>
 
