@@ -256,7 +256,7 @@ nav.scrolled{background:rgba(5,5,8,.96);border-color:var(--border);backdrop-filt
 .pb-live:hover{background:#00ffaa}
 .pb-code{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.05em;padding:.45rem 1rem;border-radius:2px;border:1px solid var(--border2);color:var(--muted);transition:border-color .2s,color .2s}
 .pb-code:hover{border-color:var(--accent2);color:var(--accent2)}
-.port-wip{border:1px dashed var(--border2);border-radius:6px;padding:3rem 2rem;text-align:center;background:repeating-linear-gradient(-45deg,transparent,transparent 10px,rgba(255,255,255,.01) 10px,rgba(255,255,255,.01) 20px)}
+.port-wip{border:1px dashed var(--border2);border-radius:6px;padding:3rem 2rem;text-align:center;background:repeating-linear-gradient(-45deg,transparent,transparent 10px,rgba(255,255,255,.01) 10px,rgba(255,255,255,.01) 20px);position:relative;z-index:1}
 .port-wip p{color:var(--muted);font-size:.85rem;margin-top:.5rem}
 
 /* clients */
@@ -358,6 +358,10 @@ footer .wrap{display:flex;flex-direction:column;gap:.75rem;align-items:center;te
 .f-logo{font-family:var(--mono);font-size:.9rem;font-weight:700}
 .f-logo span{color:var(--accent)}
 footer p{font-family:var(--mono);font-size:.65rem;color:var(--muted)}
+.f-legal{display:flex;gap:.5rem;align-items:center;font-size:.65rem;font-family:var(--mono)}
+.f-legal a{color:var(--muted);text-decoration:none;transition:color .2s}
+.f-legal a:hover{color:var(--accent)}
+.f-legal span{color:var(--muted)}
 .f-mail a{font-family:var(--mono);font-size:.65rem;color:var(--accent);transition:opacity .2s}
 .f-mail a:hover{opacity:.7}
 
@@ -1093,6 +1097,11 @@ footer p{font-family:var(--mono);font-size:.65rem;color:var(--muted)}
     <div class="f-logo">PS<span>_tech</span></div>
     <p>© <span id="ano"></span> Paulo Silva Tech · Todos os direitos reservados</p>
     <div class="f-mail"><a href="mailto:informaticapauloricardo@gmail.com">informaticapauloricardo@gmail.com</a></div>
+    <div class="f-legal">
+      <a href="privacidade.html">Política de Privacidade</a>
+      <span>·</span>
+      <a href="termos.html">Termos de Utilização</a>
+    </div>
   </div>
 </footer>
 
@@ -1848,7 +1857,7 @@ async function submitElearn(e){
     display: none;
     position: fixed;
     inset: 0;
-    z-index: 9999;
+    z-index: 10001;
     align-items: center;
     justify-content: center;
     background: rgba(0,0,0,0.8);
