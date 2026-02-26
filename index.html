@@ -258,18 +258,6 @@ nav.scrolled{background:rgba(5,5,8,.96);border-color:var(--border);backdrop-filt
 .pb-code:hover{border-color:var(--accent2);color:var(--accent2)}
 .port-wip{border:1px dashed var(--border2);border-radius:6px;padding:3rem 2rem;text-align:center;background:repeating-linear-gradient(-45deg,transparent,transparent 10px,rgba(255,255,255,.01) 10px,rgba(255,255,255,.01) 20px);position:relative;z-index:1}
 .port-wip p{color:var(--muted);font-size:.85rem;margin-top:.5rem}
-/* CTA WIP CARD */
-@keyframes pwipPulse{0%,100%{transform:scale(1);opacity:.6}50%{transform:scale(1.12);opacity:1}}
-@keyframes pwipScan{0%{transform:translateY(-100%)}100%{transform:translateY(200%)}}
-@keyframes pwipGlow{0%,100%{opacity:.4}50%{opacity:.8}}
-.port-wip-cta{transition:border-color .3s,transform .3s,box-shadow .3s!important}
-.port-wip-cta:hover{border-color:var(--accent)!important;transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,255,136,.12)!important}
-.pwip-glow{position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(0,255,136,.06),transparent);pointer-events:none;animation:pwipGlow 3s ease-in-out infinite}
-.pwip-scan{position:absolute;left:0;right:0;height:40px;background:linear-gradient(to bottom,transparent,rgba(0,255,136,.05),transparent);animation:pwipScan 4s linear infinite;pointer-events:none}
-.pwip-ring{width:52px;height:52px;border-radius:50%;border:1.5px solid rgba(0,255,136,.35);background:rgba(0,255,136,.06);display:flex;align-items:center;justify-content:center;animation:pwipPulse 2.5s ease-in-out infinite;position:relative}
-.pwip-ring::before{content:'';position:absolute;inset:-6px;border-radius:50%;border:1px dashed rgba(0,255,136,.18);animation:pwipPulse 2.5s ease-in-out infinite reverse}
-.pwip-pill{display:inline-flex;align-items:center;gap:.4rem;margin-top:.5rem;padding:.45rem 1.1rem;background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.3);border-radius:999px;font-family:var(--mono);font-size:.68rem;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;transition:background .2s,transform .2s}
-.port-wip-cta:hover .pwip-pill{background:var(--accent);color:var(--bg);transform:translateY(-1px)}
 
 /* clients */
 .clients-grid{display:grid;gap:1px;background:var(--border);border:1px solid var(--border);margin-top:2.5rem;grid-template-columns:repeat(2,1fr)}
@@ -490,6 +478,19 @@ footer p{font-family:var(--mono);font-size:.65rem;color:var(--muted)}
 .tech-item:nth-child(16):hover .tech-icon svg { color:#5A0FC8; } /* PWA */
 
 /* Remove old conflicting srv-icon font-size rule */
+
+/* ====================== CTA WIP CARD ====================== */
+@keyframes pwipPulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(0,255,136,0)}50%{transform:scale(1.08);box-shadow:0 0 0 8px rgba(0,255,136,.06)}}
+@keyframes pwipScan{0%{top:-40px}100%{top:110%}}
+@keyframes pwipGlow{0%,100%{opacity:.3}50%{opacity:.7}}
+.port-wip-cta{cursor:pointer;position:relative;overflow:hidden;border:1px dashed rgba(0,255,136,.25)!important;background:linear-gradient(135deg,rgba(0,255,136,.03),rgba(0,200,255,.02))!important;transition:border-color .3s,transform .3s,box-shadow .3s}
+.port-wip-cta:hover{border-color:var(--accent)!important;transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,255,136,.1)}
+.pwip-glow{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(0,255,136,.05),transparent);pointer-events:none;animation:pwipGlow 3s ease-in-out infinite}
+.pwip-scan{position:absolute;left:0;right:0;height:50px;background:linear-gradient(to bottom,transparent,rgba(0,255,136,.04),transparent);animation:pwipScan 3.5s linear infinite;pointer-events:none}
+.pwip-ring{width:54px;height:54px;border-radius:50%;border:1.5px solid rgba(0,255,136,.4);background:rgba(0,255,136,.06);display:flex;align-items:center;justify-content:center;animation:pwipPulse 2.5s ease-in-out infinite;position:relative;flex-shrink:0}
+.pwip-ring::before{content:'';position:absolute;inset:-7px;border-radius:50%;border:1px dashed rgba(0,255,136,.15)}
+.pwip-pill{display:inline-flex;align-items:center;gap:.4rem;padding:.45rem 1.2rem;background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.25);border-radius:999px;font-family:var(--mono);font-size:.68rem;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;transition:background .25s,color .25s,transform .25s}
+.port-wip-cta:hover .pwip-pill{background:var(--accent);color:var(--bg);transform:scale(1.04)}
 </style>
 </head>
 <body>
@@ -729,16 +730,16 @@ footer p{font-family:var(--mono);font-size:.65rem;color:var(--muted)}
           </div>
         </div>
         <!-- WIP slots -->
-        <div class="port-wip port-wip-cta fu" style="transition-delay:.20s;cursor:pointer;position:relative;overflow:hidden;border-color:rgba(0,255,136,.2);background:linear-gradient(135deg,rgba(0,255,136,.03) 0%,rgba(0,200,255,.03) 100%)" onclick="document.getElementById('projectModal').style.display='flex'">
+        <div class="port-wip port-wip-cta fu" style="transition-delay:.20s" id="addProjetoCTA">
           <div class="pwip-glow"></div>
           <div class="pwip-scan"></div>
-          <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:.6rem">
+          <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:.65rem">
             <div class="pwip-ring">
-              <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             </div>
-            <h3 style="font-family:var(--mono);font-size:.82rem;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin:0">// o teu projeto aqui</h3>
+            <h3 style="font-family:var(--mono);font-size:.8rem;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin:0">// o teu projeto aqui</h3>
             <p style="font-size:.82rem;color:var(--muted);text-align:center;line-height:1.6;max-width:200px;margin:0">Trabalha comigo e entra para o portfolio.</p>
-            <div class="pwip-pill">Submeter Projeto <span style="font-size:.9em">→</span></div>
+            <div class="pwip-pill">Submeter Projeto →</div>
           </div>
         </div>
         <div class="port-wip fu" style="transition-delay:.24s">
@@ -887,9 +888,9 @@ footer p{font-family:var(--mono);font-size:.65rem;color:var(--muted)}
               <div class="c-link-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
               <div><div class="c-link-label">WhatsApp</div><div class="c-link-value">+351 967 263 260</div></div>
             </a>
-            <a href="/cdn-cgi/l/email-protection#a8c1c6cec7dac5c9dcc1cbc9d8c9ddc4c7dac1cbc9daccc7e8cfc5c9c1c486cbc7c5" class="c-link">
+            <a href="mailto:informaticapauloricardo@gmail.com" class="c-link">
               <div class="c-link-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg></div>
-              <div><div class="c-link-label">Email</div><div class="c-link-value"><span class="__cf_email__" data-cfemail="7b12151d1409161a0f12181a0b1a0e17140912181a091f143b1c161a121755181416">[email&#160;protected]</span></div></div>
+              <div><div class="c-link-label">Email</div><div class="c-link-value">informaticapauloricardo@gmail.com</div></div>
             </a>
           </div>
           <div class="online-badge"><span class="s-dot"></span>Resposta em <strong>&nbsp;menos de 24h</strong></div>
@@ -1114,7 +1115,7 @@ footer p{font-family:var(--mono);font-size:.65rem;color:var(--muted)}
   <div class="wrap">
     <div class="f-logo">PS<span>_tech</span></div>
     <p>© <span id="ano"></span> Paulo Silva Tech · Todos os direitos reservados</p>
-    <div class="f-mail"><a href="/cdn-cgi/l/email-protection#88e1e6eee7fae5e9fce1ebe9f8e9fde4e7fae1ebe9faece7c8efe5e9e1e4a6ebe7e5"><span class="__cf_email__" data-cfemail="0c65626a637e616d78656f6d7c6d7960637e656f6d7e68634c6b616d6560226f6361">[email&#160;protected]</span></a></div>
+    <div class="f-mail"><a href="mailto:informaticapauloricardo@gmail.com">informaticapauloricardo@gmail.com</a></div>
     <div class="f-legal">
       <a href="privacidade.html">Política de Privacidade</a>
       <span>·</span>
@@ -1226,7 +1227,7 @@ footer p{font-family:var(--mono);font-size:.65rem;color:var(--muted)}
         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         Falar no WhatsApp
       </a>
-      <a class="va-btn-mail" href="/cdn-cgi/l/email-protection#dfb6b1b9b0adb2beabb6bcbeafbeaab3b0adb6bcbeadbbb09fb8b2beb6b3f1bcb0b2">
+      <a class="va-btn-mail" href="mailto:informaticapauloricardo@gmail.com">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg>
         Enviar Email
       </a>
@@ -1241,7 +1242,7 @@ footer p{font-family:var(--mono);font-size:.65rem;color:var(--muted)}
 </div>
 
 <!-- ══════════════════ JAVASCRIPT ══════════════════ -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
 'use strict';
 emailjs.init('PATkSEf9SFSJvdfAg');
@@ -2121,3 +2122,15 @@ async function submitElearn(e){
         nome:      fd.get('nome')     || '',
         email:     fd.get('email')    || '',
         contacto:  fd.get('contacto') || ''
+
+<script>
+// CTA card click handler
+(function(){
+  function openModal(){ 
+    var m = document.getElementById('projectModal');
+    if(m){ m.style.display='flex'; }
+  }
+  var cta = document.getElementById('addProjetoCTA');
+  if(cta){ cta.addEventListener('click', openModal); }
+})();
+</script>
