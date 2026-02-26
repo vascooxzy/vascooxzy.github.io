@@ -264,8 +264,9 @@ nav.scrolled{background:rgba(5,5,8,.96);border-color:var(--border);backdrop-filt
 @media(min-width:600px){.clients-grid{grid-template-columns:repeat(4,1fr)}}
 .cli-card{padding:1.75rem 1rem;text-align:center;transition:background .2s,transform .2s;display:block;text-decoration:none}
 .cli-card:hover{transform:translateY(-4px);filter:brightness(1.1)}
-.cli-logo-wrap{height:72px;display:flex;align-items:center;justify-content:center;margin-bottom:.85rem}
-.cli-logo{max-height:64px;max-width:90%;object-fit:contain}
+.cli-logo-wrap{height:72px;display:flex;align-items:center;justify-content:center;margin-bottom:.85rem;overflow:hidden;width:100%}
+.cli-logo-wrap img{max-height:64px;max-width:85%;width:auto;height:auto;object-fit:contain;display:block}
+.cli-logo{max-height:64px;max-width:85%;object-fit:contain}
 .invert-logo{mix-blend-mode:multiply;object-fit:contain}
 .dark-logo{mix-blend-mode:screen;filter:brightness(1.2) contrast(1.1);object-fit:contain}
 .cli-logo{mix-blend-mode:screen;filter:brightness(1.1)}
@@ -2046,38 +2047,28 @@ async function submitElearn(e){
 
     var f = new FormData(document.getElementById('mForm'));
     var nome=f.get('nome')||'', email=f.get('email')||'',
-        ig=f.get('instagram')||'', tel=f.get('tel')||'',
-        proj=f.get('projeto')||'', serv=f.get('servico')||'',
-        msg=f.get('mensagem')||'';
+        ig=f.get('instagram')||'N/A', tel=f.get('tel')||'N/A',
+        proj=f.get('projeto')||'', serv=f.get('servico')||'N/A',
+        msg=f.get('mensagem')||'N/A';
 
-    var txt = 'Nova Proposta de Projeto
-
-';
-    txt += 'Nome: '+nome+'
-';
-    txt += 'Email: '+email+'
-';
-    if(ig)  txt += 'Instagram: '+ig+'
-';
-    if(tel) txt += 'Telemovel: '+tel+'
-';
-    txt += 'Projeto/Marca: '+proj+'
-';
-    if(serv) txt += 'Servico: '+serv+'
-';
-    if(msg)  txt += '
-Mensagem:
-'+msg;
-
-    var url = 'https://wa.me/351967263260?text='+encodeURIComponent(txt);
-
-    setTimeout(function(){
+    emailjs.send('service_7p9rsai', 'template_8974ixd', {
+      nome: nome,
+      email: email,
+      contacto: tel,
+      instagram: ig,
+      projeto: proj,
+      servico: serv,
+      mensagem: msg,
+      _subject: 'Nova Proposta de Projeto - PS Tech'
+    }).then(function(){
       document.getElementById('mFormArea').style.display = 'none';
       document.getElementById('mSuc').style.display = 'block';
-      window.open(url, '_blank');
-    }, 500);
+    }).catch(function(){
+      b.disabled = false;
+      b.innerHTML = 'Enviar Proposta &rarr;';
+      alert('Erro ao enviar. Tenta novamente.');
+    });
   };
-})();
 </script>
 
 <script>
