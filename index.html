@@ -2551,15 +2551,30 @@ setTimeout(function(){
     var svgLoad = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>';
     submitBtn.innerHTML = svgLoad + ' A registar...';
     try {
-      var data = new FormData(form);
-      data.append('_subject', 'Nova pre-inscricao E-Learning - PS Tech');
+      var fd = new FormData(form);
+      var payload = {
+        nome: fd.get('nome') || '',
+        email: fd.get('email') || '',
+        contacto: fd.get('contacto') || '',
+        curso: fd.get('curso') || '',
+        _subject: 'Nova pre-inscricao E-Learning - PS Tech'
+      };
       var res = await fetch('https://formspree.io/f/mreaorrg', {
-        method: 'POST', body: data, headers: {'Accept': 'application/json'}
+        method: 'POST',
+        body: JSON.stringify(payload),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
       });
-      if(res.ok){
+      var json = await res.json();
+      if(res.ok && !json.errors){
         okMsg.style.display = 'flex';
         form.reset();
-      } else { throw new Error(); }
+      } else {
+        console.error('Formspree errors:', json.errors);
+        throw new Error();
+      }
     } catch(ex){ errMsg.style.display = 'flex'; }
     finally{
       submitBtn.disabled = false;
