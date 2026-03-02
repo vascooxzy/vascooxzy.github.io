@@ -706,7 +706,35 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0 1.5rem}
             </div>
           </div>
         </li>
-        <li><a href="#" data-p="dicas" onclick="goTo('dicas');return false;">Dicas IT</a></li>
+        <li class="nav-item">
+          <a href="#" class="nav-dd-toggle" onclick="if(window.innerWidth<768){return false;}goTo('dicas');return false;">Dicas IT <span class="nav-dd-arrow">▾</span></a>
+          <div class="nav-dropdown">
+            <div class="nav-dd-inner">
+              <div class="nav-dd-label">// Dicas IT</div>
+              <a href="#" onclick="goToDicas('all');return false;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                <span>Todas as Dicas</span>
+              </a>
+              <div class="nav-dd-sep"></div>
+              <a href="#" onclick="goToDicas('os');return false;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                <span>Sistema Operativo</span>
+              </a>
+              <a href="#" onclick="goToDicas('code');return false;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                <span>Programação</span>
+              </a>
+              <a href="#" onclick="goToDicas('design');return false;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                <span>Design</span>
+              </a>
+              <a href="#" onclick="goToDicas('net');return false;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a14 14 0 010 18M3 12h18"/></svg>
+                <span>Redes</span>
+              </a>
+            </div>
+          </div>
+        </li>
         <li><a href="#" data-p="portfolio" onclick="goTo('portfolio');return false;">Portfólio</a></li>
         <li><a href="#" data-p="sobre" onclick="goTo('sobre');return false;">Sobre</a></li>
         <li><a href="#" data-p="elearning" onclick="goTo('elearning');return false;" style="color:var(--accent2)">E-Learning</a></li>
@@ -1756,6 +1784,25 @@ navToggle.addEventListener('click', function(){
   navToggle.classList.toggle('open', open);
   navToggle.setAttribute('aria-expanded', String(open));
 });
+
+// ── GOTO DICAS ──
+function goToDicas(filter) {
+  // Fecha menus mobile
+  document.querySelectorAll('.nav-item').forEach(function(i){ i.classList.remove('open'); });
+  var navLinks = document.getElementById('nav-links');
+  var navToggleEl = document.getElementById('nav-toggle');
+  if(navLinks){ navLinks.classList.remove('open'); }
+  if(navToggleEl){ navToggleEl.classList.remove('open'); navToggleEl.setAttribute('aria-expanded','false'); }
+
+  goTo('dicas');
+  setTimeout(function(){
+    // Activate the correct filter button
+    document.querySelectorAll('.tf-btn').forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-f') === filter);
+    });
+    renderTips(filter);
+  }, 350);
+}
 
 // ── GOTO SERVICE ──
 function goToService(id) {
