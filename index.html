@@ -84,8 +84,8 @@ nav.scrolled{background:rgba(5,5,8,.96);border-color:var(--border);backdrop-filt
 .nav-cursor{display:inline-block;width:9px;height:1em;background:var(--accent);animation:blink 1s step-end infinite;vertical-align:middle}
 
 .nav-links{display:none;list-style:none}
-.nav-links a{font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.08em;transition:color .2s;padding:.3rem 0;display:block}
-.nav-links a:hover,.nav-links a.active{color:var(--accent)}
+.nav-links a{font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.08em;transition:color .2s,text-shadow .2s;padding:.3rem 0;display:block;border-radius:2px}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);text-shadow:0 0 10px rgba(0,255,136,.7)}
 .nav-cta{border:1px solid var(--accent)!important;color:var(--accent)!important;padding:.4rem 1rem!important;border-radius:2px;animation:glow 3s ease-in-out infinite;transition:background .2s,color .2s!important}
 .nav-cta:hover{background:var(--accent)!important;color:var(--bg)!important}
 
@@ -730,18 +730,6 @@ footer p{font-family:var(--mono);font-size:.65rem;color:var(--muted)}
           </div>
         </div>
         <!-- WIP slots -->
-        <div class="port-wip port-wip-cta fu" style="transition-delay:.20s" id="addProjetoCTA">
-          <div class="pwip-glow"></div>
-          <div class="pwip-scan"></div>
-          <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:.65rem">
-            <div class="pwip-ring">
-              <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            </div>
-            <h3 style="font-family:var(--mono);font-size:.8rem;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin:0">// o teu projeto aqui</h3>
-            <p style="font-size:.82rem;color:var(--muted);text-align:center;line-height:1.6;max-width:200px;margin:0">Trabalha comigo e entra para o portfolio.</p>
-            <div class="pwip-pill">Submeter Projeto →</div>
-          </div>
-        </div>
         <div class="port-wip fu" style="transition-delay:.24s">
           <div style="font-size:2rem;margin-bottom:.75rem"><svg viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-linecap="round" style="width:28px;height:28px"><path d="M12 2C6.5 7 4 12 6 18l6 4 6-4c2-6-.5-11-6-16z"/><circle cx="12" cy="10" r="2" fill="var(--muted)"/></svg></div>
           <h3 style="font-family:var(--mono);font-size:.9rem;color:var(--muted);margin-bottom:.5rem">// em desenvolvimento</h3>
@@ -888,9 +876,9 @@ footer p{font-family:var(--mono);font-size:.65rem;color:var(--muted)}
               <div class="c-link-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
               <div><div class="c-link-label">WhatsApp</div><div class="c-link-value">+351 967 263 260</div></div>
             </a>
-            <a href="mailto:informaticapauloricardo@gmail.com" class="c-link">
+            <a href="/cdn-cgi/l/email-protection#4821262e273a25293c212b2938293d24273a212b293a2c27082f25292124662b2725" class="c-link">
               <div class="c-link-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg></div>
-              <div><div class="c-link-label">Email</div><div class="c-link-value">informaticapauloricardo@gmail.com</div></div>
+              <div><div class="c-link-label">Email</div><div class="c-link-value"><span class="__cf_email__" data-cfemail="056c6b636a776864716c6664756470696a776c666477616a456268646c692b666a68">[email&#160;protected]</span></div></div>
             </a>
           </div>
           <div class="online-badge"><span class="s-dot"></span>Resposta em <strong>&nbsp;menos de 24h</strong></div>
@@ -1115,7 +1103,7 @@ footer p{font-family:var(--mono);font-size:.65rem;color:var(--muted)}
   <div class="wrap">
     <div class="f-logo">PS<span>_tech</span></div>
     <p>© <span id="ano"></span> Paulo Silva Tech · Todos os direitos reservados</p>
-    <div class="f-mail"><a href="mailto:informaticapauloricardo@gmail.com">informaticapauloricardo@gmail.com</a></div>
+    <div class="f-mail"><a href="/cdn-cgi/l/email-protection#5831363e372a35392c313b3928392d34372a313b392a3c37183f35393134763b3735"><span class="__cf_email__" data-cfemail="6d04030b021f000c19040e0c1d0c1801021f040e0c1f09022d0a000c0401430e0200">[email&#160;protected]</span></a></div>
     <div class="f-legal">
       <a href="privacidade.html">Política de Privacidade</a>
       <span>·</span>
@@ -1227,7 +1215,7 @@ footer p{font-family:var(--mono);font-size:.65rem;color:var(--muted)}
         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         Falar no WhatsApp
       </a>
-      <a class="va-btn-mail" href="mailto:informaticapauloricardo@gmail.com">
+      <a class="va-btn-mail" href="/cdn-cgi/l/email-protection#d3babdb5bca1beb2a7bab0b2a3b2a6bfbca1bab0b2a1b7bc93b4beb2babffdb0bcbe">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg>
         Enviar Email
       </a>
@@ -1242,7 +1230,7 @@ footer p{font-family:var(--mono);font-size:.65rem;color:var(--muted)}
 </div>
 
 <!-- ══════════════════ JAVASCRIPT ══════════════════ -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
 'use strict';
 emailjs.init('PATkSEf9SFSJvdfAg');
@@ -1870,234 +1858,7 @@ async function submitElearn(e){
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
           Registado 
 
-<!-- Project Submission Modal -->
-<style>
-  #projectModal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 10001;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0,0,0,0.8);
-    backdrop-filter: blur(6px);
-    padding: 1rem;
-  }
-  .modal-box {
-    background: #0d0d0d;
-    border: 1px solid rgba(0,255,136,0.25);
-    border-radius: 12px;
-    padding: 2.5rem 2rem;
-    width: 100%;
-    max-width: 520px;
-    position: relative;
-    max-height: 90vh;
-    overflow-y: auto;
-    animation: modalIn .2s ease;
-  }
-  @keyframes modalIn {
-    from { opacity:0; transform: translateY(16px) scale(.97); }
-    to   { opacity:1; transform: none; }
-  }
-  .modal-close {
-    position: absolute;
-    top: 1rem; right: 1.25rem;
-    background: none;
-    border: none;
-    color: #888;
-    font-size: 1.5rem;
-    cursor: pointer;
-    line-height: 1;
-    transition: color .2s;
-  }
-  .modal-close:hover { color: #fff; }
-  .modal-tag {
-    font-family: var(--mono, monospace);
-    color: var(--accent,#00ff88);
-    font-size: .8rem;
-    letter-spacing: .12em;
-    margin-bottom: .4rem;
-  }
-  .modal-h {
-    font-size: 1.45rem;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 1.5rem;
-  }
-  .mfg { margin-bottom: 1rem; }
-  .mfg label {
-    display: block;
-    font-size: .72rem;
-    font-family: var(--mono, monospace);
-    color: #999;
-    letter-spacing: .08em;
-    margin-bottom: .35rem;
-    text-transform: uppercase;
-  }
-  .mfg input,
-  .mfg textarea,
-  .mfg select {
-    width: 100%;
-    background: #181818;
-    border: 1px solid rgba(255,255,255,.1);
-    border-radius: 6px;
-    color: #fff;
-    font-size: .88rem;
-    padding: .6rem .85rem;
-    outline: none;
-    transition: border-color .2s;
-    font-family: inherit;
-    box-sizing: border-box;
-  }
-  .mfg input:focus, .mfg textarea:focus, .mfg select:focus {
-    border-color: var(--accent,#00ff88);
-    box-shadow: 0 0 0 2px rgba(0,255,136,.08);
-  }
-  .mfg input::placeholder, .mfg textarea::placeholder { color: #555; }
-  .mfg textarea { resize: vertical; min-height: 85px; }
-  .mfg select option { background: #181818; }
-  .mrow { display: grid; grid-template-columns: 1fr 1fr; gap: .85rem; }
-  .msub {
-    display: inline-flex;
-    align-items: center;
-    gap: .5rem;
-    margin-top: .5rem;
-    padding: .72rem 1.7rem;
-    background: var(--accent,#00ff88);
-    color: #000;
-    border: none;
-    border-radius: 6px;
-    font-weight: 700;
-    font-size: .9rem;
-    cursor: pointer;
-    transition: opacity .2s, transform .15s;
-  }
-  .msub:hover { opacity: .85; transform: translateY(-1px); }
-  .msub:disabled { opacity: .45; cursor: not-allowed; transform: none; }
-  .msuc {
-    display: none;
-    text-align: center;
-    padding: 2.5rem 0 1rem;
-  }
-  .msuc-icon { font-size: 2.5rem; margin-bottom: 1rem; }
-  .msuc h3 { color: var(--accent,#00ff88); margin-bottom: .5rem; font-size: 1.2rem; }
-  .msuc p { color: #999; font-size: .88rem; line-height: 1.6; }
-  @media (max-width:480px) { .mrow { grid-template-columns: 1fr; } }
-</style>
 
-<div id="projectModal">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeProjModal()">&times;</button>
-    <p class="modal-tag">// adicionar projeto</p>
-    <h2 class="modal-h">Vamos trabalhar juntos</h2>
-
-    <div id="mFormArea">
-      <form id="mForm" onsubmit="sendProjForm(event)">
-        <div class="mrow">
-          <div class="mfg">
-            <label>Nome *</label>
-            <input type="text" name="nome" placeholder="O teu nome" required/>
-          </div>
-          <div class="mfg">
-            <label>Email *</label>
-            <input type="email" name="email" placeholder="email@exemplo.com" required/>
-          </div>
-        </div>
-        <div class="mrow">
-          <div class="mfg">
-            <label>Instagram</label>
-            <input type="text" name="instagram" placeholder="@handle"/>
-          </div>
-          <div class="mfg">
-            <label>Telemovel</label>
-            <input type="tel" name="tel" placeholder="+351 9XX XXX XXX"/>
-          </div>
-        </div>
-        <div class="mfg">
-          <label>Nome do Projeto / Marca *</label>
-          <input type="text" name="projeto" placeholder="Ex: Studio Celeste" required/>
-        </div>
-        <div class="mfg">
-          <label>Tipo de Servico</label>
-          <select name="servico">
-            <option value="" disabled selected>Seleciona um servico</option>
-            <option value="Branding &amp; Identidade Visual">Branding &amp; Identidade Visual</option>
-            <option value="Gestao de Redes Sociais">Gestao de Redes Sociais</option>
-            <option value="Design de Posts">Design de Posts</option>
-            <option value="E-Commerce &amp; Loja Online">E-Commerce &amp; Loja Online</option>
-            <option value="Website">Website</option>
-            <option value="Fotografia &amp; Conteudo">Fotografia &amp; Conteudo</option>
-            <option value="Outro">Outro</option>
-          </select>
-        </div>
-        <div class="mfg">
-          <label>Mensagem</label>
-          <textarea name="mensagem" placeholder="Conta-me um pouco sobre o teu projeto, objetivos e o que precisas..."></textarea>
-        </div>
-        <button type="submit" class="msub" id="mSubBtn">Enviar Proposta &rarr;</button>
-      </form>
-    </div>
-
-    <div class="msuc" id="mSuc">
-      <div class="msuc-icon">&#9889;</div>
-      <h3>Proposta Enviada!</h3>
-      <p>Obrigado pelo interesse.<br>Entrarei em contacto contigo em breve<br>para falarmos sobre o teu projeto.</p>
-    </div>
-  </div>
-</div>
-
-<script>
-(function(){
-  var modal = document.getElementById('projectModal');
-
-  window.closeProjModal = function() {
-    modal.style.display = 'none';
-    setTimeout(function(){
-      document.getElementById('mFormArea').style.display = 'block';
-      document.getElementById('mSuc').style.display = 'none';
-      document.getElementById('mForm').reset();
-      var b = document.getElementById('mSubBtn');
-      if(b){ b.disabled=false; b.innerHTML='Enviar Proposta &rarr;'; }
-    }, 250);
-  };
-
-  modal.addEventListener('click', function(e){ if(e.target===modal) closeProjModal(); });
-
-  document.addEventListener('keydown', function(e){
-    if(e.key==='Escape' && modal.style.display==='flex') closeProjModal();
-  });
-
-  window.sendProjForm = function(e) {
-    e.preventDefault();
-    var b = document.getElementById('mSubBtn');
-    b.disabled = true;
-    b.innerHTML = 'A enviar...';
-
-    var f = new FormData(document.getElementById('mForm'));
-    var nome=f.get('nome')||'', email=f.get('email')||'',
-        ig=f.get('instagram')||'N/A', tel=f.get('tel')||'N/A',
-        proj=f.get('projeto')||'', serv=f.get('servico')||'N/A',
-        msg=f.get('mensagem')||'N/A';
-
-    emailjs.send('service_7p9rsai', 'template_8974ixd', {
-      nome: nome,
-      email: email,
-      contacto: tel,
-      instagram: ig,
-      projeto: proj,
-      servico: serv,
-      mensagem: msg,
-      _subject: 'Nova Proposta de Projeto - PS Tech'
-    }).then(function(){
-      document.getElementById('mFormArea').style.display = 'none';
-      document.getElementById('mSuc').style.display = 'block';
-    }).catch(function(){
-      b.disabled = false;
-      b.innerHTML = 'Enviar Proposta &rarr;';
-      alert('Erro ao enviar. Tenta novamente.');
-    });
-  };
-</script>
 
 <script>
 // ── E-LEARNING PAGE FORM ──
@@ -2118,19 +1879,21 @@ async function submitElearn(e){
     submitBtn.innerHTML = svgLoad + ' A registar...';
     try {
       var fd = new FormData(form);
-      var payload = {
+      var res = await emailjs.send('service_7p9rsai', 'template_qkpmz3s', {
+        _subject:  'Nova Pré-inscrição E-Learning (Página) - PS Tech',
         nome:      fd.get('nome')     || '',
         email:     fd.get('email')    || '',
         contacto:  fd.get('contacto') || ''
+      });
+      if(res.status === 200){
+        okMsg.style.display = 'flex';
+        form.reset();
+      } else { throw new Error(); }
+    } catch(ex){ errMsg.style.display = 'flex'; }
+    finally { submitBtn.disabled = false; submitBtn.innerHTML = svgSend + ' Quero ser avisado'; }
+  });
 
-<script>
-// CTA card click handler
-(function(){
-  function openModal(){ 
-    var m = document.getElementById('projectModal');
-    if(m){ m.style.display='flex'; }
-  }
-  var cta = document.getElementById('addProjetoCTA');
-  if(cta){ cta.addEventListener('click', openModal); }
 })();
 </script>
+</body>
+</html>
