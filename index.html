@@ -76,6 +76,86 @@ body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradie
 .ld-bar{height:100%;width:0;background:var(--accent);box-shadow:0 0 10px var(--accent);animation:loaderBar 2.2s cubic-bezier(.4,0,.2,1) forwards}
 .ld-status{font-family:var(--mono);font-size:.7rem;color:var(--muted)}
 
+/* ====================== DROPDOWN ====================== */
+.nav-item{position:relative}
+.nav-dropdown{
+  position:absolute;top:100%;left:0;
+  padding-top:10px;
+  opacity:0;
+  pointer-events:none;
+  transform:translateY(-4px);
+  transition:opacity .2s ease,transform .2s ease;
+  z-index:600;
+}
+.nav-dd-inner{
+  background:rgba(8,8,12,.98);
+  border:1px solid rgba(0,255,136,.15);
+  border-radius:8px;
+  min-width:210px;
+  padding:.4rem 0;
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  box-shadow:0 20px 50px rgba(0,0,0,.7);
+  position:relative;
+}
+.nav-dd-inner::before{
+  content:'';position:absolute;top:-5px;left:18px;
+  width:10px;height:10px;
+  background:rgba(8,8,12,.98);
+  border-left:1px solid rgba(0,255,136,.15);
+  border-top:1px solid rgba(0,255,136,.15);
+  transform:rotate(45deg);
+}
+.nav-item:hover .nav-dropdown,
+.nav-item.open .nav-dropdown{
+  opacity:1;pointer-events:auto;
+  transform:translateY(0);
+}
+.nav-dropdown a{
+  display:flex;align-items:center;gap:.55rem;
+  padding:.55rem 1rem;
+  font-family:var(--mono);font-size:.68rem;
+  color:var(--muted);letter-spacing:.06em;
+  transition:color .15s,background .15s,padding-left .15s;
+  white-space:nowrap;
+  line-height:1;
+}
+.nav-dropdown a span{display:inline;white-space:nowrap}
+.nav-dropdown a svg{flex-shrink:0;display:block}
+.nav-dropdown a:hover{color:var(--accent);background:rgba(0,255,136,.05);padding-left:1.3rem}
+.nav-dropdown a svg{flex-shrink:0;transition:color .15s}
+.nav-dropdown a:hover svg{color:var(--accent)}
+.nav-dd-sep{height:1px;background:rgba(255,255,255,.06);margin:.3rem 0}
+.nav-dd-label{
+  font-family:var(--mono);font-size:.58rem;color:var(--accent);
+  letter-spacing:.16em;text-transform:uppercase;
+  padding:.5rem 1rem .25rem;opacity:.6;
+}
+/* contactar dropdown alinhado à direita */
+.nav-item-right .nav-dropdown{left:auto;right:0}
+.nav-item-right .nav-dd-inner::before{left:auto;right:18px}
+
+/* Mobile dropdown */
+@media(max-width:767px){
+  .nav-dropdown{
+    position:static;transform:none;opacity:1;
+    pointer-events:auto;padding-top:0;display:none;
+  }
+  .nav-dd-inner{
+    background:rgba(0,255,136,.03);border:none;
+    border-left:2px solid rgba(0,255,136,.2);
+    border-radius:0;box-shadow:none;backdrop-filter:none;
+    padding:.2rem 0;margin:.3rem 0 .5rem .5rem;
+  }
+  .nav-dd-inner::before{display:none}
+  .nav-item.open .nav-dropdown{display:block}
+  .nav-dd-arrow{transition:transform .2s;display:inline-block;font-size:.6rem;margin-left:.3rem}
+  .nav-item.open .nav-dd-arrow{transform:rotate(180deg)}
+}
+@media(min-width:768px){
+  .nav-dd-arrow{font-size:.55rem;margin-left:.3rem}
+}
+
 /* ====================== NAVBAR ====================== */
 nav{position:fixed;top:0;left:0;right:0;z-index:500;border-bottom:1px solid transparent;transition:background .3s,border-color .3s;padding-top:env(safe-area-inset-top,0)}
 nav.scrolled{background:rgba(5,5,8,.96);border-color:var(--border);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
@@ -103,7 +183,69 @@ nav.scrolled{background:rgba(5,5,8,.96);border-color:var(--border);backdrop-filt
   .nav-links a{padding:0;display:inline}
 }
 
-/* ====================== PAGE SYSTEM ====================== */
+@keyframes srvHighlight{
+  0%  {box-shadow:0 0 0 0 rgba(0,255,136,.6);border-color:var(--accent)}
+  50% {box-shadow:0 0 0 10px rgba(0,255,136,.12);border-color:var(--accent)}
+  100%{box-shadow:0 0 0 0 rgba(0,255,136,0);border-color:var(--border)}
+}
+.srv2-highlight{animation:srvHighlight 2s ease-out forwards!important;transform:translateY(-4px)!important}
+
+/* ====================== SERVICES V2 ====================== */display:grid;grid-template-columns:1fr;gap:1.25rem;margin-top:3rem}
+@media(min-width:640px){.srv2-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:1024px){.srv2-grid{grid-template-columns:1fr 1fr 1fr 1fr}}
+
+.srv2-card{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:1.75rem 1.5rem;
+  position:relative;
+  overflow:hidden;
+  display:flex;flex-direction:column;gap:1rem;
+  transition:border-color .3s,background .3s,transform .3s;
+}
+.srv2-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at top left,rgba(var(--ic-raw),.06) 0%,transparent 60%);
+  pointer-events:none;
+}
+.srv2-card:hover{
+  border-color:var(--ic,var(--accent));
+  background:var(--bg3);
+  transform:translateY(-4px);
+}
+
+.srv2-top{display:flex;align-items:center;justify-content:space-between}
+.srv2-icon-wrap{
+  width:44px;height:44px;border-radius:10px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--ic,var(--accent));
+  transition:background .3s,box-shadow .3s;
+}
+.srv2-card:hover .srv2-icon-wrap{
+  background:rgba(255,255,255,.08);
+  box-shadow:0 0 16px rgba(255,255,255,.08);
+}
+.srv2-num{font-family:var(--mono);font-size:.58rem;color:var(--muted);letter-spacing:.12em}
+
+.srv2-title{font-family:var(--sans);font-size:1.05rem;font-weight:700;color:var(--text);line-height:1.3}
+.srv2-card:hover .srv2-title{color:var(--ic,var(--accent))}
+
+.srv2-desc{font-size:.83rem;color:var(--muted);line-height:1.7;flex-grow:1}
+
+.srv2-list{background:rgba(255,255,255,.03);border-radius:8px;padding:1rem;border:1px solid rgba(255,255,255,.05)}
+.srv2-list-title{font-family:var(--mono);font-size:.6rem;color:var(--ic,var(--accent));letter-spacing:.12em;margin-bottom:.6rem;opacity:.8}
+.srv2-list ul{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+.srv2-list ul li{font-size:.78rem;color:var(--muted);padding-left:1rem;position:relative;line-height:1.5}
+.srv2-list ul li::before{content:'✓';position:absolute;left:0;color:var(--ic,var(--accent));font-size:.7rem;font-weight:700}
+
+.srv2-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:auto}
+.srv2-tags span{font-family:var(--mono);font-size:.6rem;padding:.2rem .6rem;border-radius:4px;background:rgba(255,255,255,.05);color:var(--muted);border:1px solid rgba(255,255,255,.08);letter-spacing:.06em}
+.srv2-card:hover .srv2-tags span{border-color:rgba(255,255,255,.15);color:var(--text)}
+
+/* ====================== SERVICES V2 ====================== */
 .page{display:none}
 .page.active{display:block;animation:pageIn .35s ease forwards}
 
@@ -268,8 +410,8 @@ nav.scrolled{background:rgba(5,5,8,.96);border-color:var(--border);backdrop-filt
 .cli-logo-wrap img{max-height:64px;max-width:85%;width:auto;height:auto;object-fit:contain;display:block}
 .cli-logo{max-height:64px;max-width:85%;object-fit:contain}
 .invert-logo{mix-blend-mode:multiply;object-fit:contain}
-.dark-logo{mix-blend-mode:screen;filter:brightness(1.2) contrast(1.1);object-fit:contain}
-.cli-logo{mix-blend-mode:screen;filter:brightness(1.1)}
+.dark-logo{filter:brightness(1.2) contrast(1.1);object-fit:contain}
+.cli-logo{filter:brightness(1.1)}
 .cli-name{font-family:var(--mono);font-size:.72rem;color:var(--text);letter-spacing:.06em;font-weight:700}
 .cli-type{font-family:var(--mono);font-size:.6rem;color:var(--muted);margin-top:.3rem}
 
@@ -352,15 +494,28 @@ textarea.f-input{resize:vertical;min-height:100px;line-height:1.6}
 .f-err{background:rgba(255,62,108,.08);border:1px solid rgba(255,62,108,.2);color:var(--accent3)}
 
 /* ====================== FOOTER ====================== */
-footer{border-top:1px solid var(--border);padding:1.75rem 0}
-footer .wrap{display:flex;flex-direction:column;gap:.75rem;align-items:center;text-align:center}
-@media(min-width:600px){footer .wrap{flex-direction:row;justify-content:space-between;text-align:left}}
-.f-logo{font-family:var(--mono);font-size:.9rem;font-weight:700}
+footer{border-top:1px solid var(--border);padding:2.5rem 0 1.5rem}
+.f-grid{display:grid;grid-template-columns:1fr;gap:2rem;margin-bottom:2rem}
+@media(min-width:700px){.f-grid{grid-template-columns:1fr 1fr 1fr}}
+.f-col-title{font-family:var(--mono);font-size:.6rem;color:var(--accent);letter-spacing:.16em;text-transform:uppercase;margin-bottom:.85rem;opacity:.8}
+.f-logo{font-family:var(--mono);font-size:1rem;font-weight:700;margin-bottom:.4rem}
 .f-logo span{color:var(--accent)}
-footer p{font-family:var(--mono);font-size:.65rem;color:var(--muted)}
-.f-legal{display:flex;gap:.5rem;align-items:center;font-size:.65rem;font-family:var(--mono)}
-.f-legal a{color:var(--muted);text-decoration:none;transition:color .2s}
+.f-tagline{font-family:var(--mono);font-size:.65rem;color:var(--muted);line-height:1.7}
+.f-hours{font-family:var(--mono);font-size:.65rem;color:var(--muted);line-height:2}
+.f-hours span{color:var(--text)}
+.f-socials{display:flex;gap:.6rem;margin-top:.5rem}
+.f-social-btn{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--border2);color:var(--muted);transition:color .2s,border-color .2s,background .2s,transform .2s}
+.f-social-btn:hover{transform:translateY(-3px)}
+.f-social-btn.ig:hover{color:#e1306c;border-color:#e1306c;background:rgba(225,48,108,.08)}
+.f-social-btn.wa:hover{color:#25d366;border-color:#25d366;background:rgba(37,211,102,.08)}
+.f-social-btn.gm:hover{color:#ea4335;border-color:#ea4335;background:rgba(234,67,53,.08)}
+.f-bottom{border-top:1px solid var(--border);padding-top:1.25rem;display:flex;flex-direction:column;gap:.5rem;align-items:center;text-align:center}
+@media(min-width:600px){.f-bottom{flex-direction:row;justify-content:space-between;text-align:left}}
+.f-copy{font-family:var(--mono);font-size:.62rem;color:var(--muted)}
+.f-legal{display:flex;gap:.75rem;align-items:center;font-size:.62rem;font-family:var(--mono)}
+.f-legal a{color:var(--muted);transition:color .2s}
 .f-legal a:hover{color:var(--accent)}
+.f-legal span{color:var(--border2)}
 .f-legal span{color:var(--muted)}
 .f-mail a{font-family:var(--mono);font-size:.65rem;color:var(--accent);transition:opacity .2s}
 .f-mail a:hover{opacity:.7}
@@ -510,12 +665,71 @@ footer p{font-family:var(--mono);font-size:.65rem;color:var(--muted)}
         PS<span style="color:var(--accent)">_tech</span><span class="nav-cursor"></span>
       </a>
       <ul class="nav-links" id="nav-links">
-        <li><a href="#" data-p="servicos" onclick="goTo('servicos');return false;">Serviços</a></li>
-        <li><a href="#" data-p="dicas"    onclick="goTo('dicas');return false;">Dicas IT</a></li>
+        <li class="nav-item">
+          <a href="#" class="nav-dd-toggle" data-p="servicos" onclick="goTo('servicos');return false;">Serviços <span class="nav-dd-arrow">▾</span></a>
+          <div class="nav-dropdown">
+            <div class="nav-dd-inner">
+              <div class="nav-dd-label">// Serviços</div>
+              <a href="#" onclick="goToService('srv-it');return false;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                <span>Consultório IT</span>
+              </a>
+              <a href="#" onclick="goToService('srv-so');return false;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3"/></svg>
+                <span>Sistemas Operativos</span>
+              </a>
+              <a href="#" onclick="goToService('srv-fullstack');return false;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                <span>Full Stack Dev</span>
+              </a>
+              <a href="#" onclick="goToService('srv-frontend');return false;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 13.5V20a2 2 0 002 2h16a2 2 0 002-2V13.5"/><polyline points="2 9 12 3 22 9"/></svg>
+                <span>Frontend</span>
+              </a>
+              <a href="#" onclick="goToService('srv-backend');return false;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5"/></svg>
+                <span>Backend</span>
+              </a>
+              <div class="nav-dd-sep"></div>
+              <a href="#" onclick="goToService('srv-social');return false;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg>
+                <span>Redes Sociais</span>
+              </a>
+              <a href="#" onclick="goToService('srv-design');return false;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                <span>Design Gráfico</span>
+              </a>
+              <a href="#" onclick="goToService('srv-redes');return false;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a14 14 0 010 18M3 12h18"/></svg>
+                <span>Gestão de Redes</span>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li><a href="#" data-p="dicas" onclick="goTo('dicas');return false;">Dicas IT</a></li>
         <li><a href="#" data-p="portfolio" onclick="goTo('portfolio');return false;">Portfólio</a></li>
-        <li><a href="#" data-p="sobre"    onclick="goTo('sobre');return false;">Sobre</a></li>
+        <li><a href="#" data-p="sobre" onclick="goTo('sobre');return false;">Sobre</a></li>
         <li><a href="#" data-p="elearning" onclick="goTo('elearning');return false;" style="color:var(--accent2)">E-Learning</a></li>
-        <li><a href="#" data-p="contacto" onclick="goTo('contacto');return false;" class="nav-cta">[ Contactar ]</a></li>
+        <li class="nav-item nav-item-right">
+          <a href="#" class="nav-cta nav-dd-toggle" onclick="return false;">[ Contactar ] <span class="nav-dd-arrow">▾</span></a>
+          <div class="nav-dropdown">
+            <div class="nav-dd-inner">
+              <div class="nav-dd-label">// Contacto</div>
+              <a href="mailto:paulo@pstech.pt">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+                <span>Email</span>
+              </a>
+              <a href="https://wa.me/351967263260?text=Olá%20Paulo%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20seus%20serviços!" target="_blank" rel="noopener">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+                <span>WhatsApp</span>
+              </a>
+              <a href="https://instagram.com/paulosilva.tech" target="_blank" rel="noopener">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/></svg>
+                <span>Instagram</span>
+              </a>
+            </div>
+          </div>
+        </li>
       </ul>
       <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -613,18 +827,201 @@ footer p{font-family:var(--mono);font-size:.65rem;color:var(--muted)}
 <div class="page" id="page-servicos">
   <section class="section" style="padding-top:7rem">
     <div class="wrap">
-      <div class="sec-head fu"><span class="tag">Serviços</span><h2>O que posso fazer<br/><span>por si</span></h2><p>Soluções tecnológicas completas para particulares e empresas.</p></div>
-      <div class="srv-grid">
-        <article class="srv-card fu" style="transition-delay:.04s"><div class="srv-num">SRV_001</div><span class="srv-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span><h3>Consultório IT</h3><p>Diagnóstico e resolução de problemas informáticos, manutenção preventiva e suporte técnico personalizado para particulares e empresas.</p><div class="srv-tags"><span class="stag">Hardware</span><span class="stag">Software</span><span class="stag">Suporte</span></div></article>
-        <article class="srv-card fu" style="transition-delay:.08s"><div class="srv-num">SRV_002</div><span class="srv-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg></span><h3>Sistemas Operativos</h3><p>Instalação, configuração e otimização de Windows, Linux e macOS. Migração, dual-boot e formação incluídos.</p><div class="srv-tags"><span class="stag">Windows</span><span class="stag b">Linux</span><span class="stag b">macOS</span></div></article>
-        <article class="srv-card fu" style="transition-delay:.12s"><div class="srv-num">SRV_003</div><span class="srv-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span><h3>Full Stack Dev</h3><p>Websites e aplicações web completas do zero, front-end e back-end integrados. Da ideia ao deploy com qualidade profissional.</p><div class="srv-tags"><span class="stag b">JS</span><span class="stag">Node.js</span><span class="stag p">React</span></div></article>
-        <article class="srv-card fu" style="transition-delay:.16s"><div class="srv-num">SRV_004</div><span class="srv-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 13.5V20a2 2 0 002 2h16a2 2 0 002-2V13.5"/><polyline points="2 9 12 3 22 9"/><line x1="12" y1="3" x2="12" y2="22"/></svg></span><h3>Frontend</h3><p>Interfaces web rápidas, responsivas e acessíveis. PWA, animações e design systems com atenção máxima ao detalhe.</p><div class="srv-tags"><span class="stag p">UI/UX</span><span class="stag b">CSS</span><span class="stag p">Figma</span></div></article>
-        <article class="srv-card fu" style="transition-delay:.20s"><div class="srv-num">SRV_005</div><span class="srv-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v4c0 1.7 4 3 9 3s9-1.3 9-3V5"/><path d="M3 9v4c0 1.7 4 3 9 3s9-1.3 9-3V9"/><path d="M3 13v4c0 1.7 4 3 9 3s9-1.3 9-3v-4"/></svg></span><h3>Backend</h3><p>APIs REST, bases de dados e lógica de negócio com segurança e escalabilidade. Integrações e automações.</p><div class="srv-tags"><span class="stag">Python</span><span class="stag b">SQL</span><span class="stag p">REST</span></div></article>
-        <article class="srv-card fu" style="transition-delay:.24s"><div class="srv-num">SRV_006</div><span class="srv-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg></span><h3>Redes Sociais</h3><p>Estratégia de conteúdo, criação de posts, gestão e análise de métricas. Crescimento orgânico e autêntico.</p><div class="srv-tags"><span class="stag p">Instagram</span><span class="stag b">LinkedIn</span><span class="stag">Conteúdo</span></div></article>
-        <article class="srv-card fu" style="transition-delay:.28s"><div class="srv-num">SRV_007</div><span class="srv-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span><h3>Design Gráfico</h3><p>Identidade visual completa, logótipos e materiais digitais e impressos. Branding que comunica a essência da sua marca.</p><div class="srv-tags"><span class="stag p">Branding</span><span class="stag p">Illustrator</span><span class="stag b">Photoshop</span></div></article>
-        <article class="srv-card fu" style="transition-delay:.32s"><div class="srv-num">SRV_008</div><span class="srv-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a14 14 0 010 18M12 3a14 14 0 000 18M3 12h18"/></svg></span><h3>Gestão de Redes</h3><p>Configuração e manutenção de redes domésticas e empresariais. VPN, firewall, segurança e otimização de performance.</p><div class="srv-tags"><span class="stag">Wi-Fi</span><span class="stag b">VPN</span><span class="stag">Firewall</span></div></article>
+      <div class="sec-head fu">
+        <span class="tag">Serviços Profissionais</span>
+        <h2>Tecnologia e Design<br/><span>ao serviço do seu negócio</span></h2>
+        <p>Soluções completas pensadas para resolver problemas reais, entregar resultados concretos e fazer o seu negócio crescer.</p>
       </div>
-      <div style="margin-top:3rem;text-align:center">
+
+      <div class="srv2-grid">
+
+        <!-- SRV 001 - Consultório IT -->
+        <article class="srv2-card fu" id="srv-it" style="transition-delay:.04s">
+          <div class="srv2-top">
+            <div class="srv2-icon-wrap" style="--ic:#00C8FF">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            </div>
+            <span class="srv2-num">SRV_001</span>
+          </div>
+          <h3 class="srv2-title">Consultório IT</h3>
+          <p class="srv2-desc">Diagnóstico e resolução de problemas informáticos com abordagem técnica e preventiva. Analiso, corrijo e otimizo sistemas para garantir estabilidade, segurança e continuidade operacional. Ideal para empresas e profissionais que precisam de suporte confiável sem complicações.</p>
+          <div class="srv2-list">
+            <div class="srv2-list-title">// O que proporciono</div>
+            <ul>
+              <li>Manutenção preventiva e corretiva</li>
+              <li>Resolução de falhas de hardware e software</li>
+              <li>Otimização de desempenho de equipamentos</li>
+              <li>Suporte técnico remoto e presencial</li>
+              <li>Consultoria para infraestrutura informática</li>
+            </ul>
+          </div>
+          <div class="srv2-tags"><span>Hardware</span><span>Software</span><span>Suporte</span></div>
+        </article>
+
+        <!-- SRV 002 - Sistemas Operativos -->
+        <article class="srv2-card fu" id="srv-so" style="transition-delay:.08s">
+          <div class="srv2-top">
+            <div class="srv2-icon-wrap" style="--ic:#339933">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+            </div>
+            <span class="srv2-num">SRV_002</span>
+          </div>
+          <h3 class="srv2-title">Sistemas Operativos</h3>
+          <p class="srv2-desc">Instalação, configuração e migração de sistemas operativos adaptados à sua realidade. Preparo ambientes rápidos, seguros e organizados para trabalho profissional ou pessoal.</p>
+          <div class="srv2-list">
+            <div class="srv2-list-title">// O que proporciono</div>
+            <ul>
+              <li>Instalação Windows, Linux e macOS</li>
+              <li>Migração e recuperação de dados</li>
+              <li>Configuração de drivers e segurança</li>
+              <li>Dual-boot e ambientes personalizados</li>
+              <li>Formação básica de utilização</li>
+            </ul>
+          </div>
+          <div class="srv2-tags"><span>Windows</span><span>Linux</span><span>macOS</span></div>
+        </article>
+
+        <!-- SRV 003 - Full Stack -->
+        <article class="srv2-card fu" id="srv-fullstack" style="transition-delay:.12s">
+          <div class="srv2-top">
+            <div class="srv2-icon-wrap" style="--ic:#F7DF1E">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <span class="srv2-num">SRV_003</span>
+          </div>
+          <h3 class="srv2-title">Full Stack Development</h3>
+          <p class="srv2-desc">Desenvolvimento de websites e aplicações completas, do conceito ao deploy. Construo soluções escaláveis, rápidas e orientadas a resultados reais de negócio.</p>
+          <div class="srv2-list">
+            <div class="srv2-list-title">// O que proporciono</div>
+            <ul>
+              <li>Websites institucionais e plataformas web</li>
+              <li>Integração frontend + backend</li>
+              <li>APIs, bases de dados e autenticação</li>
+              <li>Deploy e configuração de servidores</li>
+              <li>Manutenção e evolução contínua</li>
+            </ul>
+          </div>
+          <div class="srv2-tags"><span>JavaScript</span><span>Node.js</span><span>React</span></div>
+        </article>
+
+        <!-- SRV 004 - Frontend -->
+        <article class="srv2-card fu" id="srv-frontend" style="transition-delay:.16s">
+          <div class="srv2-top">
+            <div class="srv2-icon-wrap" style="--ic:#61DAFB">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 13.5V20a2 2 0 002 2h16a2 2 0 002-2V13.5"/><polyline points="2 9 12 3 22 9"/><line x1="12" y1="3" x2="12" y2="22"/></svg>
+            </div>
+            <span class="srv2-num">SRV_004</span>
+          </div>
+          <h3 class="srv2-title">Frontend</h3>
+          <p class="srv2-desc">Criação de interfaces modernas, intuitivas e responsivas que transformam visitantes em clientes. Design funcional aliado a performance e experiência do utilizador.</p>
+          <div class="srv2-list">
+            <div class="srv2-list-title">// O que proporciono</div>
+            <ul>
+              <li>Interfaces UI/UX profissionais</li>
+              <li>Sites rápidos e responsivos</li>
+              <li>PWA e experiências interativas</li>
+              <li>Integração com design systems</li>
+              <li>Otimização para performance e SEO</li>
+            </ul>
+          </div>
+          <div class="srv2-tags"><span>UI/UX</span><span>CSS</span><span>Figma</span></div>
+        </article>
+
+        <!-- SRV 005 - Backend -->
+        <article class="srv2-card fu" id="srv-backend" style="transition-delay:.20s">
+          <div class="srv2-top">
+            <div class="srv2-icon-wrap" style="--ic:#4CAF50">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v4c0 1.7 4 3 9 3s9-1.3 9-3V5"/><path d="M3 9v4c0 1.7 4 3 9 3s9-1.3 9-3V9"/><path d="M3 13v4c0 1.7 4 3 9 3s9-1.3 9-3v-4"/></svg>
+            </div>
+            <span class="srv2-num">SRV_005</span>
+          </div>
+          <h3 class="srv2-title">Backend</h3>
+          <p class="srv2-desc">Estrutura técnica robusta para suportar aplicações seguras e escaláveis. Desenvolvo a lógica, integrações e automações que fazem o sistema funcionar de forma eficiente.</p>
+          <div class="srv2-list">
+            <div class="srv2-list-title">// O que proporciono</div>
+            <ul>
+              <li>Desenvolvimento de APIs REST</li>
+              <li>Modelação de bases de dados</li>
+              <li>Integrações entre sistemas</li>
+              <li>Automação de processos</li>
+              <li>Segurança e escalabilidade</li>
+            </ul>
+          </div>
+          <div class="srv2-tags"><span>Python</span><span>SQL</span><span>REST API</span></div>
+        </article>
+
+        <!-- SRV 006 - Redes Sociais -->
+        <article class="srv2-card fu" id="srv-social" style="transition-delay:.24s">
+          <div class="srv2-top">
+            <div class="srv2-icon-wrap" style="--ic:#E1306C">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg>
+            </div>
+            <span class="srv2-num">SRV_006</span>
+          </div>
+          <h3 class="srv2-title">Redes Sociais</h3>
+          <p class="srv2-desc">Estratégia digital orientada a crescimento orgânico e posicionamento de marca. Transformo presença online em autoridade e geração de oportunidades.</p>
+          <div class="srv2-list">
+            <div class="srv2-list-title">// O que proporciono</div>
+            <ul>
+              <li>Planeamento estratégico de conteúdo</li>
+              <li>Criação e gestão de publicações</li>
+              <li>Análise de métricas e desempenho</li>
+              <li>Otimização de presença digital</li>
+              <li>Posicionamento profissional online</li>
+            </ul>
+          </div>
+          <div class="srv2-tags"><span>Instagram</span><span>LinkedIn</span><span>Conteúdo</span></div>
+        </article>
+
+        <!-- SRV 007 - Design Gráfico -->
+        <article class="srv2-card fu" id="srv-design" style="transition-delay:.28s">
+          <div class="srv2-top">
+            <div class="srv2-icon-wrap" style="--ic:#FF7262">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            </div>
+            <span class="srv2-num">SRV_007</span>
+          </div>
+          <h3 class="srv2-title">Design Gráfico</h3>
+          <p class="srv2-desc">Desenvolvimento de identidades visuais fortes e coerentes que comunicam valor e profissionalismo. Design pensado para diferenciar a sua marca no mercado.</p>
+          <div class="srv2-list">
+            <div class="srv2-list-title">// O que proporciono</div>
+            <ul>
+              <li>Criação de logótipos e identidade visual</li>
+              <li>Materiais digitais e impressos</li>
+              <li>Branding completo</li>
+              <li>Design para redes sociais</li>
+              <li>Normalização visual da marca</li>
+            </ul>
+          </div>
+          <div class="srv2-tags"><span>Branding</span><span>Illustrator</span><span>Photoshop</span></div>
+        </article>
+
+        <!-- SRV 008 - Gestão de Redes -->
+        <article class="srv2-card fu" id="srv-redes" style="transition-delay:.32s">
+          <div class="srv2-top">
+            <div class="srv2-icon-wrap" style="--ic:#00ff88">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a14 14 0 010 18M12 3a14 14 0 000 18M3 12h18"/></svg>
+            </div>
+            <span class="srv2-num">SRV_008</span>
+          </div>
+          <h3 class="srv2-title">Gestão de Redes</h3>
+          <p class="srv2-desc">Configuração e manutenção de infraestruturas de rede seguras e estáveis. Garanto conectividade eficiente para ambientes empresariais e domésticos.</p>
+          <div class="srv2-list">
+            <div class="srv2-list-title">// O que proporciono</div>
+            <ul>
+              <li>Configuração de routers, switches e Wi-Fi</li>
+              <li>Implementação de VPN e firewall</li>
+              <li>Segurança e controlo de acessos</li>
+              <li>Diagnóstico e otimização de rede</li>
+              <li>Monitorização e manutenção</li>
+            </ul>
+          </div>
+          <div class="srv2-tags"><span>Wi-Fi</span><span>VPN</span><span>Firewall</span></div>
+        </article>
+
+      </div>
+
+      <div style="margin-top:3.5rem;text-align:center">
         <a href="https://wa.me/351967263260?text=Olá%20Paulo%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20seus%20serviços!" target="_blank" rel="noopener" class="btn-wa">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           Pedir Orçamento pelo WhatsApp
@@ -1101,13 +1498,51 @@ footer p{font-family:var(--mono);font-size:.65rem;color:var(--muted)}
 <!-- FOOTER -->
 <footer>
   <div class="wrap">
-    <div class="f-logo">PS<span>_tech</span></div>
-    <p>© <span id="ano"></span> Paulo Silva Tech · Todos os direitos reservados</p>
-    <div class="f-mail"><a href="/cdn-cgi/l/email-protection#5831363e372a35392c313b3928392d34372a313b392a3c37183f35393134763b3735"><span class="__cf_email__" data-cfemail="6d04030b021f000c19040e0c1d0c1801021f040e0c1f09022d0a000c0401430e0200">[email&#160;protected]</span></a></div>
-    <div class="f-legal">
-      <a href="privacidade.html">Política de Privacidade</a>
-      <span>·</span>
-      <a href="termos.html">Termos de Utilização</a>
+    <div class="f-grid">
+
+      <!-- Coluna 1: Marca -->
+      <div>
+        <div class="f-logo">PS<span>_tech</span></div>
+        <p class="f-tagline">Especialista em IT, desenvolvimento<br>web e design gráfico em Aveiro, PT.</p>
+      </div>
+
+      <!-- Coluna 2: Horário -->
+      <div>
+        <div class="f-col-title">// Atendimento</div>
+        <div class="f-hours">
+          <div><span>Segunda</span> · 9h30 – 12h30</div>
+          <div><span>Terça</span> &nbsp;&nbsp;· 9h30 – 11h30</div>
+          <div style="padding-left:3.4rem">14h30 – 16h25</div>
+          <div><span>Sexta</span> &nbsp;&nbsp;· 9h30 – 11h30</div>
+        </div>
+      </div>
+
+      <!-- Coluna 3: Redes Sociais -->
+      <div>
+        <div class="f-col-title">// Redes Sociais</div>
+        <div class="f-socials">
+          <a href="https://instagram.com/paulosilva.tech" target="_blank" rel="noopener" class="f-social-btn ig" aria-label="Instagram">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://wa.me/351967263260?text=Olá%20Paulo%2C%20gostaria%20de%20saber%20mais!" target="_blank" rel="noopener" class="f-social-btn wa" aria-label="WhatsApp">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+          </a>
+          <a href="mailto:paulo@pstech.pt" class="f-social-btn gm" aria-label="Email">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Linha inferior -->
+    <div class="f-bottom">
+      <p class="f-copy">© <span id="ano"></span> Paulo Silva Tech · Todos os direitos reservados</p>
+      <div class="f-legal">
+        <a href="privacidade.html">Política de Privacidade</a>
+        <span>·</span>
+        <a href="termos.html">Termos de Utilização</a>
+      </div>
     </div>
   </div>
 </footer>
@@ -1176,18 +1611,28 @@ footer p{font-family:var(--mono);font-size:.65rem;color:var(--muted)}
 .va-btn-mail:hover{border-color:var(--accent);color:var(--accent)}
 
 /* WA Float Button */
+@keyframes robotFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 #va-float{
-  width:58px;height:58px;border-radius:50%;
-  background:#25D366;color:#fff;
+  width:65px;height:65px;
+  background:none !important;
+  -webkit-appearance:none;
+  appearance:none;
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 20px rgba(37,211,102,.45);
-  animation:waPulse 2.5s ease-in-out infinite;
-  transition:transform .2s;
-  cursor:pointer;border:none;flex-shrink:0;
-  position:relative;
+  animation:robotFloat 3s ease-in-out infinite;
+  transition:transform .2s,filter .2s;
+  cursor:pointer;
+  border:none !important;
+  outline:none;
+  box-shadow:none !important;
+  flex-shrink:0;
+  position:relative;overflow:visible;
+  border-radius:0 !important;
+  padding:0;
+  filter:drop-shadow(0 4px 16px rgba(0,200,180,.5));
 }
-#va-float:hover{transform:scale(1.1)}
-#va-float svg{width:30px;height:30px;pointer-events:none}
+#va-float:hover{transform:scale(1.1);filter:drop-shadow(0 6px 24px rgba(0,200,180,.8))}
+#va-float > img{width:65px;height:65px;object-fit:contain;pointer-events:none;display:block}
+#va-float-img{display:none}
 /* Notification dot */
 #va-notif{
   position:absolute;top:2px;right:2px;
@@ -1222,15 +1667,15 @@ footer p{font-family:var(--mono);font-size:.65rem;color:var(--muted)}
     </div>
   </div>
 
-  <!-- Botão WA flutuante -->
+  <!-- Botão flutuante chatbot -->
   <button id="va-float" aria-label="Abrir assistente virtual" onclick="toggleVaBubble()">
     <div id="va-notif">1</div>
-    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <img src="data:image/png;base64,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" alt="Assistente"/>
   </button>
 </div>
 
 <!-- ══════════════════ JAVASCRIPT ══════════════════ -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
 'use strict';
 emailjs.init('PATkSEf9SFSJvdfAg');
@@ -1310,6 +1755,42 @@ navToggle.addEventListener('click', function(){
   var open = navLinks.classList.toggle('open');
   navToggle.classList.toggle('open', open);
   navToggle.setAttribute('aria-expanded', String(open));
+});
+
+// ── GOTO SERVICE ──
+function goToService(id) {
+  // First navigate to services page
+  goTo('servicos');
+  // Wait for page transition then scroll + highlight
+  setTimeout(function() {
+    var el = document.getElementById(id);
+    if (!el) return;
+    // Scroll to card with offset for navbar
+    var top = el.getBoundingClientRect().top + window.scrollY - 100;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+    // Highlight effect
+    el.classList.add('srv2-highlight');
+    setTimeout(function() { el.classList.remove('srv2-highlight'); }, 2000);
+  }, 350);
+}
+
+// ── DROPDOWN MOBILE TOGGLE ──
+document.querySelectorAll('.nav-item .nav-dd-toggle').forEach(function(toggle){
+  toggle.addEventListener('click', function(e){
+    var isMobile = window.innerWidth < 768;
+    if(!isMobile) return; // desktop usa hover via CSS
+    e.preventDefault();
+    var item = this.closest('.nav-item');
+    item.classList.toggle('open');
+  });
+});
+
+// Fecha dropdown ao clicar fora (desktop)
+document.addEventListener('click', function(e){
+  if(window.innerWidth >= 768) return;
+  if(!e.target.closest('.nav-item')){
+    document.querySelectorAll('.nav-item').forEach(function(i){ i.classList.remove('open'); });
+  }
 });
 
 // ── NAVIGATE ──
@@ -1770,17 +2251,14 @@ async function submitElearn(e){
   var errMsg = document.getElementById('el-err');
   var submitBtn = document.getElementById('el-submit');
 
-  // Show popup after 4 seconds if not dismissed
+  // Mostra o popup após 4 segundos
   var shown = false;
-  if(!sessionStorage.getItem('el-dismissed')){
-    setTimeout(function(){
-      if(!shown){ overlay.classList.add('show'); shown=true; }
-    }, 4000);
-  }
+  setTimeout(function(){
+    if(!shown){ overlay.classList.add('show'); shown=true; }
+  }, 4000);
 
   function closePopup(){
     overlay.classList.remove('show');
-    sessionStorage.setItem('el-dismissed','1');
   }
 
   closeBtn.addEventListener('click', closePopup);
@@ -1856,10 +2334,16 @@ async function submitElearn(e){
         </button>
         <div id="el-ok" class="el-feedback el-ok">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Registado 
-
-
-
+          Registado! Será avisado em primeira mão.
+        </div>
+        <div id="el-err" class="el-feedback el-err">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Erro ao enviar. Tenta novamente.
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 <script>
 // ── E-LEARNING PAGE FORM ──
 (function(){
@@ -1889,11 +2373,4 @@ async function submitElearn(e){
         okMsg.style.display = 'flex';
         form.reset();
       } else { throw new Error(); }
-    } catch(ex){ errMsg.style.display = 'flex'; }
-    finally { submitBtn.disabled = false; submitBtn.innerHTML = svgSend + ' Quero ser avisado'; }
-  });
-
-})();
-</script>
-</body>
-</html>
+    } catch(ex){ errMsg.style.display =
