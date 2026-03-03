@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vascooxzy.github.io/sitemap.xml
