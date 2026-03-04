@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# Sitemap
 Sitemap: https://vascooxzy.github.io/sitemap.xml
+
+# Bloquear ficheiros desnecessários
+Disallow: /cdn-cgi/
