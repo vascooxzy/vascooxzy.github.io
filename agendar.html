@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta name="description" content="Agenda uma chamada gratuita com Paulo Silva Tech — Consultoria IT, desenvolvimento web e design em Aveiro."/>
+<meta name="robots" content="index, follow"/>
+<title>Agendar Chamada — Paulo Silva Tech</title>
+<link rel="canonical" href="https://vascooxzy.github.io/agendar.html"/>
+<meta property="og:title" content="Agendar Chamada — Paulo Silva Tech"/>
+<meta property="og:description" content="Escolhe um horário disponível e fala diretamente com Paulo Silva. Chamada gratuita, sem compromisso."/>
+<meta property="og:url" content="https://vascooxzy.github.io/agendar.html"/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23050508'/%3E%3Crect width='64' height='64' rx='10' fill='none' stroke='%2300ff88' stroke-width='3'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-weight='700' font-size='26' fill='%2300ff88'%3EPS%3C/text%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" media="print" onload="this.media='all'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet"/></noscript>
+<style>
+:root{
+  --mono:'Space Mono','Courier New',Courier,monospace;
+  --sans:'Syne','Trebuchet MS',Arial,sans-serif;
+  --bg:#050508;
+  --bg2:#0c0c12;
+  --bg3:#111118;
+  --border:#1e1e2e;
+  --border2:#2a2a3e;
+  --text:#d4d4e8;
+  --muted:#5a5a7a;
+  --accent:#00ff88;
+  --accent2:#00c8ff;
+  --accent3:#ff3e6c;
+  --max:1100px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--sans);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+
+/* ── BACKGROUND ── */
+.bg-grid{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(0,255,136,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,255,136,.04) 1px,transparent 1px);
+  background-size:52px 52px;
+}
+.bg-orb1{
+  position:fixed;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,255,136,.055) 0%,transparent 65%);
+  top:-180px;left:-180px;pointer-events:none;z-index:0;
+  animation:orbDrift 14s ease-in-out infinite;
+}
+.bg-orb2{
+  position:fixed;width:480px;height:480px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,200,255,.04) 0%,transparent 65%);
+  bottom:-120px;right:-120px;pointer-events:none;z-index:0;
+  animation:orbDrift2 16s ease-in-out infinite;
+}
+@keyframes orbDrift{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,30px)}}
+@keyframes orbDrift2{0%,100%{transform:translate(0,0)}50%{transform:translate(-35px,-25px)}}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.1rem 2rem;
+  background:rgba(5,5,8,.82);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-family:var(--mono);font-size:.95rem;font-weight:700;
+  color:var(--accent);letter-spacing:.05em;
+}
+.nav-logo span{color:var(--muted)}
+.nav-back{
+  display:inline-flex;align-items:center;gap:.45rem;
+  font-family:var(--mono);font-size:.72rem;color:var(--muted);
+  letter-spacing:.06em;
+  transition:color .2s;
+}
+.nav-back:hover{color:var(--accent)}
+.nav-back svg{transition:transform .2s}
+.nav-back:hover svg{transform:translateX(-3px)}
+
+/* ── MAIN LAYOUT ── */
+main{
+  position:relative;z-index:1;
+  max-width:var(--max);
+  margin:0 auto;
+  padding:7rem 2rem 5rem;
+}
+
+/* ── PAGE HEADER ── */
+.page-header{
+  text-align:center;
+  margin-bottom:4rem;
+  animation:fadeUp .6s ease both;
+}
+.page-tag{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:var(--mono);font-size:.65rem;color:var(--accent);
+  letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid rgba(0,255,136,.2);
+  padding:.35rem .85rem;border-radius:2px;
+  margin-bottom:1.5rem;
+}
+.page-tag::before{
+  content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--accent);
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+.page-title{
+  font-family:var(--sans);font-size:clamp(2.2rem,6vw,4rem);
+  font-weight:800;line-height:.95;letter-spacing:-.03em;
+  margin-bottom:1.1rem;
+}
+.page-title span{color:var(--accent)}
+.page-sub{
+  font-size:.95rem;color:var(--muted);line-height:1.75;
+  max-width:480px;margin:0 auto;
+}
+
+/* ── CARDS GRID ── */
+.booking-grid{
+  display:grid;
+  grid-template-columns:1fr 2fr;
+  gap:2rem;
+  align-items:start;
+  animation:fadeUp .6s ease .15s both;
+}
+
+/* ── INFO PANEL ── */
+.info-panel{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:2rem;
+  position:sticky;
+  top:7rem;
+}
+.info-avatar{
+  width:64px;height:64px;border-radius:50%;
+  border:2px solid rgba(0,255,136,.3);
+  overflow:hidden;margin-bottom:1.25rem;
+  background:var(--bg3);
+}
+.info-avatar img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.info-name{
+  font-family:var(--sans);font-size:1.1rem;font-weight:800;
+  margin-bottom:.2rem;
+}
+.info-role{
+  font-family:var(--mono);font-size:.65rem;color:var(--accent);
+  letter-spacing:.1em;margin-bottom:1.5rem;
+}
+.info-divider{
+  height:1px;background:var(--border);margin-bottom:1.5rem;
+}
+.info-list{list-style:none;display:flex;flex-direction:column;gap:.9rem;margin-bottom:1.75rem}
+.info-list li{
+  display:flex;align-items:flex-start;gap:.75rem;
+  font-size:.82rem;color:var(--muted);line-height:1.5;
+}
+.info-list li svg{flex-shrink:0;margin-top:.05rem;color:var(--accent)}
+.info-list li strong{color:var(--text);display:block;font-weight:600;font-size:.78rem}
+
+.info-badges{display:flex;flex-wrap:wrap;gap:.5rem}
+.info-badge{
+  font-family:var(--mono);font-size:.58rem;color:var(--muted);
+  border:1px solid var(--border2);padding:.3rem .65rem;border-radius:2px;
+  letter-spacing:.06em;
+}
+
+/* ── BOOKING PANEL ── */
+.booking-panel{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:8px;
+  overflow:hidden;
+}
+
+/* Steps indicator */
+.steps{
+  display:flex;align-items:center;
+  padding:1.25rem 2rem;
+  border-bottom:1px solid var(--border);
+  gap:.5rem;
+}
+.step{
+  display:flex;align-items:center;gap:.5rem;
+  font-family:var(--mono);font-size:.63rem;letter-spacing:.06em;
+  color:var(--muted);
+  transition:color .3s;
+}
+.step.active{color:var(--accent)}
+.step.done{color:var(--muted)}
+.step-num{
+  width:22px;height:22px;border-radius:50%;
+  border:1.5px solid currentColor;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.58rem;font-weight:700;
+  flex-shrink:0;
+  transition:background .3s,border-color .3s;
+}
+.step.active .step-num{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.step.done .step-num{background:rgba(0,255,136,.15);border-color:rgba(0,255,136,.3)}
+.step-sep{flex:1;height:1px;background:var(--border2)}
+
+/* Step content areas */
+.step-content{display:none;padding:2rem;animation:fadeUp .35s ease both}
+.step-content.active{display:block}
+
+/* ── STEP 1: SERVICE ── */
+.step-title{
+  font-family:var(--mono);font-size:.65rem;color:var(--muted);
+  letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.25rem;
+}
+.service-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:.75rem;
+  margin-bottom:2rem;
+}
+.service-card{
+  border:1.5px solid var(--border2);border-radius:6px;
+  padding:1.1rem;cursor:pointer;
+  transition:border-color .2s,background .2s,transform .15s;
+  position:relative;
+  background:transparent;
+  text-align:left;
+  color:inherit;
+  font-family:inherit;
+}
+.service-card:hover{border-color:rgba(0,255,136,.35);background:rgba(0,255,136,.04);transform:translateY(-1px)}
+.service-card.selected{border-color:var(--accent);background:rgba(0,255,136,.06)}
+.service-card.selected::after{
+  content:'✓';
+  position:absolute;top:.55rem;right:.65rem;
+  font-size:.7rem;color:var(--accent);font-weight:700;
+}
+.sc-icon{
+  width:32px;height:32px;border-radius:6px;
+  background:rgba(0,255,136,.08);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:.75rem;
+  color:var(--accent);
+}
+.sc-name{font-family:var(--sans);font-size:.85rem;font-weight:700;margin-bottom:.25rem}
+.sc-dur{font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:.05em}
+
+/* ── STEP 2: DATE/TIME ── */
+.calendar-wrap{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem}
+
+/* Mini calendar */
+.cal-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:1rem;
+}
+.cal-header .cal-nav{
+  background:none;border:1px solid var(--border2);color:var(--muted);
+  width:28px;height:28px;border-radius:4px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.75rem;transition:border-color .2s,color .2s;
+  font-family:var(--mono);
+}
+.cal-header .cal-nav:hover{border-color:var(--accent);color:var(--accent)}
+.cal-month{font-family:var(--mono);font-size:.72rem;color:var(--text);letter-spacing:.06em}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center}
+.cal-day-name{font-family:var(--mono);font-size:.55rem;color:var(--muted);padding:.3rem 0;letter-spacing:.04em}
+.cal-day{
+  aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:.65rem;border-radius:4px;cursor:pointer;
+  transition:background .15s,color .15s;
+  border:1.5px solid transparent;
+}
+.cal-day:hover:not(.empty):not(.past){background:rgba(0,255,136,.1);color:var(--accent)}
+.cal-day.today{border-color:rgba(0,255,136,.3);color:var(--accent)}
+.cal-day.selected{background:var(--accent);color:var(--bg);font-weight:700}
+.cal-day.past{opacity:.25;cursor:default}
+.cal-day.empty{cursor:default}
+
+/* Time slots */
+.time-label{font-family:var(--mono);font-size:.63rem;color:var(--muted);letter-spacing:.08em;margin-bottom:.85rem}
+.time-slots{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.time-slot{
+  border:1.5px solid var(--border2);border-radius:4px;
+  padding:.5rem;text-align:center;cursor:pointer;
+  font-family:var(--mono);font-size:.68rem;color:var(--muted);
+  transition:border-color .2s,color .2s,background .2s;
+  background:none;font-family:inherit;
+}
+.time-slot:hover:not(.unavail){border-color:rgba(0,255,136,.4);color:var(--accent)}
+.time-slot.selected{border-color:var(--accent);background:rgba(0,255,136,.08);color:var(--accent)}
+.time-slot.unavail{opacity:.25;cursor:not-allowed;text-decoration:line-through}
+.no-date-msg{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  height:140px;gap:.5rem;
+  font-family:var(--mono);font-size:.65rem;color:var(--muted);
+  border:1px dashed var(--border2);border-radius:6px;text-align:center;
+}
+
+/* ── STEP 3: DETAILS FORM ── */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem}
+.form-group{display:flex;flex-direction:column;gap:.45rem}
+.form-group.full{grid-column:1/-1}
+.form-label{
+  font-family:var(--mono);font-size:.6rem;color:var(--muted);
+  letter-spacing:.08em;text-transform:uppercase;
+}
+.form-input,.form-select,.form-textarea{
+  background:var(--bg3);
+  border:1.5px solid var(--border2);
+  border-radius:4px;
+  color:var(--text);
+  font-family:var(--mono);font-size:.78rem;
+  padding:.7rem .9rem;
+  outline:none;
+  transition:border-color .2s,box-shadow .2s;
+  width:100%;
+  -webkit-appearance:none;
+}
+.form-input:focus,.form-select:focus,.form-textarea:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(0,255,136,.1);
+}
+.form-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235a5a7a' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .8rem center;padding-right:2.2rem}
+.form-textarea{resize:vertical;min-height:90px;line-height:1.6}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--muted)}
+.form-select option{background:var(--bg2)}
+
+/* Booking summary strip */
+.booking-summary{
+  background:rgba(0,255,136,.04);
+  border:1px solid rgba(0,255,136,.12);
+  border-radius:6px;
+  padding:1rem 1.25rem;
+  margin-bottom:1.5rem;
+  display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;
+}
+.bs-item{
+  display:flex;align-items:center;gap:.4rem;
+  font-family:var(--mono);font-size:.65rem;color:var(--muted);
+}
+.bs-item strong{color:var(--accent)}
+
+/* ── STEP 4: CONFIRM (GCal link) ── */
+.confirm-block{text-align:center;padding:1rem 0 .5rem}
+.confirm-icon{
+  width:64px;height:64px;border-radius:50%;
+  background:rgba(0,255,136,.08);border:1.5px solid rgba(0,255,136,.2);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 1.5rem;color:var(--accent);
+}
+.confirm-title{
+  font-family:var(--sans);font-size:1.4rem;font-weight:800;
+  margin-bottom:.5rem;
+}
+.confirm-sub{font-size:.85rem;color:var(--muted);margin-bottom:2rem;line-height:1.7}
+.confirm-summary{
+  background:var(--bg3);border:1px solid var(--border);border-radius:6px;
+  padding:1.25rem;text-align:left;margin-bottom:2rem;
+  display:grid;gap:.65rem;
+}
+.cs-row{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.cs-key{font-family:var(--mono);font-size:.62rem;color:var(--muted);letter-spacing:.06em}
+.cs-val{font-family:var(--mono);font-size:.72rem;color:var(--text);text-align:right}
+.cs-sep{height:1px;background:var(--border)}
+
+.btn-gcal{
+  display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+  width:100%;padding:1rem 2rem;
+  background:var(--accent);color:var(--bg);
+  font-family:var(--mono);font-size:.82rem;font-weight:700;
+  border-radius:4px;letter-spacing:.05em;border:none;cursor:pointer;
+  transition:background .2s,transform .2s,box-shadow .2s;
+  text-decoration:none;
+}
+.btn-gcal:hover{background:#00ffaa;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,255,136,.3)}
+
+.btn-wa-confirm{
+  display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+  width:100%;padding:.85rem 2rem;margin-top:.75rem;
+  background:transparent;color:var(--muted);
+  border:1.5px solid var(--border2);
+  font-family:var(--mono);font-size:.75rem;
+  border-radius:4px;letter-spacing:.04em;cursor:pointer;
+  transition:border-color .2s,color .2s;
+  text-decoration:none;
+}
+.btn-wa-confirm:hover{border-color:#25D366;color:#25D366}
+
+.note-gcal{
+  font-family:var(--mono);font-size:.58rem;color:var(--muted);
+  text-align:center;margin-top:1rem;line-height:1.6;
+  opacity:.7;
+}
+
+/* ── NAV BUTTONS ── */
+.step-nav{
+  display:flex;justify-content:space-between;align-items:center;
+  padding-top:1.5rem;
+  border-top:1px solid var(--border);
+  margin-top:1.5rem;
+}
+.btn-prev{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-family:var(--mono);font-size:.7rem;color:var(--muted);
+  background:none;border:none;cursor:pointer;
+  transition:color .2s;padding:0;
+}
+.btn-prev:hover{color:var(--text)}
+.btn-next{
+  display:inline-flex;align-items:center;gap:.45rem;
+  padding:.75rem 1.5rem;
+  background:var(--accent);color:var(--bg);
+  font-family:var(--mono);font-size:.75rem;font-weight:700;
+  border-radius:3px;letter-spacing:.05em;border:none;cursor:pointer;
+  transition:background .2s,transform .15s,box-shadow .2s;
+}
+.btn-next:hover{background:#00ffaa;transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,255,136,.25)}
+.btn-next:disabled{background:var(--border2);color:var(--muted);cursor:not-allowed;transform:none;box-shadow:none}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* ── FOOTER ── */
+footer{
+  position:relative;z-index:1;
+  text-align:center;padding:2.5rem 2rem;
+  border-top:1px solid var(--border);
+  font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:.08em;
+  margin-top:2rem;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:860px){
+  .booking-grid{grid-template-columns:1fr}
+  .info-panel{position:static}
+  .service-grid{grid-template-columns:1fr 1fr}
+  .calendar-wrap{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .form-group.full{grid-column:1}
+}
+@media(max-width:520px){
+  main{padding:6rem 1.2rem 4rem}
+  .service-grid{grid-template-columns:1fr}
+  .steps{padding:1rem 1.25rem}
+  .step-content{padding:1.4rem}
+  nav{padding:1rem 1.2rem}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-orb1"></div>
+<div class="bg-orb2"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">PS<span>_tech</span></a>
+  <a href="index.html" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Voltar ao site
+  </a>
+</nav>
+
+<main>
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div class="page-tag">Agendamento</div>
+    <h1 class="page-title">Agenda uma<br/><span>Chamada Grátis</span></h1>
+    <p class="page-sub">Escolhe o serviço, seleciona um horário disponível e confirma. É rápido e sem compromisso.</p>
+  </div>
+
+  <!-- GRID -->
+  <div class="booking-grid">
+
+    <!-- INFO PANEL -->
+    <aside class="info-panel">
+      <div class="info-avatar">
+        <img src="profile.jpeg" alt="Paulo Silva" onerror="this.style.display='none'"/>
+      </div>
+      <div class="info-name">Paulo Silva</div>
+      <div class="info-role">// Consultor IT · Dev Full Stack</div>
+      <div class="info-divider"></div>
+      <ul class="info-list">
+        <li>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span><strong>30 ou 60 minutos</strong>Chamada por Google Meet, Zoom ou telefone</span>
+        </li>
+        <li>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span><strong>Aveiro, Portugal</strong>Disponível também remotamente</span>
+        </li>
+        <li>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span><strong>Seg – Sex, 09:00–18:00</strong>Resposta confirmada em minutos</span>
+        </li>
+        <li>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <span><strong>Totalmente gratuito</strong>Sem compromisso, sem custos ocultos</span>
+        </li>
+      </ul>
+      <div class="info-badges">
+        <span class="info-badge">Web Dev</span>
+        <span class="info-badge">IT Support</span>
+        <span class="info-badge">Design</span>
+        <span class="info-badge">Social Media</span>
+        <span class="info-badge">Redes</span>
+        <span class="info-badge">E-commerce</span>
+      </div>
+    </aside>
+
+    <!-- BOOKING PANEL -->
+    <div class="booking-panel">
+
+      <!-- Steps -->
+      <div class="steps">
+        <div class="step active" id="step-ind-1">
+          <div class="step-num">1</div>
+          <span>Serviço</span>
+        </div>
+        <div class="step-sep"></div>
+        <div class="step" id="step-ind-2">
+          <div class="step-num">2</div>
+          <span>Data &amp; Hora</span>
+        </div>
+        <div class="step-sep"></div>
+        <div class="step" id="step-ind-3">
+          <div class="step-num">3</div>
+          <span>Detalhes</span>
+        </div>
+        <div class="step-sep"></div>
+        <div class="step" id="step-ind-4">
+          <div class="step-num">4</div>
+          <span>Confirmar</span>
+        </div>
+      </div>
+
+      <!-- ═══ STEP 1 — SERVICE ═══ -->
+      <div class="step-content active" id="step-1">
+        <div class="step-title">// Qual é o assunto da chamada?</div>
+        <div class="service-grid">
+          <button class="service-card" data-service="Desenvolvimento Web" data-dur="60" onclick="selectService(this)">
+            <div class="sc-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+            <div class="sc-name">Desenvolvimento Web</div>
+            <div class="sc-dur">60 min · Gratuito</div>
+          </button>
+          <button class="service-card" data-service="Consultoria IT" data-dur="30" onclick="selectService(this)">
+            <div class="sc-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+            <div class="sc-name">Consultoria IT</div>
+            <div class="sc-dur">30 min · Gratuito</div>
+          </button>
+          <button class="service-card" data-service="Design Gráfico" data-dur="45" onclick="selectService(this)">
+            <div class="sc-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="13.5" cy="6.5" r="2.5"/><path d="M17 18a5 5 0 00-10 0"/><path d="M2 12h20"/></svg></div>
+            <div class="sc-name">Design &amp; Branding</div>
+            <div class="sc-dur">45 min · Gratuito</div>
+          </button>
+          <button class="service-card" data-service="Redes Sociais" data-dur="30" onclick="selectService(this)">
+            <div class="sc-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></div>
+            <div class="sc-name">Redes Sociais</div>
+            <div class="sc-dur">30 min · Gratuito</div>
+          </button>
+          <button class="service-card" data-service="Suporte Técnico" data-dur="30" onclick="selectService(this)">
+            <div class="sc-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg></div>
+            <div class="sc-name">Suporte Técnico</div>
+            <div class="sc-dur">30 min · Gratuito</div>
+          </button>
+          <button class="service-card" data-service="Outro Assunto" data-dur="30" onclick="selectService(this)">
+            <div class="sc-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+            <div class="sc-name">Outro Assunto</div>
+            <div class="sc-dur">30 min · Gratuito</div>
+          </button>
+        </div>
+        <div class="step-nav">
+          <span></span>
+          <button class="btn-next" id="btn-next-1" disabled onclick="goStep(2)">
+            Próximo
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ═══ STEP 2 — DATE & TIME ═══ -->
+      <div class="step-content" id="step-2">
+        <div class="step-title">// Quando preferes?</div>
+        <div class="calendar-wrap">
+          <!-- Calendar -->
+          <div>
+            <div class="cal-header">
+              <button class="cal-nav" onclick="prevMonth()">&#8249;</button>
+              <span class="cal-month" id="cal-month-label"></span>
+              <button class="cal-nav" onclick="nextMonth()">&#8250;</button>
+            </div>
+            <div class="cal-grid" id="cal-grid"></div>
+          </div>
+          <!-- Time slots -->
+          <div>
+            <div class="time-label" id="time-label">// Seleciona um dia primeiro</div>
+            <div id="time-slots-wrap">
+              <div class="no-date-msg">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg>
+                <span>Escolhe uma data<br/>para ver os horários</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step-nav">
+          <button class="btn-prev" onclick="goStep(1)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            Anterior
+          </button>
+          <button class="btn-next" id="btn-next-2" disabled onclick="goStep(3)">
+            Próximo
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ═══ STEP 3 — DETAILS ═══ -->
+      <div class="step-content" id="step-3">
+        <div class="step-title">// Os teus dados</div>
+        <!-- Booking summary -->
+        <div class="booking-summary" id="booking-summary-3"></div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="f-name">Nome *</label>
+            <input class="form-input" type="text" id="f-name" placeholder="O teu nome" required autocomplete="given-name"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-email">Email *</label>
+            <input class="form-input" type="email" id="f-email" placeholder="email@exemplo.com" required autocomplete="email"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-phone">Telefone</label>
+            <input class="form-input" type="tel" id="f-phone" placeholder="+351 9XX XXX XXX" autocomplete="tel"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-how">Como preferes a chamada? *</label>
+            <select class="form-select" id="f-how" required>
+              <option value="" disabled selected>Escolhe uma opção</option>
+              <option value="Google Meet">Google Meet</option>
+              <option value="Zoom">Zoom</option>
+              <option value="Telefone">Telefone</option>
+              <option value="WhatsApp">WhatsApp</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label class="form-label" for="f-msg">Descreve brevemente o teu projeto ou dúvida</label>
+            <textarea class="form-textarea" id="f-msg" placeholder="Ex: Preciso de um site para a minha empresa com loja online..."></textarea>
+          </div>
+        </div>
+        <div class="step-nav">
+          <button class="btn-prev" onclick="goStep(2)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            Anterior
+          </button>
+          <button class="btn-next" id="btn-next-3" onclick="goStep(4)">
+            Continuar
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ═══ STEP 4 — CONFIRM ═══ -->
+      <div class="step-content" id="step-4">
+        <div class="confirm-block">
+          <div class="confirm-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="confirm-title">Tudo pronto!</div>
+          <p class="confirm-sub">Clica no botão abaixo para adicionar a reunião ao <strong>Google Calendar</strong>. Será criado um evento com todos os detalhes — incluindo o link de videochamada se escolheste Google Meet.</p>
+          <div class="confirm-summary" id="confirm-summary"></div>
+          <a class="btn-gcal" id="gcal-link" href="#" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Adicionar ao Google Calendar
+          </a>
+          <a class="btn-wa-confirm" id="wa-confirm-link" href="#" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+            Confirmar também via WhatsApp
+          </a>
+          <p class="note-gcal">ℹ️ O Google Calendar vai pedir o teu login Google para guardar o evento.<br/>Nenhum dado é enviado automaticamente — o Paulo recebe a confirmação via email separado.</p>
+        </div>
+        <div class="step-nav" style="margin-top:2rem">
+          <button class="btn-prev" onclick="goStep(3)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            Editar
+          </button>
+          <a href="index.html" style="font-family:var(--mono);font-size:.7rem;color:var(--muted);text-decoration:none;transition:color .2s" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">Voltar ao site →</a>
+        </div>
+      </div>
+
+    </div><!-- /booking-panel -->
+  </div><!-- /booking-grid -->
+
+</main>
+
+<footer>PS_TECH · AVEIRO, PT · AGENDAMENTO ONLINE</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+var state = {
+  service: null,
+  duration: null,
+  date: null,      // Date object
+  time: null,      // "HH:MM"
+  name: '',
+  email: '',
+  phone: '',
+  how: '',
+  msg: ''
+};
+
+var calYear, calMonth;
+var today = new Date();
+calYear  = today.getFullYear();
+calMonth = today.getMonth();
+
+// ═══════════════════════════════════════════════════════
+// AVAILABLE SLOTS — customize to match real availability
+// Key: weekday (0=Sun,1=Mon,...,6=Sat)
+// ═══════════════════════════════════════════════════════
+var SLOTS_BY_WEEKDAY = {
+  1: ['09:00','09:30','10:00','10:30','11:00','11:30','14:00','14:30','15:00','15:30','16:00','17:00'],
+  2: ['09:00','09:30','10:00','11:00','14:00','14:30','15:00','16:00','16:30','17:00'],
+  3: ['09:00','10:00','11:00','11:30','14:00','15:00','15:30','16:00','17:00'],
+  4: ['09:00','09:30','10:00','10:30','14:00','14:30','15:00','16:00','17:00'],
+  5: ['09:00','09:30','10:00','11:00','14:00','14:30','15:00']
+};
+// Blocked specific dates (YYYY-MM-DD) — add holidays etc.
+var BLOCKED_DATES = [];
+
+// ═══════════════════════════════════════════════════════
+// CALENDAR
+// ═══════════════════════════════════════════════════════
+function renderCalendar(){
+  var label = document.getElementById('cal-month-label');
+  var months = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  label.textContent = months[calMonth] + ' ' + calYear;
+
+  var grid = document.getElementById('cal-grid');
+  grid.innerHTML = '';
+
+  // Day names
+  ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'].forEach(function(d){
+    var el = document.createElement('div');
+    el.className = 'cal-day-name';
+    el.textContent = d;
+    grid.appendChild(el);
+  });
+
+  var first = new Date(calYear, calMonth, 1).getDay();
+  var days  = new Date(calYear, calMonth+1, 0).getDate();
+
+  for(var i=0;i<first;i++){
+    var e = document.createElement('div');
+    e.className='cal-day empty';
+    grid.appendChild(e);
+  }
+
+  for(var d=1;d<=days;d++){
+    var el = document.createElement('div');
+    el.className = 'cal-day';
+    el.textContent = d;
+
+    var date = new Date(calYear, calMonth, d);
+    var dateStr = formatDate(date);
+    var isPast = date < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    var isBlocked = BLOCKED_DATES.indexOf(dateStr) > -1;
+    var weekday = date.getDay();
+    var hasSlots = SLOTS_BY_WEEKDAY[weekday] && SLOTS_BY_WEEKDAY[weekday].length > 0;
+
+    if(isPast || isBlocked || !hasSlots){
+      el.classList.add('past');
+    } else {
+      (function(dd, ds, dt){
+        el.addEventListener('click', function(){ selectDay(dd, ds, dt); });
+      })(d, dateStr, date);
+    }
+
+    // today marker
+    if(date.toDateString() === today.toDateString()) el.classList.add('today');
+
+    // selected
+    if(state.date && state.date.toDateString() === date.toDateString()) el.classList.add('selected');
+
+    grid.appendChild(el);
+  }
+}
+
+function prevMonth(){
+  calMonth--;
+  if(calMonth < 0){ calMonth=11; calYear--; }
+  renderCalendar();
+}
+function nextMonth(){
+  calMonth++;
+  if(calMonth > 11){ calMonth=0; calYear++; }
+  renderCalendar();
+}
+
+function formatDate(d){
+  var y = d.getFullYear();
+  var m = String(d.getMonth()+1).padStart(2,'0');
+  var day = String(d.getDate()).padStart(2,'0');
+  return y+'-'+m+'-'+day;
+}
+function formatDatePT(d){
+  var days = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+  var months = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  return days[d.getDay()]+', '+d.getDate()+' '+months[d.getMonth()]+' '+d.getFullYear();
+}
+
+function selectDay(d, dateStr, dateObj){
+  state.date = dateObj;
+  state.time = null;
+  document.getElementById('btn-next-2').disabled = true;
+
+  renderCalendar(); // re-render to show selection
+
+  var weekday = dateObj.getDay();
+  var slots = SLOTS_BY_WEEKDAY[weekday] || [];
+  var label = document.getElementById('time-label');
+  var wrap  = document.getElementById('time-slots-wrap');
+
+  label.textContent = '// ' + formatDatePT(dateObj);
+  wrap.innerHTML = '';
+
+  if(!slots.length){
+    wrap.innerHTML = '<div class="no-date-msg"><span>Sem horários disponíveis<br/>neste dia</span></div>';
+    return;
+  }
+
+  var grid = document.createElement('div');
+  grid.className = 'time-slots';
+
+  slots.forEach(function(t){
+    var btn = document.createElement('button');
+    btn.className = 'time-slot';
+    btn.textContent = t;
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.time-slot').forEach(function(b){ b.classList.remove('selected'); });
+      btn.classList.add('selected');
+      state.time = t;
+      document.getElementById('btn-next-2').disabled = false;
+    });
+    grid.appendChild(btn);
+  });
+
+  wrap.appendChild(grid);
+}
+
+// ═══════════════════════════════════════════════════════
+// SERVICE SELECTION
+// ═══════════════════════════════════════════════════════
+function selectService(el){
+  document.querySelectorAll('.service-card').forEach(function(c){ c.classList.remove('selected'); });
+  el.classList.add('selected');
+  state.service  = el.dataset.service;
+  state.duration = parseInt(el.dataset.dur);
+  document.getElementById('btn-next-1').disabled = false;
+}
+
+// ═══════════════════════════════════════════════════════
+// STEPS
+// ═══════════════════════════════════════════════════════
+function goStep(n){
+  // Validate step 3
+  if(n===4){
+    var nm = document.getElementById('f-name').value.trim();
+    var em = document.getElementById('f-email').value.trim();
+    var hw = document.getElementById('f-how').value;
+    if(!nm || !em || !hw){
+      alert('Por favor preenche o nome, email e forma de contacto preferida.');
+      return;
+    }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){
+      alert('Por favor insere um email válido.');
+      return;
+    }
+    state.name  = nm;
+    state.email = em;
+    state.phone = document.getElementById('f-phone').value.trim();
+    state.how   = hw;
+    state.msg   = document.getElementById('f-msg').value.trim();
+    buildConfirm();
+  }
+  if(n===3) buildSummary3();
+
+  // Hide all
+  document.querySelectorAll('.step-content').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById('step-'+n).classList.add('active');
+
+  // Update indicators
+  for(var i=1;i<=4;i++){
+    var ind = document.getElementById('step-ind-'+i);
+    ind.classList.remove('active','done');
+    if(i===n) ind.classList.add('active');
+    else if(i<n) ind.classList.add('done');
+  }
+
+  // Scroll to top of panel smoothly
+  document.querySelector('.booking-panel').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ═══════════════════════════════════════════════════════
+// SUMMARY STRIP (step 3)
+// ═══════════════════════════════════════════════════════
+function buildSummary3(){
+  var el = document.getElementById('booking-summary-3');
+  el.innerHTML =
+    '<div class="bs-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg><span><strong>'+state.service+'</strong></span></div>' +
+    '<div class="bs-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span><strong>'+formatDatePT(state.date)+'</strong></span></div>' +
+    '<div class="bs-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span><strong>'+state.time+' · '+state.duration+' min</strong></span></div>';
+}
+
+// ═══════════════════════════════════════════════════════
+// BUILD CONFIRM + GOOGLE CALENDAR LINK
+// ═══════════════════════════════════════════════════════
+function buildConfirm(){
+  // Summary table
+  var sum = document.getElementById('confirm-summary');
+  sum.innerHTML =
+    '<div class="cs-row"><span class="cs-key">SERVIÇO</span><span class="cs-val">'+state.service+'</span></div>' +
+    '<div class="cs-sep"></div>' +
+    '<div class="cs-row"><span class="cs-key">DATA</span><span class="cs-val">'+formatDatePT(state.date)+'</span></div>' +
+    '<div class="cs-sep"></div>' +
+    '<div class="cs-row"><span class="cs-key">HORA</span><span class="cs-val">'+state.time+' ('+state.duration+' min)</span></div>' +
+    '<div class="cs-sep"></div>' +
+    '<div class="cs-row"><span class="cs-key">VIA</span><span class="cs-val">'+state.how+'</span></div>' +
+    '<div class="cs-sep"></div>' +
+    '<div class="cs-row"><span class="cs-key">NOME</span><span class="cs-val">'+state.name+'</span></div>' +
+    '<div class="cs-sep"></div>' +
+    '<div class="cs-row"><span class="cs-key">EMAIL</span><span class="cs-val">'+state.email+'</span></div>';
+
+  // Build GCal URL
+  var d = state.date;
+  var timeParts = state.time.split(':');
+  var startH = parseInt(timeParts[0]);
+  var startM = parseInt(timeParts[1]);
+
+  var start = new Date(d.getFullYear(), d.getMonth(), d.getDate(), startH, startM);
+  var end   = new Date(start.getTime() + state.duration * 60000);
+
+  function pad(n){ return String(n).padStart(2,'0'); }
+  function gcalDate(dt){
+    return dt.getFullYear()+pad(dt.getMonth()+1)+pad(dt.getDate())+
+           'T'+pad(dt.getHours())+pad(dt.getMinutes())+'00';
+  }
+
+  var title   = encodeURIComponent('Chamada — '+state.service+' | Paulo Silva Tech');
+  var details = encodeURIComponent(
+    'Chamada agendada via PS Tech\n\n' +
+    'Serviço: '+state.service+'\n'+
+    'Via: '+state.how+'\n'+
+    'Duração: '+state.duration+' minutos\n\n'+
+    (state.msg ? 'Notas: '+state.msg+'\n\n' : '')+
+    'Contacto Paulo Silva:\n'+
+    'Tel: +351 967 263 260\n'+
+    'Email: informaticapauloricardo@gmail.com\n'+
+    'Site: https://vascooxzy.github.io'
+  );
+  var location = encodeURIComponent(state.how === 'Telefone' ? '+351 967 263 260' : 'Online — '+state.how);
+  var dates = gcalDate(start)+'/'+gcalDate(end);
+
+  var gcalUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE'+
+    '&text='+title+
+    '&dates='+dates+
+    '&details='+details+
+    '&location='+location+
+    '&add=informaticapauloricardo@gmail.com';
+
+  document.getElementById('gcal-link').href = gcalUrl;
+
+  // WhatsApp fallback
+  var waMsg = encodeURIComponent(
+    'Olá Paulo! Gostaria de agendar uma chamada:\n\n'+
+    '📋 Serviço: '+state.service+'\n'+
+    '📅 Data: '+formatDatePT(state.date)+'\n'+
+    '🕐 Hora: '+state.time+'\n'+
+    '📞 Via: '+state.how+'\n'+
+    (state.msg ? '📝 Notas: '+state.msg+'\n' : '')+
+    '\nNome: '+state.name+'\nEmail: '+state.email
+  );
+  document.getElementById('wa-confirm-link').href = 'https://wa.me/351967263260?text='+waMsg;
+}
+
+// ═══════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════
+renderCalendar();
+</script>
+</body>
+</html>
