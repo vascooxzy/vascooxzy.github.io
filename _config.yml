@@ -1,0 +1,11 @@
+# GitHub Pages / Jekyll config
+# Força a inclusão do sitemap e robots.txt no build
+
+include:
+  - sitemap.xml
+  - robots.txt
+
+# Evita que o Jekyll processe ficheiros que não devem ser alterados
+exclude:
+  - README.md
+  - "*.sh"
