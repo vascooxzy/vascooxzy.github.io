@@ -350,23 +350,7 @@ body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradie
 .nav-item-right .nav-dropdown{left:auto;right:0}
 .nav-item-right .nav-dd-inner::before{left:auto;right:18px}
 
-/* Mobile dropdown */
-@media(max-width:767px){
-  .nav-dropdown{
-    position:static;transform:none;opacity:1;
-    pointer-events:auto;padding-top:0;display:none;
-  }
-  .nav-dd-inner{
-    background:rgba(0,255,136,.03);border:none;
-    border-left:2px solid rgba(0,255,136,.2);
-    border-radius:0;box-shadow:none;backdrop-filter:none;
-    padding:.2rem 0;margin:.3rem 0 .5rem .5rem;
-  }
-  .nav-dd-inner::before{display:none}
-  .nav-item.open .nav-dropdown{display:block}
-  .nav-dd-arrow{transition:transform .2s;display:inline-block;font-size:.6rem;margin-left:.3rem}
-  .nav-item.open .nav-dd-arrow{transform:rotate(180deg)}
-}
+/* Desktop-only dropdown arrow */
 @media(min-width:768px){
   .nav-dd-arrow{font-size:.55rem;margin-left:.3rem}
 }
@@ -374,7 +358,7 @@ body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradie
 /* ====================== NAVBAR ====================== */
 nav{position:fixed;top:0;left:0;right:0;z-index:500;border-bottom:1px solid transparent;transition:background .3s,border-color .3s;padding-top:env(safe-area-inset-top,0)}
 nav.scrolled{background:rgba(5,5,8,.96);border-color:var(--border);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.85rem 0}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.85rem 0}
 .nav-logo{font-family:var(--mono);font-size:.95rem;font-weight:700;display:flex;align-items:center;gap:.3rem;white-space:nowrap;flex-shrink:0}
 .nav-cursor{display:inline-block;width:9px;height:1em;background:var(--accent);animation:blink 1s step-end infinite;vertical-align:middle}
 
@@ -384,13 +368,76 @@ nav.scrolled{background:rgba(5,5,8,.96);border-color:var(--border);backdrop-filt
 .nav-cta{border:1px solid var(--accent)!important;color:var(--accent)!important;padding:.4rem 1rem!important;border-radius:2px;animation:glow 3s ease-in-out infinite;transition:background .2s,color .2s!important}
 .nav-cta:hover{background:var(--accent)!important;color:var(--bg)!important}
 
-.nav-toggle{display:flex;flex-direction:column;gap:5px;padding:8px;flex-shrink:0}
+.nav-toggle{display:flex;flex-direction:column;gap:5px;padding:8px;flex-shrink:0;position:relative;z-index:510}
 .nav-toggle span{display:block;width:22px;height:2px;background:var(--accent);border-radius:1px;transition:transform .3s,opacity .3s}
 .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .nav-toggle.open span:nth-child(2){opacity:0}
 .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
-.nav-links.open{display:flex;flex-direction:column;gap:.2rem;position:absolute;top:100%;left:0;right:0;background:rgba(5,5,8,.98);border-bottom:1px solid var(--border);padding:1.25rem 1.5rem 1.5rem}
+/* ── MOBILE MENU FULL-SCREEN OVERLAY ── */
+.nav-links.open{
+  display:flex;flex-direction:column;
+  position:fixed;inset:0;
+  background:rgba(3,3,8,.97);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  padding:5.5rem 2.5rem 2.5rem;
+  gap:0;
+  z-index:490;
+  overflow-y:auto;
+  animation:mobileMenuIn .25s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes mobileMenuIn{
+  from{opacity:0;transform:translateY(-12px)}
+  to{opacity:1;transform:none}
+}
+.nav-links.open > li > a:not(.nav-cta){
+  font-family:var(--sans);
+  font-size:1.75rem;
+  font-weight:800;
+  letter-spacing:-.02em;
+  color:var(--text);
+  padding:.65rem 0;
+  display:block;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  transition:color .15s;
+  line-height:1.2;
+}
+.nav-links.open > li > a:not(.nav-cta):hover,
+.nav-links.open > li > a:not(.nav-cta).active{
+  color:var(--accent);
+  text-shadow:0 0 20px rgba(0,255,136,.4);
+}
+.nav-links.open .nav-cta{
+  font-family:var(--mono);font-size:.8rem;font-weight:700;
+  color:var(--accent)!important;border:1.5px solid var(--accent)!important;
+  padding:.75rem 1.4rem!important;border-radius:3px;
+  display:inline-flex;align-items:center;gap:.5rem;
+  margin-top:1.25rem;
+  animation:glow 3s ease-in-out infinite;
+}
+.nav-links.open .nav-dropdown{
+  position:static;transform:none;opacity:1;
+  pointer-events:auto;padding-top:0;display:none;
+}
+.nav-links.open .nav-item.open .nav-dropdown{display:block}
+.nav-links.open .nav-dd-inner{
+  background:rgba(0,255,136,.03);border:none;
+  border-left:2px solid rgba(0,255,136,.25);
+  border-radius:0;box-shadow:none;backdrop-filter:none;
+  padding:.3rem 0;margin:.2rem 0 .5rem 1rem;
+}
+.nav-links.open .nav-dd-inner::before{display:none}
+.nav-links.open .nav-dd-label{
+  font-size:.6rem;color:var(--accent);letter-spacing:.18em;
+  padding:.5rem 1rem .3rem;opacity:.7;
+}
+.nav-links.open .nav-dd a{
+  font-family:var(--mono);font-size:.75rem;color:var(--muted);
+  padding:.5rem 1rem;letter-spacing:.05em;
+}
+.nav-links.open .nav-dd a:hover{color:var(--accent);background:none;padding-left:1.4rem}
+.nav-links.open .nav-dd-arrow{transition:transform .2s;display:inline-block;font-size:.6rem;margin-left:.35rem}
+.nav-links.open .nav-item.open .nav-dd-arrow{transform:rotate(180deg)}
 
 @media(min-width:768px){
   .nav-links{display:flex;align-items:center;gap:1.75rem}
@@ -944,6 +991,48 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0 1.5rem}
 .pwip-ring::before{content:'';position:absolute;inset:-7px;border-radius:50%;border:1px dashed rgba(0,255,136,.15)}
 .pwip-pill{display:inline-flex;align-items:center;gap:.4rem;padding:.45rem 1.2rem;background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.25);border-radius:999px;font-family:var(--mono);font-size:.68rem;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;transition:background .25s,color .25s,transform .25s}
 .port-wip-cta:hover .pwip-pill{background:var(--accent);color:var(--bg);transform:scale(1.04)}
+
+/* ═══════════════════════════════════════════════════
+   LANGUAGE SELECTOR
+═══════════════════════════════════════════════════ */
+#lang-selector{
+  position:relative;
+  display:inline-flex;align-items:center;
+  font-family:var(--mono);
+  flex-shrink:0;
+  z-index:600;
+}
+#lang-btn{
+  display:inline-flex;align-items:center;gap:.35rem;
+  background:none;border:1px solid var(--border2);
+  color:var(--muted);font-family:var(--mono);font-size:.65rem;
+  letter-spacing:.06em;padding:.3rem .65rem;border-radius:3px;
+  cursor:pointer;transition:border-color .2s,color .2s;
+  line-height:1;white-space:nowrap;
+}
+#lang-btn:hover{border-color:var(--accent);color:var(--accent)}
+#lang-btn .flag{font-size:.9rem;line-height:1}
+#lang-dropdown{
+  position:absolute;top:calc(100% + .5rem);right:0;
+  background:rgba(8,8,12,.98);border:1px solid rgba(0,255,136,.2);
+  border-radius:6px;min-width:150px;
+  display:none;flex-direction:column;
+  z-index:700;overflow:hidden;
+  box-shadow:0 12px 32px rgba(0,0,0,.6);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+}
+#lang-dropdown.open{display:flex}
+.lang-opt{
+  display:flex;align-items:center;gap:.5rem;
+  font-family:var(--mono);font-size:.65rem;letter-spacing:.05em;
+  color:var(--muted);padding:.6rem .9rem;cursor:pointer;
+  border:none;background:none;text-align:left;
+  transition:background .15s,color .15s;
+}
+.lang-opt:hover{background:rgba(0,255,136,.07);color:var(--accent)}
+.lang-opt.active{color:var(--accent);background:rgba(0,255,136,.04)}
+.lang-opt .flag{font-size:.9rem}
 </style>
 </head>
 <body>
@@ -1073,6 +1162,21 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0 1.5rem}
           </div>
         </li>
       </ul>
+      <!-- Language Selector -->
+      <div id="lang-selector">
+        <button id="lang-btn" aria-label="Selecionar idioma" onclick="toggleLangDropdown()">
+          <span class="flag" id="lang-flag">🇵🇹</span>
+          <span id="lang-code">PT</span>
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div id="lang-dropdown">
+          <button class="lang-opt active" data-lang="pt" onclick="setLang('pt')"><span class="flag">🇵🇹</span> PT — Português</button>
+          <button class="lang-opt" data-lang="en" onclick="setLang('en')"><span class="flag">🇬🇧</span> EN — English</button>
+          <button class="lang-opt" data-lang="es" onclick="setLang('es')"><span class="flag">🇪🇸</span> ES — Español</button>
+          <button class="lang-opt" data-lang="fr" onclick="setLang('fr')"><span class="flag">🇫🇷</span> FR — Français</button>
+        </div>
+      </div>
+
       <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -3287,4 +3391,603 @@ async function submitElearn(e){
     }, DELAY_MS);
   }
 })();
+</script>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════════
+// MULTI-LANGUAGE SYSTEM — PT / EN / ES / FR
+// ═══════════════════════════════════════════════════════════════════════════
+var TRANSLATIONS = {
+
+  pt: {
+    // Nav
+    nav_servicos: 'Serviços',
+    nav_dicas: 'Dicas IT',
+    nav_portfolio: 'Portfólio',
+    nav_sobre: 'Sobre',
+    nav_elearning: 'E-Learning',
+    nav_contacto: 'Contacto',
+    nav_srv_it: 'Consultoria IT',
+    nav_srv_so: 'Sistemas Operativos',
+    nav_srv_fullstack: 'Full Stack Dev',
+    nav_srv_frontend: 'Front-End',
+    nav_srv_backend: 'Back-End',
+    nav_srv_social: 'Redes Sociais',
+    nav_srv_design: 'Design Gráfico',
+    nav_srv_redes: 'Infraestrutura de Redes',
+    nav_dicas_all: 'Todas as Dicas',
+    nav_dicas_os: 'Sistemas Operativos',
+    nav_dicas_code: 'Programação',
+    nav_dicas_design: 'Design',
+    nav_dicas_net: 'Redes',
+    // Hero
+    hero_badge_online: '● ONLINE',
+    hero_slogan: 'Do código ao design.<br/>Resultados que aparecem.',
+    hero_desc: 'Especialista em informática, programação full stack e consultoria IT. Ajudo pessoas e empresas a tirar o máximo partido da tecnologia — do código ao design, das redes sociais à infraestrutura.',
+    hero_btn_call: 'Agenda uma Chamada',
+    hero_btn_orcamento: 'Pede Orçamento',
+    hero_btn_servicos: 'Ver Serviços →',
+    hero_photo_badge: 'Disponível para projetos',
+    // Typed phrases
+    typed_phrases: ['Full Stack Developer','Consultor IT','Design Gráfico','Gestão de Redes','Sistemas Operativos'],
+    // Services highlight
+    tag_destaque: 'Serviços em destaque',
+    h2_destaque: 'O que posso fazer<br/><span>por si</span>',
+    p_destaque: 'Soluções tecnológicas completas para particulares e empresas.',
+    srv1_title: 'Consultório IT',
+    srv1_desc: 'Diagnóstico, resolução de problemas e suporte técnico personalizado.',
+    srv2_title: 'Full Stack Dev',
+    srv2_desc: 'Websites e aplicações web completas do zero, front-end e back-end integrados.',
+    srv3_title: 'Design Gráfico',
+    srv3_desc: 'Identidade visual, logótipos e materiais digitais e impressos.',
+    srv4_title: 'Redes Sociais',
+    srv4_desc: 'Estratégia, criação de conteúdo e gestão das suas redes sociais.',
+    btn_ver_todos: 'Ver todos os serviços →',
+    // Processo
+    tag_processo: 'Processo',
+    h2_processo: 'Como <span>trabalhamos</span>',
+    p_processo: 'Do primeiro contacto à entrega — transparente e simples.',
+    proc1_title: 'Contacto Inicial',
+    proc1_desc: 'Envie uma mensagem pelo WhatsApp ou email — sem compromisso e sem jargão técnico.',
+    proc2_title: 'Diagnóstico & Proposta',
+    proc2_desc: 'Análise detalhada da situação e proposta com âmbito, prazo e custo. Sem surpresas.',
+    proc3_title: 'Execução',
+    proc3_desc: 'Trabalho com foco total e comunicação constante ao longo de todo o processo.',
+    proc4_title: 'Entrega & Suporte',
+    proc4_desc: 'Entrega com documentação e formação. Disponível para suporte e atualizações futuras.',
+    // Portfolio
+    tag_portfolio: 'Portfólio',
+    h2_portfolio: 'Trabalhos <span>realizados</span>',
+    btn_ver_portfolio: 'Ver Portfólio →',
+    // Sobre
+    tag_sobre: 'Sobre Mim',
+    h2_sobre: 'Renasci para<br/><span>fazer a diferença</span>',
+    // Contacto
+    tag_contacto: 'Contacto',
+    h2_contacto: 'Vamos trabalhar<br/><span>juntos</span>',
+    contact_btn_wa: 'Falar no WhatsApp',
+    contact_btn_email: 'Enviar Email',
+    // Chat widget
+    chat_greeting: 'Olá, sou o Paulo Silva.<br/>Posso ajudar com <strong>IT, dev web, design</strong> ou qualquer dúvida técnica.',
+    chat_label: '// Escolhe um assunto',
+    chat_btn_web: 'Desenvolvimento Web',
+    chat_btn_it: 'Consultoria IT / Suporte',
+    chat_btn_design: 'Design Gráfico',
+    chat_btn_social: 'Redes Sociais',
+    chat_wa: 'Falar no WhatsApp',
+    chat_email: 'Enviar Email',
+    chat_resp_web: 'Óptimo! Desenvolvo sites, apps e landing pages modernas. Fala comigo pelo WhatsApp para detalharmos o teu projecto.',
+    chat_resp_it: 'Certo! Ofereço suporte técnico, manutenção e consultoria IT. Contacta-me pelo WhatsApp.',
+    chat_resp_design: 'Perfeito! Crio identidades visuais, logótipos e materiais gráficos. Vamos conversar pelo WhatsApp?',
+    chat_resp_social: 'Claro! Faço gestão de redes sociais e criação de conteúdo. Fala comigo pelo WhatsApp para saber mais.',
+    // Popup
+    popup_badge: 'Chamada Gratuita',
+    popup_title: '30 min contigo,<br/><span>sem custos.</span>',
+    popup_sub: 'Fala diretamente com Paulo Silva sobre o teu projeto, problema ou ideia. Sem compromisso, sem letra pequena.',
+    popup_perk1: '100% gratuito — sem surpresas depois',
+    popup_perk2: 'Google Meet, Zoom ou telefone — à tua escolha',
+    popup_perk3: 'Resposta confirmada em minutos',
+    popup_perk4: 'Web, IT, Design ou Redes Sociais — tudo incluído',
+    popup_cta: 'Agendar agora — é grátis',
+    popup_dismiss: 'Agora não, obrigado',
+    popup_footer: 'Paulo Silva · Online · Aveiro, PT',
+    // E-learning
+    tag_elearning: 'Em breve',
+    h2_elearning: 'Cursos <span>E-Learning</span><br/>com Certificado',
+  },
+
+  en: {
+    nav_servicos: 'Services',
+    nav_dicas: 'IT Tips',
+    nav_portfolio: 'Portfolio',
+    nav_sobre: 'About',
+    nav_elearning: 'E-Learning',
+    nav_contacto: 'Contact',
+    nav_srv_it: 'IT Consulting',
+    nav_srv_so: 'Operating Systems',
+    nav_srv_fullstack: 'Full Stack Dev',
+    nav_srv_frontend: 'Front-End',
+    nav_srv_backend: 'Back-End',
+    nav_srv_social: 'Social Media',
+    nav_srv_design: 'Graphic Design',
+    nav_srv_redes: 'Network Infrastructure',
+    nav_dicas_all: 'All Tips',
+    nav_dicas_os: 'Operating Systems',
+    nav_dicas_code: 'Programming',
+    nav_dicas_design: 'Design',
+    nav_dicas_net: 'Networking',
+    hero_badge_online: '● ONLINE',
+    hero_slogan: 'From code to design.<br/>Results that show.',
+    hero_desc: 'IT specialist, full stack developer and consultant. I help individuals and businesses get the most out of technology — from code to design, social media to infrastructure.',
+    hero_btn_call: 'Schedule a Call',
+    hero_btn_orcamento: 'Request a Quote',
+    hero_btn_servicos: 'View Services →',
+    hero_photo_badge: 'Available for projects',
+    typed_phrases: ['Full Stack Developer','IT Consultant','Graphic Design','Network Management','Operating Systems'],
+    tag_destaque: 'Featured Services',
+    h2_destaque: 'What I can do<br/><span>for you</span>',
+    p_destaque: 'Complete tech solutions for individuals and businesses.',
+    srv1_title: 'IT Support',
+    srv1_desc: 'Diagnosis, troubleshooting and personalised technical support.',
+    srv2_title: 'Full Stack Dev',
+    srv2_desc: 'Complete websites and web apps built from scratch, front-end and back-end integrated.',
+    srv3_title: 'Graphic Design',
+    srv3_desc: 'Visual identity, logos and digital & print materials.',
+    srv4_title: 'Social Media',
+    srv4_desc: 'Strategy, content creation and social media management.',
+    btn_ver_todos: 'View all services →',
+    tag_processo: 'Process',
+    h2_processo: 'How we <span>work</span>',
+    p_processo: 'From first contact to delivery — transparent and simple.',
+    proc1_title: 'Initial Contact',
+    proc1_desc: 'Send a message via WhatsApp or email — no commitment, no technical jargon.',
+    proc2_title: 'Diagnosis & Proposal',
+    proc2_desc: 'Detailed analysis and proposal with scope, timeline and cost. No surprises.',
+    proc3_title: 'Execution',
+    proc3_desc: 'Full focus and constant communication throughout the entire process.',
+    proc4_title: 'Delivery & Support',
+    proc4_desc: 'Delivery with documentation and training. Available for support and future updates.',
+    tag_portfolio: 'Portfolio',
+    h2_portfolio: 'Completed <span>projects</span>',
+    btn_ver_portfolio: 'View Portfolio →',
+    tag_sobre: 'About Me',
+    h2_sobre: 'Born to<br/><span>make a difference</span>',
+    tag_contacto: 'Contact',
+    h2_contacto: "Let's work<br/><span>together</span>",
+    contact_btn_wa: 'Chat on WhatsApp',
+    contact_btn_email: 'Send Email',
+    chat_greeting: "Hi, I'm Paulo Silva.<br/>I can help with <strong>IT, web dev, design</strong> or any tech question.",
+    chat_label: '// Choose a topic',
+    chat_btn_web: 'Web Development',
+    chat_btn_it: 'IT Consulting / Support',
+    chat_btn_design: 'Graphic Design',
+    chat_btn_social: 'Social Media',
+    chat_wa: 'Chat on WhatsApp',
+    chat_email: 'Send Email',
+    chat_resp_web: 'Great! I build modern websites, apps and landing pages. Message me on WhatsApp to discuss your project.',
+    chat_resp_it: "Sure! I offer technical support, maintenance and IT consulting. Let's connect on WhatsApp.",
+    chat_resp_design: 'Perfect! I create visual identities, logos and graphic materials. Want to chat on WhatsApp?',
+    chat_resp_social: 'Of course! I manage social media and create content. Message me on WhatsApp to learn more.',
+    popup_badge: 'Free Call',
+    popup_title: '30 min with you,<br/><span>for free.</span>',
+    popup_sub: 'Talk directly with Paulo Silva about your project, problem or idea. No commitment, no hidden terms.',
+    popup_perk1: '100% free — no surprises afterwards',
+    popup_perk2: 'Google Meet, Zoom or phone — your choice',
+    popup_perk3: 'Confirmed reply within minutes',
+    popup_perk4: 'Web, IT, Design or Social Media — all covered',
+    popup_cta: 'Book now — it\'s free',
+    popup_dismiss: 'Not now, thanks',
+    popup_footer: 'Paulo Silva · Online · Aveiro, PT',
+    tag_elearning: 'Coming soon',
+    h2_elearning: '<span>E-Learning</span> Courses<br/>with Certificate',
+  },
+
+  es: {
+    nav_servicos: 'Servicios',
+    nav_dicas: 'Consejos IT',
+    nav_portfolio: 'Portafolio',
+    nav_sobre: 'Sobre mí',
+    nav_elearning: 'E-Learning',
+    nav_contacto: 'Contacto',
+    nav_srv_it: 'Consultoría IT',
+    nav_srv_so: 'Sistemas Operativos',
+    nav_srv_fullstack: 'Full Stack Dev',
+    nav_srv_frontend: 'Front-End',
+    nav_srv_backend: 'Back-End',
+    nav_srv_social: 'Redes Sociales',
+    nav_srv_design: 'Diseño Gráfico',
+    nav_srv_redes: 'Infraestructura de Redes',
+    nav_dicas_all: 'Todos los Consejos',
+    nav_dicas_os: 'Sistemas Operativos',
+    nav_dicas_code: 'Programación',
+    nav_dicas_design: 'Diseño',
+    nav_dicas_net: 'Redes',
+    hero_badge_online: '● EN LÍNEA',
+    hero_slogan: 'Del código al diseño.<br/>Resultados que se ven.',
+    hero_desc: 'Especialista en informática, programación full stack y consultoría IT. Ayudo a personas y empresas a sacar el máximo partido de la tecnología — del código al diseño, de las redes sociales a la infraestructura.',
+    hero_btn_call: 'Agendar una Llamada',
+    hero_btn_orcamento: 'Pedir Presupuesto',
+    hero_btn_servicos: 'Ver Servicios →',
+    hero_photo_badge: 'Disponible para proyectos',
+    typed_phrases: ['Full Stack Developer','Consultor IT','Diseño Gráfico','Gestión de Redes','Sistemas Operativos'],
+    tag_destaque: 'Servicios destacados',
+    h2_destaque: 'Lo que puedo hacer<br/><span>por ti</span>',
+    p_destaque: 'Soluciones tecnológicas completas para particulares y empresas.',
+    srv1_title: 'Soporte IT',
+    srv1_desc: 'Diagnóstico, resolución de problemas y soporte técnico personalizado.',
+    srv2_title: 'Full Stack Dev',
+    srv2_desc: 'Sitios web y aplicaciones completos desde cero, front-end y back-end integrados.',
+    srv3_title: 'Diseño Gráfico',
+    srv3_desc: 'Identidad visual, logotipos y materiales digitales e impresos.',
+    srv4_title: 'Redes Sociales',
+    srv4_desc: 'Estrategia, creación de contenido y gestión de redes sociales.',
+    btn_ver_todos: 'Ver todos los servicios →',
+    tag_processo: 'Proceso',
+    h2_processo: 'Cómo <span>trabajamos</span>',
+    p_processo: 'Del primer contacto a la entrega — transparente y simple.',
+    proc1_title: 'Contacto Inicial',
+    proc1_desc: 'Envía un mensaje por WhatsApp o email — sin compromiso y sin tecnicismos.',
+    proc2_title: 'Diagnóstico y Propuesta',
+    proc2_desc: 'Análisis detallado y propuesta con alcance, plazo y coste. Sin sorpresas.',
+    proc3_title: 'Ejecución',
+    proc3_desc: 'Trabajo con enfoque total y comunicación constante durante todo el proceso.',
+    proc4_title: 'Entrega y Soporte',
+    proc4_desc: 'Entrega con documentación y formación. Disponible para soporte y actualizaciones futuras.',
+    tag_portfolio: 'Portafolio',
+    h2_portfolio: 'Trabajos <span>realizados</span>',
+    btn_ver_portfolio: 'Ver Portafolio →',
+    tag_sobre: 'Sobre mí',
+    h2_sobre: 'Nacido para<br/><span>marcar la diferencia</span>',
+    tag_contacto: 'Contacto',
+    h2_contacto: 'Trabajemos<br/><span>juntos</span>',
+    contact_btn_wa: 'Hablar en WhatsApp',
+    contact_btn_email: 'Enviar Email',
+    chat_greeting: 'Hola, soy Paulo Silva.<br/>Puedo ayudarte con <strong>IT, desarrollo web, diseño</strong> o cualquier duda técnica.',
+    chat_label: '// Elige un tema',
+    chat_btn_web: 'Desarrollo Web',
+    chat_btn_it: 'Consultoría IT / Soporte',
+    chat_btn_design: 'Diseño Gráfico',
+    chat_btn_social: 'Redes Sociales',
+    chat_wa: 'Hablar en WhatsApp',
+    chat_email: 'Enviar Email',
+    chat_resp_web: '¡Genial! Desarrollo sitios web, apps y landing pages modernas. Escríbeme por WhatsApp para hablar de tu proyecto.',
+    chat_resp_it: '¡Claro! Ofrezco soporte técnico, mantenimiento y consultoría IT. Contáctame por WhatsApp.',
+    chat_resp_design: '¡Perfecto! Creo identidades visuales, logotipos y materiales gráficos. ¿Hablamos por WhatsApp?',
+    chat_resp_social: '¡Por supuesto! Gestiono redes sociales y creo contenido. Escríbeme por WhatsApp para saber más.',
+    popup_badge: 'Llamada Gratuita',
+    popup_title: '30 min contigo,<br/><span>sin coste.</span>',
+    popup_sub: 'Habla directamente con Paulo Silva sobre tu proyecto, problema o idea. Sin compromiso, sin letra pequeña.',
+    popup_perk1: '100% gratuito — sin sorpresas después',
+    popup_perk2: 'Google Meet, Zoom o teléfono — tú eliges',
+    popup_perk3: 'Respuesta confirmada en minutos',
+    popup_perk4: 'Web, IT, Diseño o Redes Sociales — todo incluido',
+    popup_cta: 'Reservar ahora — es gratis',
+    popup_dismiss: 'Ahora no, gracias',
+    popup_footer: 'Paulo Silva · Online · Aveiro, PT',
+    tag_elearning: 'Próximamente',
+    h2_elearning: 'Cursos <span>E-Learning</span><br/>con Certificado',
+  },
+
+  fr: {
+    nav_servicos: 'Services',
+    nav_dicas: 'Conseils IT',
+    nav_portfolio: 'Portfolio',
+    nav_sobre: 'À propos',
+    nav_elearning: 'E-Learning',
+    nav_contacto: 'Contact',
+    nav_srv_it: 'Conseil IT',
+    nav_srv_so: 'Systèmes d\'exploitation',
+    nav_srv_fullstack: 'Full Stack Dev',
+    nav_srv_frontend: 'Front-End',
+    nav_srv_backend: 'Back-End',
+    nav_srv_social: 'Réseaux sociaux',
+    nav_srv_design: 'Design graphique',
+    nav_srv_redes: 'Infrastructure réseau',
+    nav_dicas_all: 'Tous les conseils',
+    nav_dicas_os: 'Systèmes d\'exploitation',
+    nav_dicas_code: 'Programmation',
+    nav_dicas_design: 'Design',
+    nav_dicas_net: 'Réseaux',
+    hero_badge_online: '● EN LIGNE',
+    hero_slogan: 'Du code au design.<br/>Des résultats visibles.',
+    hero_desc: 'Spécialiste en informatique, développement full stack et conseil IT. J\'aide les particuliers et les entreprises à tirer le meilleur parti de la technologie — du code au design, des réseaux sociaux à l\'infrastructure.',
+    hero_btn_call: 'Planifier un appel',
+    hero_btn_orcamento: 'Demander un devis',
+    hero_btn_servicos: 'Voir les services →',
+    hero_photo_badge: 'Disponible pour des projets',
+    typed_phrases: ['Full Stack Developer','Consultant IT','Design graphique','Gestion de réseaux','Systèmes d\'exploitation'],
+    tag_destaque: 'Services phares',
+    h2_destaque: 'Ce que je peux faire<br/><span>pour vous</span>',
+    p_destaque: 'Solutions technologiques complètes pour particuliers et entreprises.',
+    srv1_title: 'Support IT',
+    srv1_desc: 'Diagnostic, résolution de problèmes et support technique personnalisé.',
+    srv2_title: 'Full Stack Dev',
+    srv2_desc: 'Sites web et applications complètes de zéro, front-end et back-end intégrés.',
+    srv3_title: 'Design graphique',
+    srv3_desc: 'Identité visuelle, logos et supports numériques et imprimés.',
+    srv4_title: 'Réseaux sociaux',
+    srv4_desc: 'Stratégie, création de contenu et gestion de vos réseaux sociaux.',
+    btn_ver_todos: 'Voir tous les services →',
+    tag_processo: 'Processus',
+    h2_processo: 'Comment nous <span>travaillons</span>',
+    p_processo: 'Du premier contact à la livraison — transparent et simple.',
+    proc1_title: 'Contact initial',
+    proc1_desc: 'Envoyez un message via WhatsApp ou email — sans engagement, sans jargon technique.',
+    proc2_title: 'Diagnostic & Proposition',
+    proc2_desc: 'Analyse détaillée et proposition avec périmètre, délai et coût. Sans surprises.',
+    proc3_title: 'Exécution',
+    proc3_desc: 'Travail avec pleine concentration et communication constante tout au long du processus.',
+    proc4_title: 'Livraison & Support',
+    proc4_desc: 'Livraison avec documentation et formation. Disponible pour le support et les mises à jour futures.',
+    tag_portfolio: 'Portfolio',
+    h2_portfolio: 'Travaux <span>réalisés</span>',
+    btn_ver_portfolio: 'Voir le portfolio →',
+    tag_sobre: 'À propos de moi',
+    h2_sobre: 'Né pour<br/><span>faire la différence</span>',
+    tag_contacto: 'Contact',
+    h2_contacto: 'Travaillons<br/><span>ensemble</span>',
+    contact_btn_wa: 'Parler sur WhatsApp',
+    contact_btn_email: 'Envoyer un email',
+    chat_greeting: 'Bonjour, je suis Paulo Silva.<br/>Je peux vous aider avec <strong>l\'IT, le dev web, le design</strong> ou toute question technique.',
+    chat_label: '// Choisissez un sujet',
+    chat_btn_web: 'Développement Web',
+    chat_btn_it: 'Conseil IT / Support',
+    chat_btn_design: 'Design graphique',
+    chat_btn_social: 'Réseaux sociaux',
+    chat_wa: 'Parler sur WhatsApp',
+    chat_email: 'Envoyer un email',
+    chat_resp_web: 'Super! Je développe des sites web, apps et landing pages modernes. Contactez-moi sur WhatsApp pour parler de votre projet.',
+    chat_resp_it: 'Bien sûr! J\'offre du support technique, de la maintenance et du conseil IT. Contactez-moi sur WhatsApp.',
+    chat_resp_design: 'Parfait! Je crée des identités visuelles, logos et supports graphiques. On discute sur WhatsApp?',
+    chat_resp_social: 'Bien sûr! Je gère les réseaux sociaux et crée du contenu. Contactez-moi sur WhatsApp pour en savoir plus.',
+    popup_badge: 'Appel Gratuit',
+    popup_title: '30 min avec vous,<br/><span>sans frais.</span>',
+    popup_sub: 'Parlez directement avec Paulo Silva de votre projet, problème ou idée. Sans engagement, sans conditions cachées.',
+    popup_perk1: '100% gratuit — sans surprises ensuite',
+    popup_perk2: 'Google Meet, Zoom ou téléphone — votre choix',
+    popup_perk3: 'Réponse confirmée en quelques minutes',
+    popup_perk4: 'Web, IT, Design ou Réseaux sociaux — tout inclus',
+    popup_cta: 'Réserver maintenant — c\'est gratuit',
+    popup_dismiss: 'Pas maintenant, merci',
+    popup_footer: 'Paulo Silva · En ligne · Aveiro, PT',
+    tag_elearning: 'Bientôt',
+    h2_elearning: 'Cours <span>E-Learning</span><br/>avec Certificat',
+  }
+};
+
+var LANG_FLAGS = { pt: '🇵🇹', en: '🇬🇧', es: '🇪🇸', fr: '🇫🇷' };
+var LANG_CODES = { pt: 'PT', en: 'EN', es: 'ES', fr: 'FR' };
+var currentLang = localStorage.getItem('ps_lang') || 'pt';
+
+function toggleLangDropdown(){
+  document.getElementById('lang-dropdown').classList.toggle('open');
+}
+
+// Close on outside click
+document.addEventListener('click', function(e){
+  if(!document.getElementById('lang-selector').contains(e.target)){
+    document.getElementById('lang-dropdown').classList.remove('open');
+  }
+});
+
+function setLang(lang){
+  currentLang = lang;
+  localStorage.setItem('ps_lang', lang);
+  document.getElementById('lang-flag').textContent = LANG_FLAGS[lang];
+  document.getElementById('lang-code').textContent = LANG_CODES[lang];
+  document.querySelectorAll('.lang-opt').forEach(function(b){
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+  document.getElementById('lang-dropdown').classList.remove('open');
+  applyTranslations(lang);
+}
+
+function t(key){ return TRANSLATIONS[currentLang][key] || TRANSLATIONS['pt'][key] || key; }
+
+function applyTranslations(lang){
+  var T = TRANSLATIONS[lang];
+  if(!T) return;
+
+  // html lang attribute
+  document.documentElement.lang = lang;
+
+  // ── NAV ──
+  var navLinks = document.querySelectorAll('#nav-links > li > a');
+  var navKeys = ['nav_servicos','nav_dicas','nav_portfolio','nav_sobre','nav_elearning'];
+  // The nav has: Serviços, Dicas IT, Portfólio, Sobre, E-Learning, (Contacto is in cta)
+  var ddToggles = document.querySelectorAll('.nav-dd-toggle');
+  if(ddToggles[0]) ddToggles[0].childNodes[0].textContent = T.nav_servicos + ' ';
+  if(ddToggles[1]) ddToggles[1].childNodes[0].textContent = T.nav_dicas + ' ';
+
+  var plainLinks = document.querySelectorAll('#nav-links > li:not(.nav-item) > a');
+  var plainKeys = ['nav_portfolio','nav_sobre','nav_elearning'];
+  plainLinks.forEach(function(el,i){ if(plainKeys[i]) el.textContent = T[plainKeys[i]]; });
+
+  // Dropdown service items
+  var srvItems = document.querySelectorAll('.nav-dd:first-of-type .nav-dd a span');
+  var srvKeys = ['nav_srv_it','nav_srv_so','nav_srv_fullstack','nav_srv_frontend','nav_srv_backend','nav_srv_social','nav_srv_design','nav_srv_redes'];
+  srvItems.forEach(function(el,i){ if(srvKeys[i]) el.textContent = T[srvKeys[i]]; });
+
+  // Dropdown dicas items
+  var dicasItems = document.querySelectorAll('.nav-item:nth-child(2) .nav-dd a span');
+  var dicasKeys = ['nav_dicas_all','nav_dicas_os','nav_dicas_code','nav_dicas_design','nav_dicas_net'];
+  dicasItems.forEach(function(el,i){ if(dicasKeys[i]) el.textContent = T[dicasKeys[i]]; });
+
+  // ── HERO ──
+  var badge = document.querySelector('.badge-g');
+  if(badge) badge.textContent = T.hero_badge_online;
+
+  var slogan = document.querySelector('.hero-slogan');
+  if(slogan) slogan.innerHTML = T.hero_slogan;
+
+  var desc = document.querySelector('.hero-desc');
+  if(desc) desc.textContent = T.hero_desc;
+
+  // Hero buttons (keep SVG, update text node)
+  var btnCall = document.querySelector('a.btn-g[href="agendar.html"]');
+  if(btnCall){
+    var svg = btnCall.querySelector('svg');
+    btnCall.textContent = ' ' + T.hero_btn_call;
+    if(svg) btnCall.insertBefore(svg, btnCall.firstChild);
+  }
+  var btnOrc = document.querySelector('a.btn-orcamento[aria-label]');
+  if(btnOrc){
+    var svg2 = btnOrc.querySelector('svg');
+    btnOrc.textContent = ' ' + T.hero_btn_orcamento;
+    if(svg2) btnOrc.insertBefore(svg2, btnOrc.firstChild);
+  }
+  var btnSrv = document.querySelector('a.btn-o[aria-label]');
+  if(btnSrv) btnSrv.textContent = T.hero_btn_servicos;
+
+  var photoBadge = document.querySelector('.hero-photo-badge');
+  if(photoBadge) photoBadge.textContent = T.hero_photo_badge;
+
+  // Typed phrases restart
+  if(typeof phrases !== 'undefined'){
+    phrases = T.typed_phrases;
+    pi = 0; ci = 0; deleting = false;
+  }
+
+  // ── HOME PAGE SECTIONS ──
+  // Tags
+  var tags = document.querySelectorAll('#page-home .tag');
+  if(tags[0]) tags[0].textContent = T.tag_destaque;
+  if(tags[1]) tags[1].textContent = T.tag_processo;
+
+  // H2s
+  var h2s = document.querySelectorAll('#page-home h2');
+  if(h2s[0]) h2s[0].innerHTML = T.h2_destaque;
+  if(h2s[1]) h2s[1].innerHTML = T.h2_processo;
+
+  // Section p
+  var secPs = document.querySelectorAll('#page-home .sec-head p');
+  if(secPs[0]) secPs[0].textContent = T.p_destaque;
+  if(secPs[1]) secPs[1].textContent = T.p_processo;
+
+  // Service cards
+  var srvCards = document.querySelectorAll('#page-home .srv-card');
+  var srvTitles = [T.srv1_title, T.srv2_title, T.srv3_title, T.srv4_title];
+  var srvDescs  = [T.srv1_desc,  T.srv2_desc,  T.srv3_desc,  T.srv4_desc];
+  srvCards.forEach(function(card,i){
+    var h3 = card.querySelector('h3');
+    var p  = card.querySelector('p');
+    if(h3 && srvTitles[i]) h3.textContent = srvTitles[i];
+    if(p  && srvDescs[i])  p.textContent  = srvDescs[i];
+  });
+
+  // "Ver todos os serviços"
+  var verTodos = document.querySelectorAll('#page-home .btn-o:not([aria-label])');
+  verTodos.forEach(function(el){ el.textContent = T.btn_ver_todos; });
+
+  // Processo items
+  var procItems = document.querySelectorAll('.proc-item');
+  var procTitles = [T.proc1_title, T.proc2_title, T.proc3_title, T.proc4_title];
+  var procDescs  = [T.proc1_desc,  T.proc2_desc,  T.proc3_desc,  T.proc4_desc];
+  procItems.forEach(function(item,i){
+    var h3 = item.querySelector('h3');
+    var p  = item.querySelector('p');
+    if(h3 && procTitles[i]) h3.textContent = procTitles[i];
+    if(p  && procDescs[i])  p.textContent  = procDescs[i];
+  });
+
+  // ── PORTFOLIO TAG & H2 ──
+  var portTag = document.querySelector('#page-portfolio .tag');
+  if(portTag) portTag.textContent = T.tag_portfolio;
+  var portH2 = document.querySelector('#page-portfolio h2');
+  if(portH2) portH2.innerHTML = T.h2_portfolio;
+
+  // ── SOBRE TAG & H2 ──
+  var sobreTag = document.querySelector('#page-sobre .tag');
+  if(sobreTag) sobreTag.textContent = T.tag_sobre;
+  var sobreH2 = document.querySelector('#page-sobre h2');
+  if(sobreH2) sobreH2.innerHTML = T.h2_sobre;
+
+  // ── CONTACTO ──
+  var contTag = document.querySelector('#page-contacto .tag');
+  if(contTag) contTag.textContent = T.tag_contacto;
+  var contH2 = document.querySelector('#page-contacto h2');
+  if(contH2) contH2.innerHTML = T.h2_contacto;
+
+  // Contact WA/Email buttons
+  var waBtn = document.querySelector('.btn-wa[href*="wa.me"]');
+  if(waBtn){ var svgWa = waBtn.querySelector('svg'); waBtn.textContent = ' ' + T.contact_btn_wa; if(svgWa) waBtn.insertBefore(svgWa, waBtn.firstChild); }
+
+  // ── E-LEARNING ──
+  var elTag = document.querySelector('#page-elearning .el-badge');
+  if(elTag) elTag.textContent = T.tag_elearning;
+
+  // ── CHAT WIDGET ──
+  var greetBubble = document.querySelector('.va-msg .va-msg-bubble');
+  if(greetBubble) greetBubble.innerHTML = '<span style="display:inline-flex;align-items:center;gap:.45rem;vertical-align:middle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span> ' + T.chat_greeting;
+
+  var chatLabel = document.querySelector('.va-quick-label');
+  if(chatLabel) chatLabel.textContent = T.chat_label;
+
+  var qbtns = document.querySelectorAll('.va-qbtn');
+  var qKeys = ['chat_btn_web','chat_btn_it','chat_btn_design','chat_btn_social'];
+  var qTopics = [T.chat_btn_web, T.chat_btn_it, T.chat_btn_design, T.chat_btn_social];
+  qbtns.forEach(function(btn,i){
+    var svg = btn.querySelector('svg');
+    btn.textContent = ' ' + qTopics[i];
+    if(svg) btn.insertBefore(svg, btn.firstChild);
+    // Update onclick to use current language topic key
+    btn.onclick = (function(key){ return function(){ vaQuickReply(key); }; })(qTopics[i]);
+  });
+
+  // Update chat responses
+  if(typeof responses !== 'undefined'){
+    responses = {};
+    responses[T.chat_btn_web]    = T.chat_resp_web;
+    responses[T.chat_btn_it]     = T.chat_resp_it;
+    responses[T.chat_btn_design] = T.chat_resp_design;
+    responses[T.chat_btn_social] = T.chat_resp_social;
+  }
+
+  var waChat = document.querySelector('.va-btn-wa');
+  if(waChat){ var svgC = waChat.querySelector('svg'); waChat.textContent = ' ' + T.chat_wa; if(svgC) waChat.insertBefore(svgC, waChat.firstChild); }
+
+  // ── POPUP ──
+  var popBadge = document.querySelector('.cg-badge');
+  if(popBadge) popBadge.textContent = T.popup_badge;
+
+  var popTitle = document.querySelector('.cg-title');
+  if(popTitle) popTitle.innerHTML = T.popup_title;
+
+  var popSub = document.querySelector('.cg-sub');
+  if(popSub) popSub.textContent = T.popup_sub;
+
+  var popPerks = document.querySelectorAll('.cg-perks li');
+  var perkKeys = ['popup_perk1','popup_perk2','popup_perk3','popup_perk4'];
+  popPerks.forEach(function(li,i){
+    var svg = li.querySelector('svg');
+    li.textContent = T[perkKeys[i]];
+    if(svg) li.insertBefore(svg, li.firstChild);
+  });
+
+  var popCta = document.querySelector('.cg-btn-primary');
+  if(popCta){ var svgP = popCta.querySelector('svg'); popCta.textContent = ' ' + T.popup_cta; if(svgP) popCta.insertBefore(svgP, popCta.firstChild); }
+
+  var popDismiss = document.querySelector('.cg-btn-secondary');
+  if(popDismiss) popDismiss.textContent = T.popup_dismiss;
+
+  var popFooter = document.querySelector('.cg-timer');
+  if(popFooter){
+    var dot = popFooter.querySelector('.cg-timer-dot');
+    popFooter.innerHTML = '';
+    if(dot) popFooter.appendChild(dot);
+    var span = document.createElement('span');
+    span.textContent = T.popup_footer;
+    popFooter.appendChild(span);
+  }
+}
+
+// Init on load
+document.addEventListener('DOMContentLoaded', function(){
+  if(currentLang !== 'pt') setLang(currentLang);
+  else {
+    // Still set flag/code button correctly
+    document.getElementById('lang-flag').textContent = LANG_FLAGS[currentLang];
+    document.getElementById('lang-code').textContent = LANG_CODES[currentLang];
+  }
+});
 </script>
