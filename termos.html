@@ -6,254 +6,684 @@
   <meta name="description" content="Termos de Utilização de Paulo Ricardo — PS Tech">
   <meta name="robots" content="noindex, follow">
   <title>Termos de Utilização · PS Tech</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #050508;
-      --bg2: #0d0d18;
-      --border: #1a1a2e;
-      --text: #c8c8d4;
-      --heading: #f0f0f8;
-      --muted: #6b6b80;
-      --accent: #00ff88;
-      --mono: 'Courier New', Courier, monospace;
+      --bg:      #03030a;
+      --bg2:     #070712;
+      --bg3:     #0b0b1a;
+      --border:  rgba(0,255,136,.08);
+      --border2: rgba(0,255,136,.18);
+      --text:    #a8a8c0;
+      --heading: #eeeef8;
+      --muted:   #4a4a62;
+      --accent:  #00ff88;
+      --accent2: #00c8ff;
+      --mono:    'Space Mono', 'Courier New', monospace;
+      --sans:    'DM Sans', sans-serif;
     }
+
+    html { scroll-behavior: smooth; }
 
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: var(--sans);
       font-size: 15px;
-      line-height: 1.75;
+      line-height: 1.8;
       min-height: 100vh;
+      overflow-x: hidden;
+      cursor: none;
     }
 
+    /* ── CUSTOM CURSOR ── */
+    #cursor {
+      width: 10px; height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%,-50%);
+      transition: width .2s, height .2s, background .2s;
+      mix-blend-mode: exclusion;
+    }
+    #cursor-ring {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(0,255,136,.5);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9998;
+      transform: translate(-50%,-50%);
+      transition: transform .12s ease, width .2s, height .2s, border-color .2s;
+    }
+
+    /* ── NOISE + SCANLINES ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: .025;
+      pointer-events: none;
+      z-index: 9997;
+    }
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.04) 2px, rgba(0,0,0,.04) 4px);
+      pointer-events: none;
+      z-index: 9996;
+    }
+
+    /* ── AMBIENT GLOW ── */
+    .ambient { position: fixed; pointer-events: none; z-index: 0; }
+    .ambient-1 {
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,255,136,.04) 0%, transparent 70%);
+      top: -200px; left: -200px;
+      animation: drift1 18s ease-in-out infinite;
+    }
+    .ambient-2 {
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,200,255,.03) 0%, transparent 70%);
+      bottom: 0; right: -150px;
+      animation: drift2 22s ease-in-out infinite;
+    }
+    @keyframes drift1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(60px,40px)} }
+    @keyframes drift2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-40px,-60px)} }
+
+    /* ── HEADER ── */
     header {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
       border-bottom: 1px solid var(--border);
-      padding: 1.25rem 0;
+      background: rgba(3,3,10,.9);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
     }
-
-    header .wrap {
+    .nav-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
-
     .logo {
       font-family: var(--mono);
-      font-size: 1.1rem;
+      font-size: .95rem;
       font-weight: 700;
       color: var(--heading);
       text-decoration: none;
+      display: flex; align-items: center; gap: .25rem;
     }
-
-    .logo span { color: var(--accent); }
+    .logo-cursor {
+      width: 8px; height: 1.1em;
+      background: var(--accent);
+      display: inline-block;
+      vertical-align: middle;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
     .back {
       font-family: var(--mono);
-      font-size: .75rem;
+      font-size: .68rem;
       color: var(--muted);
       text-decoration: none;
-      transition: color .2s;
+      letter-spacing: .08em;
+      padding: .45rem .9rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      transition: color .2s, border-color .2s, background .2s;
+      display: flex; align-items: center; gap: .5rem;
     }
+    .back:hover {
+      color: var(--accent);
+      border-color: var(--border2);
+      background: rgba(0,255,136,.04);
+    }
+    .back svg { transition: transform .2s; }
+    .back:hover svg { transform: translateX(-3px); }
 
-    .back:hover { color: var(--accent); }
-
+    /* ── HERO ── */
+    .hero {
+      padding: 140px 0 70px;
+      position: relative;
+    }
     .wrap {
-      max-width: 760px;
+      max-width: 900px;
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 1;
     }
-
-    main {
-      padding: 3rem 0 5rem;
+    .hero-line {
+      position: absolute;
+      top: 0; bottom: 0; left: 2rem;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(0,255,136,.2) 30%, rgba(0,255,136,.2) 70%, transparent);
+      pointer-events: none;
     }
 
     .page-tag {
       font-family: var(--mono);
-      font-size: .7rem;
+      font-size: .65rem;
       color: var(--accent);
-      letter-spacing: .12em;
+      letter-spacing: .2em;
       text-transform: uppercase;
-      margin-bottom: .75rem;
+      margin-bottom: 1.25rem;
+      display: flex; align-items: center; gap: .75rem;
+    }
+    .page-tag::before {
+      content: '';
+      width: 28px; height: 1px;
+      background: var(--accent);
+      opacity: .5;
+      flex-shrink: 0;
     }
 
     h1 {
-      font-size: 1.85rem;
+      font-family: var(--sans);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
       font-weight: 700;
       color: var(--heading);
-      letter-spacing: -.02em;
-      margin-bottom: .5rem;
+      letter-spacing: -.035em;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
     }
+    h1 .accent { color: var(--accent); }
 
-    .meta {
-      font-size: .8rem;
+    .meta-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem;
+    }
+    .meta-chip {
+      font-family: var(--mono);
+      font-size: .63rem;
+      letter-spacing: .1em;
       color: var(--muted);
+      padding: .3rem .8rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      background: rgba(255,255,255,.02);
+      display: flex; align-items: center; gap: .4rem;
+    }
+    .meta-chip .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border2) 20%, var(--border2) 80%, transparent);
+      margin: 3.5rem 0;
+      position: relative;
+    }
+    .divider::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent);
+    }
+
+    /* ── CONTENT ── */
+    main { padding-bottom: 6rem; }
+
+    .toc {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 2px solid var(--accent2);
+      border-radius: 0 8px 8px 0;
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 4rem;
+    }
+    .toc-label {
       font-family: var(--mono);
-      margin-bottom: 3rem;
-    }
-
-    section {
-      margin-bottom: 2.5rem;
-      padding-bottom: 2.5rem;
-      border-bottom: 1px solid var(--border);
-    }
-
-    section:last-child {
-      border-bottom: none;
-    }
-
-    h2 {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--heading);
-      font-family: var(--mono);
-      letter-spacing: .05em;
+      font-size: .62rem;
+      letter-spacing: .15em;
+      color: var(--accent2);
+      text-transform: uppercase;
       margin-bottom: 1rem;
     }
-
-    h2::before {
-      content: '// ';
-      color: var(--accent);
+    .toc-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .4rem .5rem;
     }
-
-    p { margin-bottom: .85rem; }
-    p:last-child { margin-bottom: 0; }
-
-    ul {
-      padding-left: 1.25rem;
-      margin-bottom: .85rem;
-    }
-
-    li { margin-bottom: .35rem; }
-
-    a {
-      color: var(--accent);
+    @media(max-width:560px){ .toc-list { grid-template-columns: 1fr; } }
+    .toc-list a {
+      font-family: var(--mono);
+      font-size: .68rem;
+      color: var(--muted);
       text-decoration: none;
+      display: flex; align-items: center; gap: .5rem;
+      transition: color .2s;
+      padding: .2rem 0;
+    }
+    .toc-list a::before {
+      content: '→';
+      color: var(--accent2);
+      opacity: .5;
+      font-size: .6rem;
+      transition: opacity .2s;
+    }
+    .toc-list a:hover { color: var(--accent2); }
+    .toc-list a:hover::before { opacity: 1; }
+
+    /* Sections */
+    .content-grid { display: flex; flex-direction: column; gap: 0; }
+
+    section {
+      padding: 3rem 0;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 2.5rem;
+      align-items: start;
+      position: relative;
+    }
+    section:last-child { border-bottom: none; }
+    @media(max-width:700px){ section { grid-template-columns: 1fr; gap: 1rem; } }
+
+    .sec-num {
+      font-family: var(--mono);
+      font-size: .58rem;
+      color: var(--muted);
+      letter-spacing: .15em;
+      display: block;
+      margin-bottom: .5rem;
+    }
+    h2 {
+      font-family: var(--mono);
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--accent2);
+      letter-spacing: .06em;
+      line-height: 1.4;
+      text-transform: uppercase;
+      position: sticky;
+      top: 80px;
     }
 
+    .sec-body p {
+      margin-bottom: 1rem;
+      color: var(--text);
+      font-size: .93rem;
+    }
+    .sec-body p:last-child { margin-bottom: 0; }
+    .sec-body strong { color: var(--heading); font-weight: 500; }
+
+    .sec-body ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+    }
+    .sec-body li {
+      display: flex;
+      gap: .75rem;
+      align-items: flex-start;
+      font-size: .92rem;
+      color: var(--text);
+    }
+    .sec-body li::before {
+      content: '▸';
+      color: var(--accent2);
+      font-size: .6rem;
+      margin-top: .35rem;
+      flex-shrink: 0;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 1.5rem 0;
-      text-align: center;
+    .highlight-box {
+      background: rgba(0,200,255,.04);
+      border: 1px solid rgba(0,200,255,.12);
+      border-radius: 6px;
+      padding: 1.1rem 1.25rem;
+      margin-top: 1rem;
+      font-family: var(--mono);
+      font-size: .72rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .highlight-box strong { color: var(--accent2); }
+
+    /* Forbidden grid */
+    .forbidden-grid {
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+      margin: 1rem 0;
+    }
+    .forbidden-item {
+      display: flex;
+      align-items: flex-start;
+      gap: .85rem;
+      padding: .75rem 1rem;
+      background: rgba(255,62,108,.03);
+      border: 1px solid rgba(255,62,108,.1);
+      border-radius: 6px;
+      font-size: .88rem;
+      color: var(--text);
+      transition: border-color .2s, background .2s;
+    }
+    .forbidden-item:hover {
+      border-color: rgba(255,62,108,.2);
+      background: rgba(255,62,108,.05);
+    }
+    .forbidden-item::before {
+      content: '✕';
+      color: #ff3e6c;
       font-family: var(--mono);
       font-size: .65rem;
-      color: var(--muted);
+      font-weight: 700;
+      margin-top: .25rem;
+      flex-shrink: 0;
     }
 
-    footer a {
-      color: var(--muted);
-      text-decoration: none;
-      transition: color .2s;
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+    }
+    .footer-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .f-copy { font-family: var(--mono); font-size: .62rem; color: var(--muted); }
+    .f-links { display: flex; gap: 1.25rem; font-family: var(--mono); font-size: .62rem; }
+    .f-links a { color: var(--muted); text-decoration: none; transition: color .2s; }
+    .f-links a:hover { color: var(--accent); }
+    .f-links a.active { color: var(--accent2); }
+
+    /* ── SCROLL PROGRESS ── */
+    #progress {
+      position: fixed; top: 60px; left: 0; right: 0;
+      height: 2px; z-index: 99;
+      background: linear-gradient(90deg, var(--accent2), var(--accent));
+      transform-origin: left;
+      transform: scaleX(0);
+      transition: transform .05s linear;
     }
 
-    footer a:hover { color: var(--accent); }
-
-    @media (max-width: 600px) {
-      h1 { font-size: 1.4rem; }
+    /* ── REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .55s ease, transform .55s ease;
     }
+    .reveal.vis { opacity: 1; transform: none; }
+
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: rgba(0,200,255,.3); border-radius: 2px; }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="wrap">
-      <a class="logo" href="index.html">PS<span>_tech</span></a>
-      <a class="back" href="index.html">← Voltar ao site</a>
+<div class="ambient ambient-1"></div>
+<div class="ambient ambient-2"></div>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<div id="progress"></div>
+
+<header>
+  <div class="nav-inner">
+    <a class="logo" href="index.html">PS<span style="color:var(--accent)">_tech</span><span class="logo-cursor"></span></a>
+    <a class="back" href="index.html">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Voltar ao site
+    </a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="hero-line"></div>
+    <div class="page-tag reveal">legal · documento</div>
+    <h1 class="reveal">Termos de<br><span class="accent">Utilização</span></h1>
+    <div class="meta-strip reveal">
+      <span class="meta-chip"><span class="dot"></span>Última atualização: 26 fev 2026</span>
+      <span class="meta-chip">Legislação PT</span>
+      <span class="meta-chip">RGPD</span>
     </div>
-  </header>
+  </div>
+</div>
 
-  <main>
-    <div class="wrap">
+<main>
+  <div class="wrap">
 
-      <div class="page-tag">// legal</div>
-      <h1>Termos de Utilização</h1>
-      <p class="meta">Última atualização: 26 de fevereiro de 2026</p>
+    <div class="divider reveal"></div>
 
-      <section>
-        <h2>Identificação</h2>
-        <p>O presente website é gerido por <strong>Paulo Ricardo</strong>, doravante designado por "Titular", contactável através de <strong>informaticapauloricardo@gmail.com</strong>.</p>
-        <p>Este site tem como finalidade exclusiva a apresentação do portfólio profissional e dos serviços prestados pelo Titular. Não constitui uma loja online nem processa qualquer tipo de pagamento.</p>
+    <div class="toc reveal">
+      <div class="toc-label">// Índice</div>
+      <ul class="toc-list">
+        <li><a href="#identificacao">Identificação</a></li>
+        <li><a href="#aceitacao">Aceitação dos Termos</a></li>
+        <li><a href="#utilizacao">Utilização do Site</a></li>
+        <li><a href="#propriedade">Propriedade Intelectual</a></li>
+        <li><a href="#disponibilidade">Disponibilidade do Serviço</a></li>
+        <li><a href="#responsabilidade">Limitação de Responsabilidade</a></li>
+        <li><a href="#privacidade">Privacidade</a></li>
+        <li><a href="#alteracoes">Alterações aos Termos</a></li>
+        <li><a href="#lei">Lei Aplicável</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+
+    <div class="content-grid">
+
+      <section id="identificacao" class="reveal">
+        <div class="sec-left">
+          <span class="sec-num">01 /</span>
+          <h2>Identificação</h2>
+        </div>
+        <div class="sec-body">
+          <p>O presente website é gerido por <strong>Paulo Ricardo</strong>, doravante designado por "Titular", contactável através de <strong>informaticapauloricardo@gmail.com</strong>.</p>
+          <p>Este site tem como finalidade exclusiva a apresentação do portfólio profissional e dos serviços prestados pelo Titular. Não constitui uma loja online nem processa qualquer tipo de pagamento.</p>
+        </div>
       </section>
 
-      <section>
-        <h2>Aceitação dos Termos</h2>
-        <p>O acesso e utilização deste website implica a aceitação plena e sem reservas dos presentes Termos de Utilização. Caso não concorde com alguma das condições aqui estabelecidas, deverá abster-se de utilizar o site.</p>
+      <section id="aceitacao" class="reveal">
+        <div class="sec-left">
+          <span class="sec-num">02 /</span>
+          <h2>Aceitação<br>dos Termos</h2>
+        </div>
+        <div class="sec-body">
+          <p>O acesso e utilização deste website implica a aceitação plena e sem reservas dos presentes Termos de Utilização. Caso não concorde com alguma das condições aqui estabelecidas, deverá abster-se de utilizar o site.</p>
+        </div>
       </section>
 
-      <section>
-        <h2>Utilização do Site</h2>
-        <p>O utilizador compromete-se a utilizar este website de forma lícita, ética e em conformidade com a legislação aplicável. É expressamente proibido:</p>
-        <ul>
-          <li>Utilizar o site para fins ilegais, fraudulentos ou lesivos de direitos de terceiros;</li>
-          <li>Tentar aceder a sistemas, servidores ou bases de dados sem autorização;</li>
-          <li>Introduzir vírus, malware ou qualquer código malicioso;</li>
-          <li>Reproduzir, distribuir ou utilizar comercialmente o conteúdo do site sem autorização prévia e escrita do Titular;</li>
-          <li>Enviar comunicações não solicitadas (spam) através dos formulários de contacto.</li>
-        </ul>
+      <section id="utilizacao" class="reveal">
+        <div class="sec-left">
+          <span class="sec-num">03 /</span>
+          <h2>Utilização<br>do Site</h2>
+        </div>
+        <div class="sec-body">
+          <p>O utilizador compromete-se a utilizar este website de forma lícita, ética e em conformidade com a legislação aplicável. É expressamente proibido:</p>
+          <div class="forbidden-grid">
+            <div class="forbidden-item">Utilizar o site para fins ilegais, fraudulentos ou lesivos de direitos de terceiros</div>
+            <div class="forbidden-item">Tentar aceder a sistemas, servidores ou bases de dados sem autorização</div>
+            <div class="forbidden-item">Introduzir vírus, malware ou qualquer código malicioso</div>
+            <div class="forbidden-item">Reproduzir, distribuir ou utilizar comercialmente o conteúdo sem autorização prévia e escrita</div>
+            <div class="forbidden-item">Enviar comunicações não solicitadas (spam) através dos formulários de contacto</div>
+          </div>
+        </div>
       </section>
 
-      <section>
-        <h2>Propriedade Intelectual</h2>
-        <p>Todo o conteúdo publicado neste website — incluindo textos, imagens, logótipos, gráficos, código e design — é propriedade do Titular ou utilizado com as devidas autorizações, e encontra-se protegido por direitos de autor e demais legislação de propriedade intelectual.</p>
-        <p>É permitida a consulta e partilha de conteúdos para fins pessoais e não comerciais, desde que seja indicada a fonte. Qualquer outra utilização requer autorização prévia por escrito.</p>
+      <section id="propriedade" class="reveal">
+        <div class="sec-left">
+          <span class="sec-num">04 /</span>
+          <h2>Propriedade<br>Intelectual</h2>
+        </div>
+        <div class="sec-body">
+          <p>Todo o conteúdo publicado neste website — incluindo textos, imagens, logótipos, gráficos, código e design — é propriedade do Titular ou utilizado com as devidas autorizações, e encontra-se protegido por direitos de autor e demais legislação de propriedade intelectual.</p>
+          <div class="highlight-box">
+            <strong>Nota:</strong> É permitida a consulta e partilha para fins pessoais e não comerciais, desde que seja indicada a fonte. Qualquer outra utilização requer autorização prévia por escrito.
+          </div>
+        </div>
       </section>
 
-      <section>
-        <h2>Disponibilidade do Serviço</h2>
-        <p>O Titular empenha-se em assegurar a disponibilidade contínua do website, mas não garante que o mesmo esteja permanentemente acessível, nomeadamente por razões de manutenção, falhas técnicas ou circunstâncias fora do seu controlo.</p>
-        <p>O Titular reserva-se o direito de alterar, suspender ou encerrar o website, a qualquer momento e sem aviso prévio.</p>
+      <section id="disponibilidade" class="reveal">
+        <div class="sec-left">
+          <span class="sec-num">05 /</span>
+          <h2>Disponibilidade<br>do Serviço</h2>
+        </div>
+        <div class="sec-body">
+          <p>O Titular empenha-se em assegurar a disponibilidade contínua do website, mas não garante que o mesmo esteja permanentemente acessível, nomeadamente por razões de manutenção, falhas técnicas ou circunstâncias fora do seu controlo.</p>
+          <p>O Titular reserva-se o direito de alterar, suspender ou encerrar o website, a qualquer momento e sem aviso prévio.</p>
+        </div>
       </section>
 
-      <section>
-        <h2>Limitação de Responsabilidade</h2>
-        <p>O Titular não se responsabiliza por:</p>
-        <ul>
-          <li>Danos diretos ou indiretos resultantes do acesso ou utilização do website;</li>
-          <li>Erros, omissões ou imprecisões no conteúdo publicado;</li>
-          <li>Conteúdos de websites de terceiros para os quais este site possa conter ligações;</li>
-          <li>Interrupções, falhas técnicas ou indisponibilidade do serviço.</li>
-        </ul>
-        <p>As ligações para sites externos são disponibilizadas a título informativo. O Titular não controla nem é responsável pelo conteúdo, política de privacidade ou práticas desses sites.</p>
+      <section id="responsabilidade" class="reveal">
+        <div class="sec-left">
+          <span class="sec-num">06 /</span>
+          <h2>Limitação de<br>Responsabilidade</h2>
+        </div>
+        <div class="sec-body">
+          <p>O Titular não se responsabiliza por:</p>
+          <ul>
+            <li>Danos diretos ou indiretos resultantes do acesso ou utilização do website;</li>
+            <li>Erros, omissões ou imprecisões no conteúdo publicado;</li>
+            <li>Conteúdos de websites de terceiros para os quais este site possa conter ligações;</li>
+            <li>Interrupções, falhas técnicas ou indisponibilidade do serviço.</li>
+          </ul>
+          <p>As ligações para sites externos são disponibilizadas a título informativo. O Titular não controla nem é responsável pelo conteúdo, política de privacidade ou práticas desses sites.</p>
+        </div>
       </section>
 
-      <section>
-        <h2>Privacidade e Proteção de Dados</h2>
-        <p>O tratamento de dados pessoais recolhidos através deste website é regulado pela <a href="privacidade.html">Política de Privacidade</a>, que faz parte integrante dos presentes Termos de Utilização e com a qual o utilizador declara concordar ao utilizar o site.</p>
+      <section id="privacidade" class="reveal">
+        <div class="sec-left">
+          <span class="sec-num">07 /</span>
+          <h2>Privacidade e<br>Proteção de Dados</h2>
+        </div>
+        <div class="sec-body">
+          <p>O tratamento de dados pessoais recolhidos através deste website é regulado pela <a href="privacidade.html">Política de Privacidade</a>, que faz parte integrante dos presentes Termos de Utilização e com a qual o utilizador declara concordar ao utilizar o site.</p>
+        </div>
       </section>
 
-      <section>
-        <h2>Alterações aos Termos</h2>
-        <p>O Titular reserva-se o direito de alterar os presentes Termos de Utilização a qualquer momento. As alterações produzem efeitos a partir da data da sua publicação nesta página. Recomendamos a consulta periódica deste documento.</p>
+      <section id="alteracoes" class="reveal">
+        <div class="sec-left">
+          <span class="sec-num">08 /</span>
+          <h2>Alterações<br>aos Termos</h2>
+        </div>
+        <div class="sec-body">
+          <p>O Titular reserva-se o direito de alterar os presentes Termos de Utilização a qualquer momento. As alterações produzem efeitos a partir da data da sua publicação nesta página. Recomendamos a consulta periódica deste documento.</p>
+        </div>
       </section>
 
-      <section>
-        <h2>Lei Aplicável e Foro Competente</h2>
-        <p>Os presentes Termos de Utilização são regidos pela legislação portuguesa. Em caso de litígio, é competente o tribunal da comarca da residência do Titular, sem prejuízo do direito do consumidor de recorrer a meios alternativos de resolução de conflitos.</p>
-        <p>Para resolução alternativa de litígios, o utilizador pode recorrer à plataforma europeia de resolução de litígios em linha, disponível em <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">ec.europa.eu/consumers/odr</a>.</p>
+      <section id="lei" class="reveal">
+        <div class="sec-left">
+          <span class="sec-num">09 /</span>
+          <h2>Lei Aplicável<br>e Foro</h2>
+        </div>
+        <div class="sec-body">
+          <p>Os presentes Termos de Utilização são regidos pela legislação portuguesa. Em caso de litígio, é competente o tribunal da comarca da residência do Titular, sem prejuízo do direito do consumidor de recorrer a meios alternativos de resolução de conflitos.</p>
+          <p>Para resolução alternativa de litígios, o utilizador pode recorrer à plataforma europeia disponível em <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">ec.europa.eu/consumers/odr</a>.</p>
+        </div>
       </section>
 
-      <section>
-        <h2>Contacto</h2>
-        <p>Para qualquer questão relacionada com os presentes Termos de Utilização, pode contactar-nos através de:</p>
-        <ul>
-          <li>Email: <a href="mailto:informaticapauloricardo@gmail.com">informaticapauloricardo@gmail.com</a></li>
-        </ul>
+      <section id="contacto" class="reveal">
+        <div class="sec-left">
+          <span class="sec-num">10 /</span>
+          <h2>Contacto</h2>
+        </div>
+        <div class="sec-body">
+          <p>Para qualquer questão relacionada com os presentes Termos de Utilização:</p>
+          <div class="highlight-box">
+            <strong>Email:</strong> <a href="mailto:informaticapauloricardo@gmail.com">informaticapauloricardo@gmail.com</a>
+          </div>
+        </div>
       </section>
 
     </div>
-  </main>
+  </div>
+</main>
 
-  <footer>
-    <div class="wrap">
-      <p>© <span id="ano"></span> Paulo Ricardo · <a href="privacidade.html">Política de Privacidade</a> · <a href="termos.html">Termos de Utilização</a></p>
+<footer>
+  <div class="footer-inner">
+    <p class="f-copy">© <span id="ano"></span> Paulo Ricardo · PS Tech</p>
+    <div class="f-links">
+      <a href="privacidade.html">Privacidade</a>
+      <a href="termos.html" class="active">Termos</a>
+      <a href="index.html">Site</a>
     </div>
-  </footer>
+  </div>
+</footer>
 
-  <script>document.getElementById('ano').textContent = new Date().getFullYear();</script>
+<script>
+  document.getElementById('ano').textContent = new Date().getFullYear();
 
+  // Cursor
+  var cur = document.getElementById('cursor');
+  var ring = document.getElementById('cursor-ring');
+  var mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', function(e){
+    mx = e.clientX; my = e.clientY;
+    cur.style.left = mx + 'px';
+    cur.style.top  = my + 'px';
+  });
+  (function animRing(){
+    rx += (mx - rx) * .12;
+    ry += (my - ry) * .12;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(animRing);
+  })();
+  document.querySelectorAll('a,button').forEach(function(el){
+    el.addEventListener('mouseenter', function(){
+      cur.style.width = '18px'; cur.style.height = '18px';
+      ring.style.width = '50px'; ring.style.height = '50px';
+      ring.style.borderColor = 'rgba(0,255,136,.8)';
+    });
+    el.addEventListener('mouseleave', function(){
+      cur.style.width = '10px'; cur.style.height = '10px';
+      ring.style.width = '36px'; ring.style.height = '36px';
+      ring.style.borderColor = 'rgba(0,255,136,.5)';
+    });
+  });
+
+  // Scroll progress
+  var prog = document.getElementById('progress');
+  window.addEventListener('scroll', function(){
+    var h = document.documentElement;
+    var pct = h.scrollTop / (h.scrollHeight - h.clientHeight);
+    prog.style.transform = 'scaleX(' + pct + ')';
+  }, {passive:true});
+
+  // Reveal
+  var revs = document.querySelectorAll('.reveal');
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('vis');
+        obs.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.06, rootMargin:'0px 0px -40px 0px'});
+  revs.forEach(function(el, i){
+    el.style.transitionDelay = (i < 4 ? i * .08 : 0) + 's';
+    obs.observe(el);
+  });
+</script>
 </body>
 </html>
