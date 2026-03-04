@@ -1892,16 +1892,17 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0 1.5rem}
 /* main icon */
 #va-icon-chat{pointer-events:none;position:relative;z-index:1;flex-shrink:0}
 
-/* Notification badge */
+/* Notification badge — outside button, on wrapper div */
 #va-notif{
-  position:absolute;top:-2px;right:-2px;
-  width:18px;height:18px;border-radius:50%;
+  position:absolute;top:-3px;right:-3px;z-index:10;
+  width:20px;height:20px;border-radius:50%;
   background:var(--accent3);border:2.5px solid var(--bg);
-  font-family:var(--mono);font-size:.52rem;color:#fff;
+  font-family:var(--mono);font-size:.55rem;color:#fff;
   display:flex;align-items:center;justify-content:center;font-weight:700;
   animation:vaPulse 2s ease-in-out infinite;
+  pointer-events:none;
 }
-#va-notif.hidden{display:none}
+#va-notif.hidden{display:none!important}
 
 /* ── CHAT PANEL ── */
 #va-panel{
@@ -2137,24 +2138,27 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0 1.5rem}
 
   </div>
 
-  <!-- Float Button -->
-  <button id="va-float" aria-label="Abrir assistente virtual" aria-expanded="false">
+  <!-- Float Button — notif OUTSIDE svg, no pointer-events blocking -->
+  <div style="position:relative;flex-shrink:0">
+    <button id="va-float" aria-label="Abrir assistente virtual" aria-expanded="false">
+      <!-- 3D box icon (default) -->
+      <svg id="va-icon-chat" width="32" height="32" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="url(#dfGrad)">
+        <defs>
+          <linearGradient id="dfGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#00ff88"/>
+            <stop offset="100%" stop-color="#00c8ff"/>
+          </linearGradient>
+        </defs>
+        <path d="M11.996 0a1.639 1.639 0 0 0-.82.22L3.344 4.74a1.648 1.648 0 0 0-.535.498l9.136 5.28 9.213-5.32a1.652 1.652 0 0 0-.51-.458L12.818.22a1.639 1.639 0 0 0-.822-.22zm9.336 5.5-9.387 5.422-9.3-5.373a1.648 1.648 0 0 0-.12.615v9.043a1.643 1.643 0 0 0 .819 1.42l3.918 2.266v4.617a.493.493 0 0 0 .74.424l12.654-7.303a1.639 1.639 0 0 0 .819-1.42V6.162a1.652 1.652 0 0 0-.143-.662z"/>
+      </svg>
+      <!-- Close overlay (shown when open) -->
+      <div id="va-icon-close">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </div>
+    </button>
+    <!-- Notification badge OUTSIDE the button, sibling element -->
     <div id="va-notif" aria-label="1 nova mensagem">1</div>
-    <!-- Original 3D box icon -->
-    <svg id="va-icon-chat" width="32" height="32" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="url(#dfGrad)" style="pointer-events:none;position:relative;z-index:1">
-      <defs>
-        <linearGradient id="dfGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#00ff88"/>
-          <stop offset="100%" stop-color="#00c8ff"/>
-        </linearGradient>
-      </defs>
-      <path d="M11.996 0a1.639 1.639 0 0 0-.82.22L3.344 4.74a1.648 1.648 0 0 0-.535.498l9.136 5.28 9.213-5.32a1.652 1.652 0 0 0-.51-.458L12.818.22a1.639 1.639 0 0 0-.822-.22zm9.336 5.5-9.387 5.422-9.3-5.373a1.648 1.648 0 0 0-.12.615v9.043a1.643 1.643 0 0 0 .819 1.42l3.918 2.266v4.617a.493.493 0 0 0 .74.424l12.654-7.303a1.639 1.639 0 0 0 .819-1.42V6.162a1.652 1.652 0 0 0-.143-.662z"/>
-    </svg>
-    <!-- Close overlay -->
-    <div id="va-icon-close">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </div>
-  </button>
+  </div>
 
 </div>
 
@@ -2189,7 +2193,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0 1.5rem}
       // Show typing
       var typing = document.createElement('div');
       typing.className='va-typing';
-      typing.innerHTML='<div class="va-msg-avatar"><img src="profile.jpeg" alt="PS" onerror="this.style.display='none'"></div><div class="va-typing-bubble"><span></span><span></span><span></span></div>';
+      typing.innerHTML='<div class="va-msg-avatar"><img src="profile.jpeg" alt="PS"></div><div class="va-typing-bubble"><span></span><span></span><span></span></div>';
       msgsEl.appendChild(typing);
       msgsEl.scrollTop = msgsEl.scrollHeight;
 
@@ -2197,7 +2201,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0 1.5rem}
         typing.remove();
         var msg = document.createElement('div');
         msg.className='va-msg';
-        msg.innerHTML='<div class="va-msg-avatar"><img src="profile.jpeg" alt="PS" onerror="this.style.display='none'"></div><div><div class="va-msg-bubble">'+text+'</div><div class="va-msg-time">'+now()+'</div></div>';
+        msg.innerHTML='<div class="va-msg-avatar"><img src="profile.jpeg" alt="PS"></div><div><div class="va-msg-bubble">'+text+'</div><div class="va-msg-time">'+now()+'</div></div>';
         msgsEl.appendChild(msg);
         msgsEl.scrollTop = msgsEl.scrollHeight;
       }, 1200);
