@@ -452,7 +452,8 @@ nav.scrolled{background:rgba(5,5,8,.96);border-color:var(--border);backdrop-filt
 }
 .srv2-highlight{animation:srvHighlight 2s ease-out forwards!important;transform:translateY(-4px)!important}
 
-/* ====================== SERVICES V2 ====================== */display:grid;grid-template-columns:1fr;gap:1.25rem;margin-top:3rem}
+/* ====================== SERVICES V2 ====================== */
+.srv2-grid{display:grid;grid-template-columns:1fr;gap:1.25rem;margin-top:3rem}
 @media(min-width:640px){.srv2-grid{grid-template-columns:1fr 1fr}}
 @media(min-width:1024px){.srv2-grid{grid-template-columns:1fr 1fr 1fr 1fr}}
 
@@ -687,29 +688,72 @@ nav.scrolled{background:rgba(5,5,8,.96);border-color:var(--border);backdrop-filt
 .tip-arrow{width:26px;height:26px;background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.15);border-radius:2px;display:grid;place-items:center;color:var(--accent);font-size:.85rem;transition:background .2s,transform .2s}
 .tip-card:hover .tip-arrow{background:var(--accent);color:var(--bg);transform:translate(2px,-2px)}
 
-/* ====================== MODAL ====================== */
-#tip-modal{display:none;position:fixed;inset:0;z-index:8000;background:rgba(5,5,8,.96);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);overflow-y:auto;padding:1rem;-webkit-overflow-scrolling:touch}
-.modal-inner{max-width:700px;margin:3.5rem auto 2rem;background:var(--bg2);border:1px solid var(--border2);border-radius:8px;overflow:hidden}
-.modal-bar{background:var(--bg3);padding:.7rem 1rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+/* ====================== MODAL IMERSIVO ====================== */
+@keyframes modalLineIn{from{width:0}to{width:100%}}
+@keyframes modalFadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes scanBeam{0%{top:0;opacity:1}85%{opacity:.7}100%{top:100%;opacity:0}}
+@keyframes gridPulseMd{0%,100%{opacity:.04}50%{opacity:.09}}
+@keyframes dataStream{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+@keyframes modalReveal{0%{opacity:0;transform:scale(.97) translateY(10px)}100%{opacity:1;transform:none}}
+
+#tip-modal{
+  display:none;position:fixed;inset:0;z-index:8000;
+  background:rgba(3,3,6,.98);overflow:hidden;
+  flex-direction:column;
+}
+#tip-modal.immersive-open{display:flex}
+#tip-modal::before{
+  content:'';position:absolute;inset:0;z-index:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.07) 2px,rgba(0,0,0,.07) 4px);
+  pointer-events:none;
+}
+.modal-bg-grid{
+  position:absolute;inset:0;
+  background-image:linear-gradient(rgba(0,255,136,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,136,.05) 1px,transparent 1px);
+  background-size:50px 50px;animation:gridPulseMd 4s ease-in-out infinite;pointer-events:none;
+}
+.modal-bg-orb1{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(0,255,136,.055) 0%,transparent 65%);top:-250px;left:-200px;pointer-events:none;}
+.modal-bg-orb2{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(0,200,255,.04) 0%,transparent 65%);bottom:-150px;right:-100px;pointer-events:none;}
+.modal-scan-beam{position:absolute;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent 0%,rgba(0,255,136,.25) 50%,transparent 100%);animation:scanBeam 3.5s linear infinite;pointer-events:none;z-index:1;}
+.modal-data-stream{position:absolute;left:0;top:0;width:48px;height:200%;display:flex;flex-direction:column;gap:1.4rem;padding:1rem .5rem;animation:dataStream 8s linear infinite;pointer-events:none;z-index:1;opacity:.1;}
+.modal-data-stream span{font-family:var(--mono);font-size:.52rem;color:var(--accent);writing-mode:vertical-rl;letter-spacing:.15em;white-space:nowrap;}
+.modal-topbar{position:relative;z-index:10;background:rgba(5,5,8,.98);border-bottom:1px solid rgba(0,255,136,.12);padding:.65rem 1.25rem;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.modal-topbar-left{display:flex;align-items:center;gap:.75rem}
 .modal-dots{display:flex;gap:.4rem}
 .modal-dots span{width:10px;height:10px;border-radius:50%;display:block}
 .d-r{background:#ff5f56}.d-y{background:#ffbd2e}.d-g{background:#27c93f}
-.modal-close{font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.06em;transition:color .2s}
-.modal-close:hover{color:var(--accent3)}
-.modal-content{padding:2rem 1.5rem 2.5rem}
-@media(min-width:600px){.modal-content{padding:2.5rem 2.5rem 3rem}}
-.m-cat{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.85rem}
+.modal-topbar-path{font-family:var(--mono);font-size:.65rem;color:var(--muted);letter-spacing:.08em;display:flex;align-items:center;gap:.4rem;}
+.modal-topbar-path span{color:var(--accent)}
+.modal-close{font-family:var(--mono);font-size:.65rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;padding:.35rem .75rem;border:1px solid var(--border2);border-radius:2px;transition:all .2s;background:none;cursor:pointer;}
+.modal-close:hover{color:var(--accent3);border-color:var(--accent3);background:rgba(255,62,108,.07)}
+.modal-entry-line{height:2px;background:transparent;position:relative;z-index:10;flex-shrink:0;overflow:hidden;}
+.modal-entry-line::after{content:'';position:absolute;left:0;top:0;height:100%;width:0;background:linear-gradient(90deg,transparent,var(--accent),var(--accent2),transparent);box-shadow:0 0 12px var(--accent);}
+#tip-modal.immersive-open .modal-entry-line::after{animation:modalLineIn .55s cubic-bezier(.4,0,.2,1) .05s both;}
+.modal-scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;position:relative;z-index:5;scrollbar-width:thin;scrollbar-color:rgba(0,255,136,.2) transparent;}
+.modal-scroll::-webkit-scrollbar{width:3px}
+.modal-scroll::-webkit-scrollbar-thumb{background:rgba(0,255,136,.2)}
+.modal-inner{max-width:780px;margin:2.5rem auto 3rem;padding:0 1.25rem;animation:modalReveal .45s cubic-bezier(.34,1.2,.64,1) .15s both;}
+@media(min-width:700px){.modal-inner{padding:0 2rem}}
+.modal-article-head{padding:2rem 2rem 1.75rem;background:linear-gradient(135deg,rgba(0,255,136,.04) 0%,rgba(0,200,255,.02) 100%);border:1px solid rgba(0,255,136,.12);border-radius:8px 8px 0 0;position:relative;overflow:hidden;}
+.modal-article-head::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,255,136,.3),transparent);}
+.modal-article-body{padding:2rem;background:rgba(12,12,18,.85);border:1px solid rgba(0,255,136,.08);border-top:none;border-radius:0 0 8px 8px;}
+.m-cat{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.85rem;display:flex;align-items:center;gap:.4rem;}
+.m-cat::before{content:'> ';opacity:.4}
 .m-cat.tc-os{color:var(--accent)}.m-cat.tc-code{color:var(--accent2)}.m-cat.tc-design{color:var(--purple)}.m-cat.tc-net{color:#ff9f43}
-.m-title{font-family:var(--sans);font-size:clamp(1.4rem,3vw,2rem);font-weight:800;letter-spacing:-.02em;line-height:1.15;margin-bottom:1.5rem}
-.m-body p{color:var(--muted);font-size:.9rem;line-height:1.85;margin-bottom:.9rem}
-.m-body h4{font-family:var(--sans);font-size:.95rem;font-weight:700;color:var(--text);margin:1.4rem 0 .5rem}
+.m-title{font-family:var(--sans);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;letter-spacing:-.025em;line-height:1.15;margin-bottom:.75rem}
+.m-meta{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-top:.5rem}
+.m-meta-item{font-family:var(--mono);font-size:.62rem;color:var(--muted);letter-spacing:.08em;display:flex;align-items:center;gap:.35rem}
+.m-body p{color:var(--muted);font-size:.92rem;line-height:1.9;margin-bottom:.9rem}
+.m-body h4{font-family:var(--sans);font-size:.95rem;font-weight:700;color:var(--text);margin:1.6rem 0 .6rem;display:flex;align-items:center;gap:.5rem}
+.m-body h4::before{content:'//';color:var(--accent);font-family:var(--mono);font-size:.8rem;opacity:.55}
 .m-body ul{list-style:none;margin:.4rem 0 .9rem}
-.m-body ul li{color:var(--muted);font-size:.87rem;padding:.35rem 0 .35rem 1.3rem;border-bottom:1px solid var(--border);position:relative}
-.m-body ul li::before{content:'▸';color:var(--accent);position:absolute;left:0}
+.m-body ul li{color:var(--muted);font-size:.88rem;padding:.4rem 0 .4rem 1.4rem;border-bottom:1px solid rgba(255,255,255,.04);position:relative}
+.m-body ul li:last-child{border-bottom:none}
+.m-body ul li::before{content:'▸';color:var(--accent);position:absolute;left:0;opacity:.7}
 .m-body ul li strong{color:var(--text)}
-.code-b{background:var(--bg3);border:1px solid var(--border2);border-left:3px solid var(--accent);border-radius:4px;padding:.9rem 1.1rem;font-family:var(--mono);font-size:.76rem;color:var(--accent2);line-height:2;margin:.7rem 0 1rem;overflow-x:auto}
+.code-b{background:rgba(5,5,8,.9);border:1px solid var(--border2);border-left:3px solid var(--accent);border-radius:4px;padding:1rem 1.2rem;font-family:var(--mono);font-size:.76rem;color:var(--accent2);line-height:2.1;margin:.7rem 0 1rem;overflow-x:auto;position:relative;}
 .code-b .c{color:var(--accent)}.code-b .m{color:var(--muted)}
-.m-cta{margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.m-cta{margin-top:2rem;padding:1.25rem 1.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;background:rgba(0,255,136,.02);border:1px solid rgba(0,255,136,.1);border-radius:4px;}
 .m-cta p{color:var(--muted);font-size:.82rem;margin:0}
 
 /* ====================== PORTFOLIO ====================== */
@@ -801,6 +845,200 @@ nav.scrolled{background:rgba(5,5,8,.96);border-color:var(--border);backdrop-filt
 .tech-icon{width:1.6rem;height:1.6rem;margin-bottom:.6rem;color:var(--accent);opacity:.85}.tech-icon svg{width:100%;height:100%}
 .tech-name{font-family:var(--mono);font-size:.68rem;color:var(--text)}
 .tech-cat{font-family:var(--mono);font-size:.58rem;color:var(--muted);margin-top:.15rem}
+
+/* ============= IMMERSIVE PAGE BACKGROUNDS ============= */
+@keyframes bgOrb1{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,-30px) scale(1.08)}66%{transform:translate(-20px,50px) scale(.95)}}
+@keyframes bgOrb2{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-50px,20px) scale(1.1)}66%{transform:translate(30px,-40px) scale(.92)}}
+@keyframes bgOrb3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(20px,30px) scale(1.06)}}
+@keyframes gridSway{0%,100%{background-position:0 0}50%{background-position:20px 20px}}
+@keyframes scanH{0%{top:-2px}100%{top:100%}}
+@keyframes scanV{0%{left:-2px}100%{left:100%}}
+@keyframes dataFloat{0%{transform:translateY(0)}100%{transform:translateY(-100%)}}
+@keyframes pulseRing{0%,100%{box-shadow:0 0 0 0 rgba(0,255,136,.3)}50%{box-shadow:0 0 0 18px rgba(0,255,136,0)}}
+@keyframes titleReveal{from{opacity:0;transform:translateY(30px) skewY(2deg)}to{opacity:1;transform:none}}
+@keyframes lineGrow{from{width:0}to{width:100%}}
+@keyframes cardFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes srv2Glow{0%,100%{box-shadow:0 0 0 1px var(--border)}50%{box-shadow:0 0 20px rgba(0,200,255,.08),0 0 0 1px rgba(0,200,255,.2)}}
+
+/* Page immersive wrappers */
+.page-immersive{position:relative;overflow:hidden}
+.pg-bg{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.pg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,255,136,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,136,.025) 1px,transparent 1px);background-size:48px 48px;animation:gridSway 12s ease-in-out infinite}
+.pg-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.12}
+.pg-orb-1{width:500px;height:500px;background:radial-gradient(circle,#00ff88,transparent 70%);top:-150px;right:-100px;animation:bgOrb1 14s ease-in-out infinite}
+.pg-orb-2{width:400px;height:400px;background:radial-gradient(circle,#00c8ff,transparent 70%);bottom:-100px;left:-80px;animation:bgOrb2 18s ease-in-out infinite}
+.pg-orb-3{width:300px;height:300px;background:radial-gradient(circle,#a855f7,transparent 70%);top:40%;left:40%;animation:bgOrb3 10s ease-in-out infinite;opacity:.07}
+.pg-scan-h{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,255,136,.2),transparent);animation:scanH 6s linear infinite;pointer-events:none}
+.pg-scan-v{position:absolute;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,rgba(0,200,255,.15),transparent);animation:scanV 9s linear infinite 3s;pointer-events:none}
+.pg-scanlines{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.04) 2px,rgba(0,0,0,.04) 4px);pointer-events:none}
+.pg-corner{position:absolute;width:60px;height:60px;opacity:.25;pointer-events:none}
+.pg-corner-tl{top:1.5rem;left:1.5rem;border-top:2px solid var(--accent);border-left:2px solid var(--accent)}
+.pg-corner-tr{top:1.5rem;right:1.5rem;border-top:2px solid var(--accent);border-right:2px solid var(--accent)}
+.pg-corner-bl{bottom:1.5rem;left:1.5rem;border-bottom:2px solid var(--accent);border-left:2px solid var(--accent)}
+.pg-corner-br{bottom:1.5rem;right:1.5rem;border-bottom:2px solid var(--accent);border-right:2px solid var(--accent)}
+.pg-content{position:relative;z-index:1}
+
+/* ── Immersive Section Headers ── */
+.imm-head{margin-bottom:3.5rem;position:relative}
+.imm-head .tag{display:inline-block;font-family:var(--mono);font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;padding:.28rem .8rem;border:1px solid rgba(0,255,136,.25);background:rgba(0,255,136,.04);color:var(--accent);border-radius:2px;margin-bottom:.9rem}
+.imm-head h2{font-family:var(--sans);font-size:clamp(2rem,4.5vw,3.2rem);font-weight:900;letter-spacing:-.03em;line-height:1.05;margin-bottom:.5rem}
+.imm-head h2 span{color:var(--accent)}
+.imm-head p{color:var(--muted);font-size:.95rem;max-width:500px}
+.imm-title-line{height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2),transparent);width:0;animation:lineGrow 1s cubic-bezier(.22,1,.36,1) .3s forwards;margin-bottom:1.5rem}
+
+/* ── Immersive Serviços ── */
+#page-servicos .srv2-card{
+  position:relative;overflow:hidden;
+  transition:transform .3s cubic-bezier(.22,1,.36,1),border-color .3s,box-shadow .3s;
+  background:linear-gradient(145deg,var(--bg2),var(--bg));
+}
+#page-servicos .srv2-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,transparent 0%,rgba(0,200,255,.03) 100%);
+  opacity:0;transition:opacity .3s;pointer-events:none
+}
+#page-servicos .srv2-card:hover::before{opacity:1}
+#page-servicos .srv2-card:hover{
+  transform:translateY(-6px) scale(1.01);
+  animation:srv2Glow 2s ease-in-out infinite
+}
+.srv2-card .srv2-num{
+  font-family:var(--mono);font-size:.62rem;color:var(--muted);letter-spacing:.15em;
+  position:relative
+}
+.srv2-card .srv2-num::after{
+  content:'';display:block;width:0;height:1px;
+  background:var(--accent);margin-top:2px;
+  transition:width .4s
+}
+.srv2-card:hover .srv2-num::after{width:100%}
+.srv2-card .srv2-icon-wrap{
+  position:relative;
+  transition:transform .3s,filter .3s
+}
+.srv2-card:hover .srv2-icon-wrap{
+  transform:scale(1.15) rotate(-3deg);
+  filter:drop-shadow(0 0 8px var(--ic,var(--accent)))
+}
+
+/* ── Immersive Portfolio Cards ── */
+.port-card{
+  transition:transform .4s cubic-bezier(.22,1,.36,1),box-shadow .4s;
+  position:relative;
+}
+.port-card::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 60%,rgba(0,255,136,.03) 100%);
+  pointer-events:none;opacity:0;transition:opacity .3s
+}
+.port-card:hover::after{opacity:1}
+.port-card:hover{
+  transform:translateY(-8px) scale(1.015);
+  box-shadow:0 24px 48px rgba(0,0,0,.5),0 0 0 1px rgba(0,255,136,.15),0 0 30px rgba(0,255,136,.06)
+}
+.port-prev{position:relative;overflow:hidden}
+.port-prev-bg img{transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.port-card:hover .port-prev-bg img{transform:scale(1.06)}
+
+/* Port card cinematic glow line */
+.port-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--card-accent,var(--accent)),transparent);
+  opacity:0;transform:scaleX(0);transition:opacity .3s,transform .5s
+}
+.port-card:hover::before{opacity:1;transform:scaleX(1)}
+
+/* ── Immersive Sobre ── */
+.sobre-immersive{position:relative}
+.sobre-portrait{
+  position:relative;border-radius:4px;overflow:hidden;
+  border:1px solid var(--border2);
+}
+.sobre-portrait-glow{
+  position:absolute;inset:-1px;
+  background:linear-gradient(135deg,rgba(0,255,136,.15),transparent 50%,rgba(0,200,255,.1));
+  pointer-events:none;border-radius:4px;opacity:0;
+  transition:opacity .4s
+}
+.sobre-portrait:hover .sobre-portrait-glow{opacity:1}
+.sobre-stat-bar{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;
+  margin:2.5rem 0;padding:1.5rem;
+  background:linear-gradient(135deg,var(--bg2),rgba(0,255,136,.02));
+  border:1px solid rgba(0,255,136,.1);border-radius:6px;
+  position:relative;overflow:hidden
+}
+.sobre-stat-bar::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2),transparent)
+}
+.ssb-item{text-align:center}
+.ssb-num{
+  font-family:var(--mono);font-size:1.6rem;font-weight:700;color:var(--accent);
+  display:block;line-height:1;
+  text-shadow:0 0 20px rgba(0,255,136,.3)
+}
+.ssb-label{font-family:var(--mono);font-size:.6rem;color:var(--muted);margin-top:.3rem;letter-spacing:.05em}
+
+/* Skill pill hover effect */
+.skill{cursor:default;position:relative;overflow:hidden}
+.skill::after{content:'';position:absolute;inset:0;background:rgba(0,255,136,.04);transform:translateX(-101%);transition:transform .25s}
+.skill:hover::after{transform:translateX(0)}
+
+/* Port intro banner */
+.port-intro{
+  background:linear-gradient(90deg,rgba(0,255,136,.04),rgba(0,200,255,.03));
+  border-left:3px solid var(--accent);border-radius:0 4px 4px 0;
+  padding:.9rem 1.2rem;font-family:var(--mono);font-size:.78rem;
+  color:var(--muted);margin-bottom:2.5rem;position:relative;overflow:hidden
+}
+.port-intro strong{color:var(--accent)}
+.port-intro::after{
+  content:'';position:absolute;right:1rem;top:50%;transform:translateY(-50%);
+  width:6px;height:6px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 8px var(--accent);animation:blink 2s ease-in-out infinite
+}
+
+/* Immersive tech items */
+.page-immersive .tech-item{
+  background:linear-gradient(145deg,var(--bg2),rgba(0,255,136,.02));
+  transition:border-color .3s,transform .3s,box-shadow .3s
+}
+.page-immersive .tech-item:hover{
+  border-color:var(--accent);
+  transform:translateY(-4px) scale(1.04);
+  box-shadow:0 8px 24px rgba(0,255,136,.08),0 0 0 1px rgba(0,255,136,.1)
+}
+.page-immersive .tech-item:hover .tech-name{color:var(--accent)}
+
+/* Immersive section closing line */
+.page-immersive .section::after{
+  content:'';display:block;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(0,255,136,.1),transparent);
+  margin-top:4rem
+}
+
+/* Port-grid immersive */
+.page-immersive .port-grid{
+  position:relative
+}
+.page-immersive .port-grid::before{
+  content:'// projects';
+  position:absolute;top:-1.5rem;right:0;
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;
+  color:rgba(0,255,136,.25);pointer-events:none
+}
+
+/* Srv2-grid lines */
+.page-immersive .srv2-grid{
+  position:relative
+}
+.page-immersive .srv2-grid::before{
+  content:'// services';
+  position:absolute;top:-1.5rem;right:0;
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;
+  color:rgba(0,255,136,.25);pointer-events:none
+}
 
 /* ====================== CONTACT ====================== */
 .contact-layout{display:grid;gap:2.5rem;align-items:start}
@@ -1287,11 +1525,26 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0 1.5rem}
 </div>
 
 <!-- ══════════════════ PAGE: SERVIÇOS ══════════════════ -->
-<div class="page" id="page-servicos">
-  <section class="section" style="padding-top:7rem">
+<div class="page page-immersive" id="page-servicos">
+  <!-- Immersive Background -->
+  <div class="pg-bg" aria-hidden="true">
+    <div class="pg-grid"></div>
+    <div class="pg-orb pg-orb-1"></div>
+    <div class="pg-orb pg-orb-2"></div>
+    <div class="pg-orb pg-orb-3"></div>
+    <div class="pg-scan-h"></div>
+    <div class="pg-scan-v"></div>
+    <div class="pg-scanlines"></div>
+    <div class="pg-corner pg-corner-tl"></div>
+    <div class="pg-corner pg-corner-tr"></div>
+    <div class="pg-corner pg-corner-bl"></div>
+    <div class="pg-corner pg-corner-br"></div>
+  </div>
+  <section class="section pg-content" style="padding-top:7rem">
     <div class="wrap">
-      <div class="sec-head fu">
+      <div class="imm-head fu">
         <span class="tag">Serviços Profissionais</span>
+        <div class="imm-title-line"></div>
         <h2>Tecnologia e Design<br/><span>ao serviço do seu negócio</span></h2>
         <p>Soluções completas pensadas para resolver problemas reais, entregar resultados concretos e fazer o seu negócio crescer.</p>
       </div>
@@ -1513,20 +1766,57 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0 1.5rem}
 
 <!-- MODAL -->
 <div id="tip-modal" role="dialog" aria-modal="true">
-  <div class="modal-inner">
-    <div class="modal-bar">
+  <!-- Ambient background layers -->
+  <div class="modal-bg-grid"></div>
+  <div class="modal-bg-orb1"></div>
+  <div class="modal-bg-orb2"></div>
+  <div class="modal-scan-beam"></div>
+  <div class="modal-data-stream" aria-hidden="true">
+    <span>SYS_LOAD</span><span>01001010</span><span>KERNEL</span><span>0xDEAD</span>
+    <span>ROOT</span><span>11001100</span><span>NET_IO</span><span>PROC</span>
+    <span>SYS_LOAD</span><span>01001010</span><span>KERNEL</span><span>0xDEAD</span>
+    <span>ROOT</span><span>11001100</span><span>NET_IO</span><span>PROC</span>
+  </div>
+  <!-- Top bar -->
+  <div class="modal-topbar">
+    <div class="modal-topbar-left">
       <div class="modal-dots"><span class="d-r"></span><span class="d-y"></span><span class="d-g"></span></div>
-      <button class="modal-close" onclick="closeTip()">[ ESC ] FECHAR</button>
+      <div class="modal-topbar-path">ps_tech <span>/</span> dicas <span>/</span> <span id="modal-path-title">artigo</span></div>
     </div>
-    <div class="modal-content" id="modal-body"></div>
+    <button class="modal-close" onclick="closeTip()">[ ESC ] FECHAR</button>
+  </div>
+  <div class="modal-entry-line"></div>
+  <!-- Scrollable content -->
+  <div class="modal-scroll">
+    <div class="modal-inner">
+      <div id="modal-body"></div>
+    </div>
   </div>
 </div>
 
 <!-- ══════════════════ PAGE: PORTFÓLIO ══════════════════ -->
-<div class="page" id="page-portfolio">
-  <section class="section" style="padding-top:7rem">
+<div class="page page-immersive" id="page-portfolio">
+  <!-- Immersive Background -->
+  <div class="pg-bg" aria-hidden="true">
+    <div class="pg-grid"></div>
+    <div class="pg-orb" style="width:450px;height:450px;background:radial-gradient(circle,#00ff88,transparent 70%);top:-120px;left:-80px;animation:bgOrb2 16s ease-in-out infinite;opacity:.1"></div>
+    <div class="pg-orb" style="width:350px;height:350px;background:radial-gradient(circle,#a855f7,transparent 70%);bottom:-80px;right:-60px;animation:bgOrb1 12s ease-in-out infinite;opacity:.09"></div>
+    <div class="pg-orb pg-orb-3"></div>
+    <div class="pg-scan-h" style="animation-duration:8s"></div>
+    <div class="pg-scanlines"></div>
+    <div class="pg-corner pg-corner-tl"></div>
+    <div class="pg-corner pg-corner-tr"></div>
+    <div class="pg-corner pg-corner-bl"></div>
+    <div class="pg-corner pg-corner-br"></div>
+  </div>
+  <section class="section pg-content" style="padding-top:7rem">
     <div class="wrap">
-      <div class="sec-head fu"><span class="tag">Portfólio</span><h2>Trabalhos <span>realizados</span></h2><p>Projetos desenvolvidos com dedicação para clientes reais.</p></div>
+      <div class="imm-head fu">
+        <span class="tag">Portfólio</span>
+        <div class="imm-title-line"></div>
+        <h2>Trabalhos <span>realizados</span></h2>
+        <p>Projetos desenvolvidos com dedicação para clientes reais.</p>
+      </div>
 
       <div class="port-intro fu">
         <strong>// dev mode ativo:</strong> Esta secção cresce com o tempo. Para adicionar o teu projeto com link, demo e pré-visualização — envia por WhatsApp e trato de tudo.
@@ -1652,8 +1942,22 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0 1.5rem}
 </div>
 
 <!-- ══════════════════ PAGE: SOBRE ══════════════════ -->
-<div class="page" id="page-sobre">
-  <section class="section" style="padding-top:7rem">
+<div class="page page-immersive" id="page-sobre">
+  <!-- Immersive Background -->
+  <div class="pg-bg" aria-hidden="true">
+    <div class="pg-grid"></div>
+    <div class="pg-orb" style="width:500px;height:500px;background:radial-gradient(circle,#a855f7,transparent 70%);top:-100px;right:-120px;animation:bgOrb1 15s ease-in-out infinite;opacity:.08"></div>
+    <div class="pg-orb" style="width:400px;height:400px;background:radial-gradient(circle,#00ff88,transparent 70%);bottom:-100px;left:-100px;animation:bgOrb2 20s ease-in-out infinite;opacity:.09"></div>
+    <div class="pg-orb pg-orb-3"></div>
+    <div class="pg-scan-h" style="animation-duration:10s;animation-delay:2s"></div>
+    <div class="pg-scan-v" style="animation-duration:7s"></div>
+    <div class="pg-scanlines"></div>
+    <div class="pg-corner pg-corner-tl"></div>
+    <div class="pg-corner pg-corner-tr"></div>
+    <div class="pg-corner pg-corner-bl"></div>
+    <div class="pg-corner pg-corner-br"></div>
+  </div>
+  <section class="section pg-content" style="padding-top:7rem">
     <div class="wrap">
       <div class="sobre-layout">
         <!-- Terminal -->
@@ -1712,11 +2016,11 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0 1.5rem}
             </div>
           </div>
 
-          <div class="stats">
-            <div class="stat-box"><span class="stat-num">+5</span><small>Anos experiência</small></div>
-            <div class="stat-box"><span class="stat-num">20</span><small>Anos de idade</small></div>
-            <div class="stat-box"><span class="stat-num">+50</span><small>Clientes satisfeitos</small></div>
-            <div class="stat-box"><span class="stat-num">8</span><small>Áreas de serviço</small></div>
+          <div class="sobre-stat-bar fu" style="transition-delay:.2s">
+            <div class="ssb-item"><span class="ssb-num">+5</span><div class="ssb-label">Anos<br/>experiência</div></div>
+            <div class="ssb-item"><span class="ssb-num">20</span><div class="ssb-label">Anos<br/>de idade</div></div>
+            <div class="ssb-item"><span class="ssb-num">+50</span><div class="ssb-label">Clientes<br/>satisfeitos</div></div>
+            <div class="ssb-item"><span class="ssb-num">8</span><div class="ssb-label">Áreas de<br/>serviço</div></div>
           </div>
         </div>
       </div>
@@ -2321,7 +2625,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0 1.5rem}
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         Falar no WhatsApp
       </a>
-      <a class="va-btn-mail" href="/cdn-cgi/l/email-protection#cfa6a1a9a0bda2aebba6acaebfaebaa3a0bda6acaebdaba08fa8a2aea6a3e1aca0a2">
+      <a class="va-btn-mail" href="mailto:informaticapauloricardo@gmail.com">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg>
         Enviar Email
       </a>
@@ -2637,10 +2941,15 @@ var fuObs = new IntersectionObserver(function(entries){
       fuObs.unobserve(e.target);
     }
   });
-}, {threshold:0.08});
+}, {threshold:0, rootMargin:'0px 0px -40px 0px'});
 
 // observe initial page
 document.querySelectorAll('#page-home .fu').forEach(function(el){ fuObs.observe(el); });
+
+// fallback: força visibilidade após 2s caso o observer falhe
+setTimeout(function(){
+  document.querySelectorAll('.fu:not(.vis)').forEach(function(el){ el.classList.add('vis'); });
+}, 2000);
 
 // ── TYPED TEXT ──
 var phrases = ['Full Stack Developer','Consultor IT','Design Gráfico','Gestão de Redes','Sistemas Operativos'];
@@ -2984,22 +3293,38 @@ document.getElementById('tips-filters').addEventListener('click', function(e){
 // ── OPEN / CLOSE MODAL ──
 function openTip(idx){
   var t = tips[idx];
+  var pathEl = document.getElementById('modal-path-title');
+  if(pathEl) pathEl.textContent = t.title.length > 30 ? t.title.slice(0,28)+'…' : t.title;
+
   document.getElementById('modal-body').innerHTML =
-    '<div class="m-cat '+t.cl+'">'+t.label+'</div>'
+    '<div class="modal-article-head">'
+    +'<div class="m-cat '+t.cl+'">'+t.label+'</div>'
     +'<h2 class="m-title">'+t.title+'</h2>'
+    +'<div class="m-meta">'
+    +'<span class="m-meta-item"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>'+t.read+' de leitura</span>'
+    +'</div>'
+    +'</div>'
+    +'<div class="modal-article-body">'
     +'<div class="m-body">'+t.body+'</div>'
     +'<div class="m-cta"><p>Precisa de ajuda personalizada?</p>'
-    +'<a href="https://wa.me/351967263260?text=Olá%20Paulo%2C%20vi%20o%20artigo%20sobre%20'+encodeURIComponent(t.title)+'%20e%20gostaria%20de%20saber%20mais!" class="btn-wa" target="_blank" rel="noopener" style="font-size:.75rem;padding:.65rem 1.3rem;">Falar com o Paulo →</a></div>';
+    +'<a href="https://wa.me/351967263260?text=Olá%20Paulo%2C%20vi%20o%20artigo%20sobre%20'+encodeURIComponent(t.title)+'%20e%20gostaria%20de%20saber%20mais!" class="btn-wa" target="_blank" rel="noopener" style="font-size:.75rem;padding:.65rem 1.3rem;">Falar com o Paulo →</a>'
+    +'</div>'
+    +'</div>';
+
   var modal = document.getElementById('tip-modal');
-  modal.style.display = 'block';
-  modal.scrollTop = 0;
+  modal.classList.add('immersive-open');
+  var scroll = modal.querySelector('.modal-scroll');
+  if(scroll) scroll.scrollTop = 0;
   document.body.style.overflow = 'hidden';
 }
 function closeTip(){
-  document.getElementById('tip-modal').style.display = 'none';
+  document.getElementById('tip-modal').classList.remove('immersive-open');
   document.body.style.overflow = '';
 }
-document.getElementById('tip-modal').addEventListener('click', function(e){ if(e.target===this) closeTip(); });
+document.getElementById('tip-modal').addEventListener('click', function(e){
+  // Only close if clicking directly on the dark overlay (not inner content)
+  if(e.target === this) closeTip();
+});
 document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeTip(); closeElearn(); } });
 
 // WA Balloon: show after 4s, hide on scroll
