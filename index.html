@@ -359,10 +359,10 @@ body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradie
 nav{position:fixed;top:0;left:0;right:0;z-index:500;border-bottom:1px solid transparent;transition:background .3s,border-color .3s;padding-top:env(safe-area-inset-top,0)}
 nav.scrolled{background:rgba(5,5,8,.96);border-color:var(--border);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.85rem 0}
-.nav-logo{font-family:var(--mono);font-size:.95rem;font-weight:700;display:flex;align-items:center;gap:.3rem;white-space:nowrap;flex-shrink:0}
+.nav-logo{font-family:var(--mono);font-size:1.35rem;font-weight:700;display:flex;align-items:center;gap:.3rem;white-space:nowrap;flex-shrink:0}
 .nav-cursor{display:inline-block;width:9px;height:1em;background:var(--accent);animation:blink 1s step-end infinite;vertical-align:middle}
 
-.nav-links{display:none;list-style:none}
+.nav-links{display:none;list-style:none;margin-left:auto}
 .nav-links a{font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.08em;transition:color .2s,text-shadow .2s;padding:.3rem 0;display:block;border-radius:2px}
 .nav-links a:hover,.nav-links a.active{color:var(--accent);text-shadow:0 0 10px rgba(0,255,136,.7)}
 .nav-cta{border:1px solid var(--accent)!important;color:var(--accent)!important;padding:.4rem 1rem!important;border-radius:2px;animation:glow 3s ease-in-out infinite;transition:background .2s,color .2s!important}
