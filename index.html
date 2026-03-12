@@ -1318,30 +1318,9 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0 1.5rem}
 .lang-opt.active{color:var(--accent);background:rgba(224,64,251,.04)}
 .lang-opt .flag{font-size:.9rem}
 
-/* ── Custom Cursor ── */
-@media(pointer:fine){
-  *{cursor:none!important}
-}
-#ps-cursor-dot{
-  position:fixed;top:0;left:0;pointer-events:none;z-index:2147483647;
-  width:10px;height:10px;border-radius:50%;
-  background:#e040fb;
-  box-shadow:0 0 8px 2px #e040fb,0 0 18px 4px rgba(224,64,251,.5);
-  will-change:left,top;
-  transform:translate(-50%,-50%);
-  transition:opacity .3s,width .15s,height .15s,box-shadow .15s;
-}
-#ps-cursor-dot.clicking{
-  width:14px;height:14px;
-  background:#fff;
-  box-shadow:0 0 14px 4px #fff,0 0 30px 8px rgba(255,255,255,.4);
-}
-#ps-cursor-dot.hovering{
-  width:14px;height:14px;
-  box-shadow:0 0 12px 4px #e040fb,0 0 28px 8px rgba(224,64,251,.6);
-}
+/* ── Custom Cursor (disabled) ── */
+#ps-cursor-dot{display:none}
 #ps-cursor-ring{display:none}
-body.cursor-hidden #ps-cursor-dot{opacity:0}
 
 /* ── Portfolio Lightbox Gallery ── */
 #port-lb{
@@ -1428,7 +1407,7 @@ body.cursor-hidden #ps-cursor-dot{opacity:0}
 <body>
 
 <!-- Custom Cursor -->
-<div id="ps-cursor-dot"></div>
+<div id="ps-cursor-dot"><svg id="ps-cur-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 2 L4 18 L8.5 14 L11.5 20.5 L13.5 19.5 L10.5 13 L16 13 Z" fill="#ffffff" stroke="#e040fb" stroke-width="1" stroke-linejoin="round"/></svg><svg id="ps-cur-hand" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display:none"><path d="M8.5 1C8.5 0.45 8.95 0 9.5 0s1 .45 1 1v7.5C10.8 8 11.3 7.75 11.9 7.75c.9 0 1.6.6 1.85 1.4C14.1 8.6 14.7 8.17 15.4 8.17c.85 0 1.55.55 1.8 1.3C17.55 8.95 18.15 8.5 18.85 8.5c1.15 0 1.9.95 1.9 1.9V15c0 3.9-3.1 7-7 7h-2C9.3 22 7 20.7 5.7 18.6L2.4 13.2C1.95 12.5 2.15 11.55 2.85 11.1c.7-.46 1.65-.26 2.15.45L7 14V1c0-.55.45-1 1-1s.5.45.5 1Z" fill="#ffffff" stroke="#e040fb" stroke-width="0.8" stroke-linejoin="round"/></svg></div>
 <div id="ps-cursor-ring"></div>
 
 <!-- Portfolio Lightbox -->
@@ -1560,7 +1539,7 @@ body.cursor-hidden #ps-cursor-dot{opacity:0}
           <div class="nav-dropdown">
             <div class="nav-dd-inner">
               <div class="nav-dd-label">// Contacto</div>
-              <a href="mailto:informaticapauloricardo@gmail.com">
+              <a href="/cdn-cgi/l/email-protection#f59c9b939a879894819c9694859480999a879c969487919ab59298949c99db969a98">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
                 <span>Email</span>
               </a>
@@ -2265,9 +2244,9 @@ body.cursor-hidden #ps-cursor-dot{opacity:0}
               <div class="c-link-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
               <div><div class="c-link-label">WhatsApp</div><div class="c-link-value">+351 967 263 260</div></div>
             </a>
-            <a href="mailto:informaticapauloricardo@gmail.com" class="c-link">
+            <a href="/cdn-cgi/l/email-protection#a3cacdc5ccd1cec2d7cac0c2d3c2d6cfccd1cac0c2d1c7cce3c4cec2cacf8dc0ccce" class="c-link">
               <div class="c-link-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg></div>
-              <div><div class="c-link-label">Email</div><div class="c-link-value">informaticapauloricardo@gmail.com</div></div>
+              <div><div class="c-link-label">Email</div><div class="c-link-value"><span class="__cf_email__" data-cfemail="70191e161f021d11041913110011051c1f0219131102141f30171d11191c5e131f1d">[email&#160;protected]</span></div></div>
             </a>
           </div>
           <div class="online-badge"><span class="s-dot"></span>Resposta em <strong>&nbsp;menos de 24h</strong></div>
@@ -2519,7 +2498,7 @@ body.cursor-hidden #ps-cursor-dot{opacity:0}
           <a href="https://wa.me/351967263260?text=Olá%20Paulo%2C%20gostaria%20de%20saber%20mais!" target="_blank" rel="noopener" class="f-social-btn wa" aria-label="WhatsApp">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
           </a>
-          <a href="mailto:informaticapauloricardo@gmail.com" class="f-social-btn gm" aria-label="Email">
+          <a href="/cdn-cgi/l/email-protection#0b62656d6479666a7f62686a7b6a7e67647962686a796f644b6c666a626725686466" class="f-social-btn gm" aria-label="Email">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
           </a>
         </div>
@@ -2822,7 +2801,7 @@ body.cursor-hidden #ps-cursor-dot{opacity:0}
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         Falar no WhatsApp
       </a>
-      <a class="va-btn-mail" href="mailto:informaticapauloricardo@gmail.com">
+      <a class="va-btn-mail" href="/cdn-cgi/l/email-protection#dcb5b2bab3aeb1bda8b5bfbdacbda9b0b3aeb5bfbdaeb8b39cbbb1bdb5b0f2bfb3b1">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg>
         Enviar Email
       </a>
@@ -2854,7 +2833,7 @@ body.cursor-hidden #ps-cursor-dot{opacity:0}
 
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function(){
   var panel   = document.getElementById('va-panel');
   var floatBtn= document.getElementById('va-float');
@@ -3701,110 +3680,7 @@ async function submitElearn(e){
   });
 })();
 
-// ── END ──
-
-// ── Custom Cursor + Particle Trail ──
-(function(){
-  if(window.matchMedia('(pointer:coarse)').matches) return;
-
-  var dot = document.getElementById('ps-cursor-dot');
-  if(!dot) return;
-  dot.style.opacity='0';
-
-  var mx=0, my=0, started=false;
-  var particles=[];
-  var colors=['#e040fb','#00d4ff','#ff6ec7','#c060ff','#e040fb'];
-
-  // Particle pool
-  function Particle(x,y){
-    this.el=document.createElement('div');
-    this.el.style.cssText='position:fixed;pointer-events:none;border-radius:50%;z-index:2147483646;will-change:left,top,opacity,width,height;';
-    document.body.appendChild(this.el);
-    this.reset(x,y);
-  }
-  Particle.prototype.reset=function(x,y){
-    var s=3+Math.random()*7;
-    var c=colors[Math.floor(Math.random()*colors.length)];
-    this.x=x+(Math.random()-0.5)*12;
-    this.y=y+(Math.random()-0.5)*12;
-    this.vx=(Math.random()-0.5)*1.2;
-    this.vy=(Math.random()-0.5)*1.2;
-    this.life=1;
-    this.decay=0.025+Math.random()*0.03;
-    this.size=s;
-    this.el.style.width=s+'px';
-    this.el.style.height=s+'px';
-    this.el.style.background=c;
-    this.el.style.boxShadow='0 0 '+(s+2)+'px 1px '+c;
-    this.el.style.left=this.x+'px';
-    this.el.style.top=this.y+'px';
-    this.el.style.opacity='1';
-    this.el.style.transform='translate(-50%,-50%)';
-    this.active=true;
-  };
-  Particle.prototype.update=function(){
-    if(!this.active) return;
-    this.life-=this.decay;
-    this.x+=this.vx;
-    this.y+=this.vy;
-    this.vy+=0.04; // gravity
-    if(this.life<=0){
-      this.active=false;
-      this.el.style.opacity='0';
-      return;
-    }
-    this.el.style.left=this.x+'px';
-    this.el.style.top=this.y+'px';
-    this.el.style.opacity=this.life;
-    var s=this.size*this.life;
-    this.el.style.width=s+'px';
-    this.el.style.height=s+'px';
-  };
-
-  // Pre-create pool
-  var POOL=40;
-  for(var i=0;i<POOL;i++) particles.push(new Particle(-100,-100));
-  particles.forEach(function(p){p.active=false;p.el.style.opacity='0';});
-
-  var spawnTimer=0;
-  function getParticle(){
-    for(var i=0;i<particles.length;i++){
-      if(!particles[i].active) return particles[i];
-    }
-    return null;
-  }
-
-  document.addEventListener('mousemove',function(e){
-    mx=e.clientX; my=e.clientY;
-    dot.style.left=mx+'px';
-    dot.style.top=my+'px';
-    if(!started){
-      started=true;
-      dot.style.opacity='1';
-    }
-    spawnTimer++;
-    if(spawnTimer%2===0){
-      var p=getParticle();
-      if(p) p.reset(mx,my);
-    }
-  });
-
-  function loop(){
-    for(var i=0;i<particles.length;i++) particles[i].update();
-    requestAnimationFrame(loop);
-  }
-  requestAnimationFrame(loop);
-
-  var hoverSel='a,button,[role=button],.port-card,.tip-card,.skill,select,label,[onclick]';
-  document.querySelectorAll(hoverSel).forEach(function(el){
-    el.addEventListener('mouseenter',function(){dot.classList.add('hovering')});
-    el.addEventListener('mouseleave',function(){dot.classList.remove('hovering')});
-  });
-  document.addEventListener('mousedown',function(){dot.classList.add('clicking')});
-  document.addEventListener('mouseup',function(){dot.classList.remove('clicking')});
-  document.addEventListener('mouseleave',function(){dot.style.opacity='0'});
-  document.addEventListener('mouseenter',function(){if(started)dot.style.opacity='1'});
-})();
+// ── Custom Cursor (disabled) ──
 
 </script>
 
@@ -4688,18 +4564,3 @@ function applyTranslations(lang){
 
   var popFooter = document.querySelector('.cg-timer');
   if(popFooter){
-    var dot = popFooter.querySelector('.cg-timer-dot');
-    popFooter.innerHTML = '';
-    if(dot) popFooter.appendChild(dot);
-    var span = document.createElement('span');
-    span.textContent = T.popup_footer;
-    popFooter.appendChild(span);
-  }
-}
-
-// Init on load
-document.addEventListener('DOMContentLoaded', function(){
-  if(currentLang !== 'pt') setLang(currentLang);
-  else {
-    // Still set flag/code button correctly
-    document.g
