@@ -18,4 +18,4 @@ Site desenvolvido para apresentar conteúdos e projetos do VascoOxzy.
 https://vascooxzy.github.io
 
 ## Autor
-VascoOxzy
+Paulo Silva
