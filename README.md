@@ -5,7 +5,7 @@ Este repositório contém o código do website:
 🌐 https://vascooxzy.github.io
 
 ## Sobre
-Site desenvolvido para apresentar conteúdos e projetos do VascoOxzy.
+Site desenvolvido para apresentar conteúdos e projetos do Paulo.
 
 ## Tecnologias usadas
 - HTML
