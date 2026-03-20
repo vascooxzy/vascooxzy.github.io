@@ -1,1 +1,774 @@
+<!DOCTYPE html>
+<html lang="pt" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0a0f0a" />
+  <meta name="description" content="Silva Horas: Tech-Check — Controlo de ponto pessoal por Paulo Silva Tech" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Silva Horas" />
 
+  <title>Silva Horas: Tech-Check</title>
+
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="icon" type="image/png" href="icons/icon-192.png" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --green: #00ff88;
+      --green-dim: #00cc6a;
+      --green-dark: #003322;
+      --green-glow: rgba(0, 255, 136, 0.15);
+      --bg: #070d0a;
+      --bg2: #0d1610;
+      --bg3: #111a14;
+      --border: rgba(0, 255, 136, 0.18);
+      --text: #c8fae0;
+      --text-dim: #5a8a70;
+      --mono: 'Share Tech Mono', monospace;
+      --sans: 'Rajdhani', sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    /* Scanline overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 136, 0.013) 2px,
+        rgba(0, 255, 136, 0.013) 4px
+      );
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* Grid bg */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image:
+        linear-gradient(rgba(0,255,136,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,136,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .app-wrapper { position: relative; z-index: 1; }
+
+    /* Header */
+    .header {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+
+    .logo-area { display: flex; align-items: center; gap: 0.75rem; }
+
+    .clock-icon {
+      width: 38px; height: 38px;
+      border: 2px solid var(--green);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--green);
+      box-shadow: 0 0 12px var(--green-glow);
+      animation: pulse-border 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulse-border {
+      0%, 100% { box-shadow: 0 0 10px var(--green-glow); }
+      50% { box-shadow: 0 0 20px rgba(0,255,136,0.35); }
+    }
+
+    .brand-text { line-height: 1.1; }
+    .brand-main { font-family: var(--mono); color: var(--green); font-size: 1rem; letter-spacing: 0.05em; }
+    .brand-sub { font-family: var(--sans); font-size: 0.7rem; color: var(--text-dim); letter-spacing: 0.12em; text-transform: uppercase; }
+
+    .live-clock { font-family: var(--mono); color: var(--green); font-size: 1.1rem; letter-spacing: 0.08em; }
+
+    /* Status bar */
+    .status-bar {
+      background: var(--green-dark);
+      border-bottom: 1px solid var(--border);
+      padding: 0.3rem 1.25rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--green-dim);
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      overflow-x: auto;
+    }
+
+    .status-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: blink 1.5s step-end infinite; display: inline-block; margin-right: 0.4rem; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* Month selector */
+    .month-selector {
+      display: flex;
+      gap: 0.4rem;
+      padding: 1rem 1.25rem 0.5rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .month-selector::-webkit-scrollbar { display: none; }
+
+    .month-btn {
+      flex-shrink: 0;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      padding: 0.3rem 0.75rem;
+      border: 1px solid var(--border);
+      background: var(--bg2);
+      color: var(--text-dim);
+      cursor: pointer;
+      transition: all 0.15s;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .month-btn:hover { border-color: var(--green); color: var(--green); background: var(--green-glow); }
+
+    .month-btn.active {
+      background: var(--green);
+      color: var(--bg);
+      border-color: var(--green);
+      font-weight: 700;
+      box-shadow: 0 0 12px var(--green-glow);
+    }
+
+    /* Cards summary */
+    .summary-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      padding: 0.75rem 1.25rem;
+    }
+
+    .summary-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 0.75rem;
+      text-align: center;
+    }
+
+    .summary-card .label {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.3rem;
+    }
+
+    .summary-card .value {
+      font-family: var(--mono);
+      font-size: 1.3rem;
+      color: var(--green);
+      line-height: 1;
+    }
+
+    .summary-card.highlight { border-color: var(--green); background: var(--green-dark); box-shadow: 0 0 16px var(--green-glow); }
+    .summary-card.highlight .value { font-size: 1.6rem; }
+
+    /* Table area */
+    .table-container { padding: 0 1.25rem 1.25rem; overflow-x: auto; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      min-width: 680px;
+    }
+
+    thead th {
+      background: var(--bg3);
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.6rem 0.5rem;
+      border-bottom: 2px solid var(--border);
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid rgba(0,255,136,0.06);
+      transition: background 0.1s;
+    }
+
+    tbody tr:hover { background: var(--green-glow); }
+    tbody tr.today-row { background: rgba(0,255,136,0.08); }
+
+    tbody td {
+      padding: 0.4rem 0.5rem;
+      vertical-align: middle;
+    }
+
+    .date-cell { color: var(--text-dim); white-space: nowrap; font-size: 0.68rem; }
+    .date-day { color: var(--green); font-size: 0.85rem; }
+
+    input[type="time"] {
+      background: var(--bg3);
+      border: 1px solid rgba(0,255,136,0.2);
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      padding: 0.3rem 0.4rem;
+      width: 80px;
+      outline: none;
+      transition: border 0.15s;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }
+
+    input[type="time"]:focus { border-color: var(--green); box-shadow: 0 0 8px var(--green-glow); }
+    input[type="time"]::-webkit-calendar-picker-indicator { filter: invert(1) sepia(1) saturate(5) hue-rotate(100deg); cursor: pointer; }
+
+    .total-cell { color: var(--green); font-size: 0.85rem; font-weight: 700; }
+    .total-cell.overtime { color: #00ffff; }
+    .total-cell.undertime { color: #ff6b6b; }
+
+    /* Action buttons */
+    .action-bar { display: flex; gap: 0.5rem; padding: 0 1.25rem 1.25rem; flex-wrap: wrap; }
+
+    .btn {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border);
+      background: var(--bg2);
+      color: var(--text);
+      cursor: pointer;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn:hover { border-color: var(--green); color: var(--green); background: var(--green-glow); }
+    .btn.primary { border-color: var(--green); color: var(--green); }
+    .btn.primary:hover { background: var(--green); color: var(--bg); }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: var(--green);
+      color: var(--bg);
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      padding: 0.6rem 1.2rem;
+      z-index: 9998;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s;
+      pointer-events: none;
+      letter-spacing: 0.06em;
+    }
+
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    /* Install prompt */
+    .install-bar {
+      display: none;
+      background: var(--green-dark);
+      border: 1px solid var(--border);
+      margin: 0 1.25rem 0.75rem;
+      padding: 0.75rem 1rem;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .install-bar.visible { display: flex; }
+    .install-bar p { font-family: var(--mono); font-size: 0.72rem; color: var(--text); margin: 0; }
+    .install-bar button { font-family: var(--mono); font-size: 0.7rem; padding: 0.4rem 0.9rem; background: var(--green); color: var(--bg); border: none; cursor: pointer; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    /* Weekend rows */
+    tbody tr.weekend-row td { opacity: 0.4; }
+    tbody tr.weekend-row .date-day { color: var(--text-dim); }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--text-dim);
+      border-top: 1px solid var(--border);
+      margin-top: 1rem;
+    }
+
+    .footer span { color: var(--green); }
+
+    @media (max-width: 640px) {
+      .summary-cards { grid-template-columns: repeat(3, 1fr); gap: 0.4rem; }
+      .summary-card .value { font-size: 1rem; }
+      .summary-card.highlight .value { font-size: 1.2rem; }
+      .summary-card .label { font-size: 0.55rem; }
+      .live-clock { font-size: 0.85rem; }
+      .brand-main { font-size: 0.85rem; }
+    }
+
+    /* Checkbox quick-fill */
+    .quick-btn {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      padding: 0.2rem 0.4rem;
+      background: transparent;
+      border: 1px solid rgba(0,255,136,0.25);
+      color: var(--text-dim);
+      cursor: pointer;
+      transition: all 0.1s;
+    }
+    .quick-btn:hover { border-color: var(--green); color: var(--green); }
+  </style>
+</head>
+<body>
+<div class="app-wrapper">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo-area">
+      <div class="clock-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <div class="brand-main">SILVA HORAS</div>
+        <div class="brand-sub">Paulo Silva Tech · Tech-Check</div>
+      </div>
+    </div>
+    <div class="live-clock" id="liveClock">00:00:00</div>
+  </header>
+
+  <!-- STATUS BAR -->
+  <div class="status-bar">
+    <span>
+      <svg width="7" height="7" viewBox="0 0 8 8" style="display:inline-block;vertical-align:middle;margin-right:5px;animation:blink 1.5s step-end infinite"><circle cx="4" cy="4" r="4" fill="var(--green)"/></svg>
+      ONLINE
+    </span>
+    <span id="statusDate">--</span>
+    <span>v1.0.0</span>
+    <span>AVEIRO, PT</span>
+    <span id="statusMonth">MÊS: --</span>
+  </div>
+
+  <!-- INSTALL PROMPT -->
+  <div class="install-bar" id="installBar">
+    <p>
+      <svg width="7" height="7" viewBox="0 0 8 8" style="display:inline-block;vertical-align:middle;margin-right:6px;animation:blink 1.5s step-end infinite"><circle cx="4" cy="4" r="4" fill="var(--green)"/></svg>
+      Instalar Silva Horas na tela inicial
+    </p>
+    <button onclick="installApp()">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:4px"><path d="M12 4v12m0 0l-4-4m4 4l4-4"/><line x1="4" y1="20" x2="20" y2="20"/></svg>
+      INSTALAR
+    </button>
+  </div>
+
+  <!-- MONTH SELECTOR -->
+  <div class="month-selector" id="monthSelector"></div>
+
+  <!-- SUMMARY CARDS -->
+  <div class="summary-cards">
+    <div class="summary-card">
+      <div class="label">// Dias Reg.</div>
+      <div class="value" id="cardDays">0</div>
+    </div>
+    <div class="summary-card highlight">
+      <div class="label">// Total Mês</div>
+      <div class="value" id="cardTotal">0:00</div>
+    </div>
+    <div class="summary-card">
+      <div class="label">// Média/Dia</div>
+      <div class="value" id="cardAvg">0:00</div>
+    </div>
+  </div>
+
+  <!-- ACTION BUTTONS -->
+  <div class="action-bar">
+    <button class="btn primary" onclick="exportCSV()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12m0 0l-4-4m4 4l4-4"/><line x1="4" y1="20" x2="20" y2="20"/></svg>
+      CSV/Excel
+    </button>
+    <button class="btn" onclick="fillStandard()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      Preencher Dia Padrão
+    </button>
+    <button class="btn" onclick="clearMonth()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      Limpar Mês
+    </button>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-container">
+    <table id="timeTable">
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Entrada</th>
+          <th>Saída Almoço</th>
+          <th>Retorno</th>
+          <th>Saída Final</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <span>Paulo Silva Tech</span> · Silva Horas Tech-Check · Dados guardados localmente no teu browser · <span>Aveiro, PT</span>
+  </footer>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── CONFIG ──────────────────────────────────────────────
+const MONTHS = [
+  { key: '2026-03', label: 'MAR 26' },
+  { key: '2026-04', label: 'ABR 26' },
+  { key: '2026-05', label: 'MAI 26' },
+  { key: '2026-06', label: 'JUN 26' },
+  { key: '2026-07', label: 'JUL 26' },
+  { key: '2026-08', label: 'AGO 26' },
+  { key: '2026-09', label: 'SET 26' },
+  { key: '2026-10', label: 'OUT 26' },
+  { key: '2026-11', label: 'NOV 26' },
+  { key: '2026-12', label: 'DEZ 26' },
+];
+
+const MONTH_NAMES_PT = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const DAY_NAMES_PT = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+const STANDARD = { entrada:'09:00', saidaAlmoco:'13:00', retornoAlmoco:'14:00', saidaFinal:'18:00' };
+const EXPECTED_DAILY = 8 * 60; // 8h em minutos
+
+let currentMonth = null;
+let deferredPrompt = null;
+
+// ─── PWA INSTALL ─────────────────────────────────────────
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('installBar').classList.add('visible');
+});
+
+function installApp() {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then(r => {
+    if (r.outcome === 'accepted') {
+      showToast('App instalada com sucesso!');
+      document.getElementById('installBar').classList.remove('visible');
+    }
+    deferredPrompt = null;
+  });
+}
+
+// ─── CLOCK ───────────────────────────────────────────────
+function updateClock() {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2,'0');
+  const m = String(now.getMinutes()).padStart(2,'0');
+  const s = String(now.getSeconds()).padStart(2,'0');
+  document.getElementById('liveClock').textContent = `${h}:${m}:${s}`;
+
+  const days = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+  const months = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  document.getElementById('statusDate').textContent =
+    `${days[now.getDay()]} ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ─── STORAGE ─────────────────────────────────────────────
+function storageKey(monthKey) { return `silva_horas_${monthKey}`; }
+
+function loadData(monthKey) {
+  try { return JSON.parse(localStorage.getItem(storageKey(monthKey))) || {}; }
+  catch(e) { return {}; }
+}
+
+function saveData(monthKey, data) {
+  localStorage.setItem(storageKey(monthKey), JSON.stringify(data));
+}
+
+// ─── TIME UTILS ──────────────────────────────────────────
+function timeToMinutes(str) {
+  if (!str) return null;
+  const [h, m] = str.split(':').map(Number);
+  return h * 60 + m;
+}
+
+function minutesToHHMM(mins) {
+  if (mins === null || isNaN(mins)) return '--:--';
+  const sign = mins < 0 ? '-' : '';
+  const abs = Math.abs(mins);
+  const h = Math.floor(abs / 60);
+  const m = String(abs % 60).padStart(2,'0');
+  return `${sign}${h}:${m}`;
+}
+
+function calcDaily(row) {
+  const { entrada, saidaAlmoco, retornoAlmoco, saidaFinal } = row;
+  const e = timeToMinutes(entrada);
+  const sa = timeToMinutes(saidaAlmoco);
+  const ra = timeToMinutes(retornoAlmoco);
+  const sf = timeToMinutes(saidaFinal);
+  if (e === null || sf === null) return null;
+  let total = sf - e;
+  if (sa !== null && ra !== null) total -= (ra - sa);
+  return total;
+}
+
+// ─── MONTH SETUP ─────────────────────────────────────────
+function getDaysInMonth(yearMonth) {
+  const [y, m] = yearMonth.split('-').map(Number);
+  const days = [];
+  const count = new Date(y, m, 0).getDate();
+  for (let d = 1; d <= count; d++) {
+    const date = new Date(y, m - 1, d);
+    days.push({ date, dayNum: d, weekday: date.getDay() });
+  }
+  return days;
+}
+
+// ─── RENDER ──────────────────────────────────────────────
+function renderMonthSelector() {
+  const sel = document.getElementById('monthSelector');
+  sel.innerHTML = '';
+  const today = new Date();
+  const todayKey = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}`;
+  let defaultMonth = MONTHS.find(m => m.key === todayKey) ? todayKey : MONTHS[0].key;
+
+  MONTHS.forEach(({ key, label }) => {
+    const btn = document.createElement('button');
+    btn.className = 'month-btn' + (key === defaultMonth ? ' active' : '');
+    btn.textContent = label;
+    btn.onclick = () => selectMonth(key);
+    sel.appendChild(btn);
+  });
+
+  selectMonth(defaultMonth);
+}
+
+function selectMonth(key) {
+  currentMonth = key;
+  document.querySelectorAll('.month-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent === MONTHS.find(m => m.key === key)?.label);
+  });
+  const [y, m] = key.split('-').map(Number);
+  document.getElementById('statusMonth').textContent = `MÊS: ${MONTH_NAMES_PT[m-1].toUpperCase()} ${y}`;
+  renderTable();
+}
+
+function renderTable() {
+  const tbody = document.getElementById('tableBody');
+  tbody.innerHTML = '';
+  const data = loadData(currentMonth);
+  const days = getDaysInMonth(currentMonth);
+  const today = new Date();
+
+  let totalMins = 0;
+  let registeredDays = 0;
+  const fields = ['entrada','saidaAlmoco','retornoAlmoco','saidaFinal'];
+
+  days.forEach(({ date, dayNum, weekday }) => {
+    const isWeekend = weekday === 0 || weekday === 6;
+    const dateStr = `${currentMonth}-${String(dayNum).padStart(2,'0')}`;
+    const isToday = date.toDateString() === today.toDateString();
+    const rowData = data[dateStr] || {};
+    const daily = calcDaily(rowData);
+    if (daily !== null) { totalMins += daily; registeredDays++; }
+
+    const tr = document.createElement('tr');
+    if (isToday) tr.classList.add('today-row');
+    if (isWeekend) tr.classList.add('weekend-row');
+
+    // Date cell
+    const tdDate = document.createElement('td');
+    tdDate.className = 'date-cell';
+    tdDate.innerHTML = `<span class="date-day">${String(dayNum).padStart(2,'0')}</span> ${DAY_NAMES_PT[weekday]}${isToday ? ' <svg width="7" height="7" viewBox="0 0 8 8" style="display:inline-block;vertical-align:middle;margin-left:3px"><circle cx="4" cy="4" r="4" fill="var(--green)"/></svg>' : ''}`;
+    tr.appendChild(tdDate);
+
+    // Time inputs
+    fields.forEach(field => {
+      const td = document.createElement('td');
+      if (isWeekend) {
+        td.innerHTML = '<span style="color:var(--text-dim);font-size:0.65rem">—</span>';
+      } else {
+        const input = document.createElement('input');
+        input.type = 'time';
+        input.value = rowData[field] || '';
+        input.dataset.date = dateStr;
+        input.dataset.field = field;
+        input.addEventListener('change', handleInput);
+        td.appendChild(input);
+      }
+      tr.appendChild(td);
+    });
+
+    // Total cell
+    const tdTotal = document.createElement('td');
+    tdTotal.className = 'total-cell';
+    if (daily !== null) {
+      tdTotal.textContent = minutesToHHMM(daily);
+      if (daily > EXPECTED_DAILY) tdTotal.classList.add('overtime');
+      else if (daily < EXPECTED_DAILY && daily > 0) tdTotal.classList.add('undertime');
+    } else {
+      tdTotal.textContent = '--:--';
+      tdTotal.style.color = 'var(--text-dim)';
+    }
+    tr.appendChild(tdTotal);
+
+    tbody.appendChild(tr);
+  });
+
+  updateSummary(totalMins, registeredDays);
+}
+
+function handleInput(e) {
+  const { date, field } = e.target.dataset;
+  const data = loadData(currentMonth);
+  if (!data[date]) data[date] = {};
+  data[date][field] = e.target.value;
+  saveData(currentMonth, data);
+  renderTable();
+}
+
+function updateSummary(totalMins, days) {
+  document.getElementById('cardTotal').textContent = minutesToHHMM(totalMins);
+  document.getElementById('cardDays').textContent = days;
+  const avg = days > 0 ? Math.round(totalMins / days) : 0;
+  document.getElementById('cardAvg').textContent = minutesToHHMM(avg);
+}
+
+// ─── ACTIONS ─────────────────────────────────────────────
+function fillStandard() {
+  const data = loadData(currentMonth);
+  const days = getDaysInMonth(currentMonth);
+  days.forEach(({ dayNum, weekday }) => {
+    if (weekday === 0 || weekday === 6) return;
+    const dateStr = `${currentMonth}-${String(dayNum).padStart(2,'0')}`;
+    if (!data[dateStr] || !data[dateStr].entrada) {
+      data[dateStr] = { ...STANDARD };
+    }
+  });
+  saveData(currentMonth, data);
+  renderTable();
+  showToast('Dias úteis preenchidos com horário padrão');
+}
+
+function clearMonth() {
+  if (!confirm('Tens a certeza? Todos os dados deste mês serão apagados.')) return;
+  localStorage.removeItem(storageKey(currentMonth));
+  renderTable();
+  showToast('Mês limpo com sucesso');
+}
+
+function exportCSV() {
+  const data = loadData(currentMonth);
+  const days = getDaysInMonth(currentMonth);
+  const [y, m] = currentMonth.split('-').map(Number);
+  const monthName = MONTH_NAMES_PT[m-1];
+
+  const rows = [['Data', 'Dia', 'Entrada', 'Saída Almoço', 'Retorno Almoço', 'Saída Final', 'Total Horas']];
+
+  let totalMins = 0;
+  days.forEach(({ date, dayNum, weekday }) => {
+    const dateStr = `${currentMonth}-${String(dayNum).padStart(2,'0')}`;
+    const row = data[dateStr] || {};
+    const daily = calcDaily(row);
+    if (daily !== null) totalMins += daily;
+    rows.push([
+      dateStr,
+      DAY_NAMES_PT[weekday],
+      row.entrada || '',
+      row.saidaAlmoco || '',
+      row.retornoAlmoco || '',
+      row.saidaFinal || '',
+      daily !== null ? minutesToHHMM(daily) : ''
+    ]);
+  });
+
+  rows.push([]);
+  rows.push(['TOTAL MÊS', '', '', '', '', '', minutesToHHMM(totalMins)]);
+  rows.push(['Exportado por', 'Paulo Silva Tech - Silva Horas Tech-Check', '', '', '', new Date().toLocaleDateString('pt-PT'), '']);
+
+  const csv = rows.map(r => r.map(v => `"${v}"`).join(',')).join('\n');
+  const bom = '\uFEFF'; // UTF-8 BOM for Excel
+  const blob = new Blob([bom + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `silva-horas_${monthName}_${y}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast(`Exportado: silva-horas_${monthName}_${y}.csv`);
+}
+
+// ─── TOAST ───────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:6px"><polyline points="20 6 9 17 4 12"/></svg>${msg}`;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ─── SERVICE WORKER ──────────────────────────────────────
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').then(() => {
+    console.log('[Silva Horas] SW registado.');
+  }).catch(console.error);
+}
+
+// ─── INIT ────────────────────────────────────────────────
+renderMonthSelector();
+</script>
+</body>
+</html>
