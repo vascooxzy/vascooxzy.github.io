@@ -12,8 +12,12 @@
   <title>Silva Horas: Tech-Check</title>
 
   <link rel="manifest" href="manifest.json" />
-  <link rel="apple-touch-icon" href="icons/icon-192.png" />
-  <link rel="icon" type="image/png" href="icons/icon-192.png" />
+
+  <!-- Favicons inline SVG — sem ficheiros externos -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2212%22%20fill%3D%22%23070d0a%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%222%22%20width%3D%2260%22%20height%3D%2260%22%20rx%3D%2211%22%20fill%3D%22none%22%20stroke%3D%22%2300ff88%22%20stroke-width%3D%222%22%20stroke-opacity%3D%220.35%22%2F%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2218%22%20fill%3D%22none%22%20stroke%3D%22%2300ff88%22%20stroke-width%3D%221.5%22%20stroke-opacity%3D%220.2%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2255%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22system-ui%2Cmonospace%22%20font-weight%3D%22800%22%20font-size%3D%2224%22%20fill%3D%22%2300ff88%22%3ESH%3C%2Ftext%3E%3C%2Fsvg%3E" />
+  <link rel="icon" type="image/svg+xml" sizes="32x32" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%226%22%20fill%3D%22%23070d0a%22%2F%3E%3Crect%20x%3D%221.5%22%20y%3D%221.5%22%20width%3D%2229%22%20height%3D%2229%22%20rx%3D%225%22%20fill%3D%22none%22%20stroke%3D%22%2300ff88%22%20stroke-width%3D%221.5%22%20stroke-opacity%3D%220.35%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2255%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22system-ui%2Cmonospace%22%20font-weight%3D%22800%22%20font-size%3D%2213%22%20fill%3D%22%2300ff88%22%3ESH%3C%2Ftext%3E%3C%2Fsvg%3E" />
+  <link rel="icon" type="image/svg+xml" sizes="16x16" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Crect%20width%3D%2216%22%20height%3D%2216%22%20rx%3D%223%22%20fill%3D%22%23070d0a%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2255%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22system-ui%2Cmonospace%22%20font-weight%3D%22800%22%20font-size%3D%227%22%20fill%3D%22%2300ff88%22%3ESH%3C%2Ftext%3E%3C%2Fsvg%3E" />
+  <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20180%20180%22%3E%3Crect%20width%3D%22180%22%20height%3D%22180%22%20rx%3D%2240%22%20fill%3D%22%23070d0a%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%223%22%20width%3D%22174%22%20height%3D%22174%22%20rx%3D%2238%22%20fill%3D%22none%22%20stroke%3D%22%2300ff88%22%20stroke-width%3D%222.5%22%20stroke-opacity%3D%220.3%22%2F%3E%3Ccircle%20cx%3D%2290%22%20cy%3D%2290%22%20r%3D%2260%22%20fill%3D%22none%22%20stroke%3D%22%2300ff88%22%20stroke-width%3D%221.5%22%20stroke-opacity%3D%220.12%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2255%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22system-ui%2Cmonospace%22%20font-weight%3D%22800%22%20font-size%3D%2272%22%20fill%3D%22%2300ff88%22%3ESH%3C%2Ftext%3E%3C%2Fsvg%3E" />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -134,23 +138,57 @@
     .status-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: blink 1.5s step-end infinite; display: inline-block; margin-right: 0.4rem; }
     @keyframes blink { 50% { opacity: 0; } }
 
-    /* Month selector */
+    /* Month + Year selector */
     .month-selector {
+      padding: 0.75rem 1.25rem 0.5rem;
       display: flex;
+      flex-direction: column;
       gap: 0.4rem;
-      padding: 1rem 1.25rem 0.5rem;
+    }
+
+    .year-row {
+      display: flex;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+
+    .year-btn {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      padding: 0.25rem 0.75rem;
+      border: 1px solid var(--border);
+      background: var(--bg2);
+      color: var(--text-dim);
+      cursor: pointer;
+      transition: all 0.15s;
+      letter-spacing: 0.06em;
+    }
+
+    .year-btn:hover { border-color: var(--green); color: var(--green); background: var(--green-glow); }
+
+    .year-btn.active {
+      border-color: var(--green);
+      color: var(--green);
+      background: var(--green-dark);
+      font-weight: 700;
+    }
+
+    .month-row {
+      display: flex;
+      gap: 0.3rem;
       overflow-x: auto;
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
+      padding-bottom: 2px;
     }
 
-    .month-selector::-webkit-scrollbar { display: none; }
+    .month-row::-webkit-scrollbar { display: none; }
 
     .month-btn {
       flex-shrink: 0;
       font-family: var(--mono);
-      font-size: 0.72rem;
-      padding: 0.3rem 0.75rem;
+      font-size: 0.68rem;
+      padding: 0.28rem 0.6rem;
       border: 1px solid var(--border);
       background: var(--bg2);
       color: var(--text-dim);
@@ -167,7 +205,7 @@
       color: var(--bg);
       border-color: var(--green);
       font-weight: 700;
-      box-shadow: 0 0 12px var(--green-glow);
+      box-shadow: 0 0 10px var(--green-glow);
     }
 
     /* Cards summary */
@@ -306,22 +344,6 @@
 
     .toast.show { opacity: 1; transform: translateY(0); }
 
-    /* Install prompt */
-    .install-bar {
-      display: none;
-      background: var(--green-dark);
-      border: 1px solid var(--border);
-      margin: 0 1.25rem 0.75rem;
-      padding: 0.75rem 1rem;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-
-    .install-bar.visible { display: flex; }
-    .install-bar p { font-family: var(--mono); font-size: 0.72rem; color: var(--text); margin: 0; }
-    .install-bar button { font-family: var(--mono); font-size: 0.7rem; padding: 0.4rem 0.9rem; background: var(--green); color: var(--bg); border: none; cursor: pointer; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
-
     /* Weekend rows */
     tbody tr.weekend-row td { opacity: 0.4; }
     tbody tr.weekend-row .date-day { color: var(--text-dim); }
@@ -360,6 +382,134 @@
       transition: all 0.1s;
     }
     .quick-btn:hover { border-color: var(--green); color: var(--green); }
+
+    /* ── PWA INSTALL POPUP ── */
+    #pwa-popup {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 8500;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.25rem 1.5rem;
+      max-width: 300px;
+      width: calc(100vw - 3rem);
+      box-shadow: 0 20px 60px rgba(0,0,0,.85), 0 0 30px var(--green-glow);
+      transform: translateY(130%);
+      opacity: 0;
+      transition: transform .45s cubic-bezier(.22,1,.36,1), opacity .35s ease;
+      pointer-events: none;
+    }
+    #pwa-popup.visible { transform: translateY(0); opacity: 1; pointer-events: auto; }
+
+    .pwa-popup-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      font-family: var(--mono);
+      font-size: .58rem;
+      color: var(--green);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      margin-bottom: .75rem;
+    }
+    .pwa-popup-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 6px var(--green);
+      animation: blink 1.4s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    .pwa-popup-platforms {
+      display: flex;
+      gap: .35rem;
+      margin-bottom: .85rem;
+    }
+    .pwa-plat-pill {
+      font-family: var(--mono);
+      font-size: .55rem;
+      padding: .18rem .5rem;
+      border: 1px solid;
+      letter-spacing: .06em;
+    }
+    .pp-and { border-color: #34a853; color: #34a853; }
+    .pp-ios { border-color: #007aff; color: #007aff; }
+    .pp-pc  { border-color: var(--green); color: var(--green); }
+
+    .pwa-popup-title {
+      font-family: var(--mono);
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: .35rem;
+      line-height: 1.2;
+      letter-spacing: .04em;
+    }
+    .pwa-popup-desc {
+      font-family: var(--sans);
+      font-size: .78rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    .pwa-popup-btns { display: flex; gap: .6rem; align-items: center; }
+    .pwa-popup-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      padding: .55rem 1rem;
+      background: var(--green);
+      color: var(--bg);
+      font-family: var(--mono);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      transition: transform .2s, box-shadow .2s;
+      flex: 1;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+    }
+    .pwa-popup-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 20px var(--green-glow); }
+    .pwa-popup-dismiss {
+      font-family: var(--mono);
+      font-size: .62rem;
+      color: var(--text-dim);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: .4rem;
+      transition: color .2s;
+      flex-shrink: 0;
+      letter-spacing: .04em;
+    }
+    .pwa-popup-dismiss:hover { color: var(--text); }
+    .pwa-popup-close {
+      position: absolute;
+      top: .7rem; right: .8rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-dim);
+      line-height: 1;
+      padding: .25rem;
+      transition: color .2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .pwa-popup-close:hover { color: var(--green); }
+
+    @media (max-width: 480px) {
+      #pwa-popup {
+        bottom: 0; right: 0; left: 0;
+        max-width: 100%;
+        border-radius: 12px 12px 0 0;
+        border-left: none; border-right: none; border-bottom: none;
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -392,18 +542,6 @@
     <span>v1.0.0</span>
     <span>AVEIRO, PT</span>
     <span id="statusMonth">MÊS: --</span>
-  </div>
-
-  <!-- INSTALL PROMPT -->
-  <div class="install-bar" id="installBar">
-    <p>
-      <svg width="7" height="7" viewBox="0 0 8 8" style="display:inline-block;vertical-align:middle;margin-right:6px;animation:blink 1.5s step-end infinite"><circle cx="4" cy="4" r="4" fill="var(--green)"/></svg>
-      Instalar Silva Horas na tela inicial
-    </p>
-    <button onclick="installApp()">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:4px"><path d="M12 4v12m0 0l-4-4m4 4l4-4"/><line x1="4" y1="20" x2="20" y2="20"/></svg>
-      INSTALAR
-    </button>
   </div>
 
   <!-- MONTH SELECTOR -->
@@ -470,45 +608,25 @@
 
 <script>
 // ─── CONFIG ──────────────────────────────────────────────
-const MONTHS = [
-  { key: '2026-03', label: 'MAR 26' },
-  { key: '2026-04', label: 'ABR 26' },
-  { key: '2026-05', label: 'MAI 26' },
-  { key: '2026-06', label: 'JUN 26' },
-  { key: '2026-07', label: 'JUL 26' },
-  { key: '2026-08', label: 'AGO 26' },
-  { key: '2026-09', label: 'SET 26' },
-  { key: '2026-10', label: 'OUT 26' },
-  { key: '2026-11', label: 'NOV 26' },
-  { key: '2026-12', label: 'DEZ 26' },
-];
-
 const MONTH_NAMES_PT = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const MONTH_SHORT_PT = ['JAN','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT','NOV','DEZ'];
 const DAY_NAMES_PT = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
 const STANDARD = { entrada:'09:00', saidaAlmoco:'13:00', retornoAlmoco:'14:00', saidaFinal:'18:00' };
-const EXPECTED_DAILY = 8 * 60; // 8h em minutos
+const EXPECTED_DAILY = 8 * 60;
+const YEARS = [2024, 2025, 2026, 2027, 2028];
 
 let currentMonth = null;
+let currentYear = new Date().getFullYear();
+// Garante que o ano atual está dentro do intervalo
+if (currentYear < YEARS[0]) currentYear = YEARS[0];
+if (currentYear > YEARS[YEARS.length - 1]) currentYear = YEARS[YEARS.length - 1];
 let deferredPrompt = null;
 
 // ─── PWA INSTALL ─────────────────────────────────────────
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault();
   deferredPrompt = e;
-  document.getElementById('installBar').classList.add('visible');
 });
-
-function installApp() {
-  if (!deferredPrompt) return;
-  deferredPrompt.prompt();
-  deferredPrompt.userChoice.then(r => {
-    if (r.outcome === 'accepted') {
-      showToast('App instalada com sucesso!');
-      document.getElementById('installBar').classList.remove('visible');
-    }
-    deferredPrompt = null;
-  });
-}
 
 // ─── CLOCK ───────────────────────────────────────────────
 function updateClock() {
@@ -582,29 +700,65 @@ function getDaysInMonth(yearMonth) {
 function renderMonthSelector() {
   const sel = document.getElementById('monthSelector');
   sel.innerHTML = '';
+
   const today = new Date();
   const todayKey = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}`;
-  let defaultMonth = MONTHS.find(m => m.key === todayKey) ? todayKey : MONTHS[0].key;
 
-  MONTHS.forEach(({ key, label }) => {
+  // Default: mês/ano atual, ou o primeiro disponível
+  if (!currentMonth) {
+    currentMonth = YEARS.includes(today.getFullYear())
+      ? todayKey
+      : `${YEARS[0]}-01`;
+    currentYear = parseInt(currentMonth.split('-')[0]);
+  }
+
+  // ── Linha 1: seletor de ANO ──
+  const yearRow = document.createElement('div');
+  yearRow.className = 'year-row';
+  YEARS.forEach(y => {
     const btn = document.createElement('button');
-    btn.className = 'month-btn' + (key === defaultMonth ? ' active' : '');
-    btn.textContent = label;
-    btn.onclick = () => selectMonth(key);
-    sel.appendChild(btn);
+    btn.className = 'year-btn' + (y === currentYear ? ' active' : '');
+    btn.textContent = y;
+    btn.onclick = () => {
+      currentYear = y;
+      // Mantém o mesmo mês mas muda o ano; se já existe seleciona, senão vai para Jan
+      const curM = currentMonth ? currentMonth.split('-')[1] : '01';
+      currentMonth = `${y}-${curM}`;
+      renderMonthSelector();
+    };
+    yearRow.appendChild(btn);
   });
+  sel.appendChild(yearRow);
 
-  selectMonth(defaultMonth);
+  // ── Linha 2: todos os 12 meses do ano selecionado ──
+  const monthRow = document.createElement('div');
+  monthRow.className = 'month-row';
+  for (let m = 1; m <= 12; m++) {
+    const key = `${currentYear}-${String(m).padStart(2,'0')}`;
+    const btn = document.createElement('button');
+    btn.className = 'month-btn' + (key === currentMonth ? ' active' : '');
+    btn.textContent = MONTH_SHORT_PT[m - 1];
+    btn.onclick = () => selectMonth(key);
+    monthRow.appendChild(btn);
+  }
+  sel.appendChild(monthRow);
+
+  // Atualiza status bar e tabela
+  const [y, m] = currentMonth.split('-').map(Number);
+  document.getElementById('statusMonth').textContent = `MÊS: ${MONTH_NAMES_PT[m-1].toUpperCase()} ${y}`;
+  renderTable();
 }
 
 function selectMonth(key) {
   currentMonth = key;
+  currentYear = parseInt(key.split('-')[0]);
+  // Atualiza classes active sem re-renderizar tudo
   document.querySelectorAll('.month-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.textContent === MONTHS.find(m => m.key === key)?.label);
+    const m = parseInt(btn.closest('.month-row') ? btn.dataset.m || '0' : '0');
+    btn.classList.remove('active');
   });
-  const [y, m] = key.split('-').map(Number);
-  document.getElementById('statusMonth').textContent = `MÊS: ${MONTH_NAMES_PT[m-1].toUpperCase()} ${y}`;
-  renderTable();
+  // Re-render seletor (leve, só HTML do seletor)
+  renderMonthSelector();
 }
 
 function renderTable() {
@@ -770,5 +924,73 @@ if ('serviceWorker' in navigator) {
 // ─── INIT ────────────────────────────────────────────────
 renderMonthSelector();
 </script>
+<!-- PWA INSTALL POPUP -->
+<div id="pwa-popup" role="dialog" aria-label="Instalar Silva Horas como App">
+  <button class="pwa-popup-close" onclick="closePwaPopup()" aria-label="Fechar">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <div class="pwa-popup-tag">
+    <span class="pwa-popup-dot"></span>
+    PWA disponível
+  </div>
+  <div class="pwa-popup-platforms">
+    <span class="pwa-plat-pill pp-and">Android</span>
+    <span class="pwa-plat-pill pp-ios">iOS</span>
+    <span class="pwa-plat-pill pp-pc">PC</span>
+  </div>
+  <div class="pwa-popup-title">Instala como App!</div>
+  <div class="pwa-popup-desc">Silva Horas funciona offline e pode ser instalado na tela inicial — sem App Store.</div>
+  <div class="pwa-popup-btns">
+    <button class="pwa-popup-cta" id="pwaInstallBtn" onclick="installFromPopup()">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Instalar
+    </button>
+    <button class="pwa-popup-dismiss" onclick="closePwaPopup()">Agora não</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var PWA_KEY = 'silva_horas_pwa_popup';
+
+  function closePwaPopup(){
+    var p = document.getElementById('pwa-popup');
+    if(p){ p.classList.remove('visible'); sessionStorage.setItem(PWA_KEY,'1'); }
+  }
+  window.closePwaPopup = closePwaPopup;
+
+  function installFromPopup(){
+    if(deferredPrompt){
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(function(r){
+        if(r.outcome === 'accepted') showToast('App instalada com sucesso!');
+        deferredPrompt = null;
+        closePwaPopup();
+      });
+    } else {
+      // Se não há prompt nativo (iOS/desktop), mostrar instrução
+      showToast('No menu do browser: "Adicionar ao ecrã inicial"');
+      closePwaPopup();
+    }
+  }
+  window.installFromPopup = installFromPopup;
+
+  // Mostrar popup: 12s desktop, 30s mobile — só uma vez por sessão
+  if(!sessionStorage.getItem(PWA_KEY)){
+    var delay = window.innerWidth < 768 ? 30000 : 12000;
+    setTimeout(function(){
+      var p = document.getElementById('pwa-popup');
+      if(p) p.classList.add('visible');
+    }, delay);
+  }
+
+  // Fechar ao clicar fora
+  document.addEventListener('click', function(e){
+    var p = document.getElementById('pwa-popup');
+    if(p && p.classList.contains('visible') && !p.contains(e.target)) closePwaPopup();
+  });
+})();
+</script>
+
 </body>
 </html>
