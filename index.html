@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt">
 <head>
 <meta charset="UTF-8"/>
@@ -374,8 +374,18 @@ html.light body::after{display:none}
 /* ====================== NAVBAR ====================== */
 nav{position:fixed;top:0;left:0;right:0;z-index:500;border-bottom:1px solid transparent;transition:background .3s,border-color .3s;padding-top:env(safe-area-inset-top,0)}
 nav.scrolled{background:var(--bg);border-color:var(--border);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.85rem 0}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.85rem 0}
 .nav-logo{font-family:var(--mono);font-size:1.35rem;font-weight:700;display:flex;align-items:center;gap:.3rem;white-space:nowrap;flex-shrink:0}
+
+/* Right side of navbar — groups controls + hamburger */
+.nav-right{display:flex;align-items:center;gap:.5rem;flex-shrink:0;min-width:0}
+
+/* Hide non-critical items on small screens so hamburger never gets pushed off */
+@media(max-width:500px){
+  .nav-link-pwa{display:none!important}
+  #lang-selector{display:none!important}
+  #theme-switch{display:none!important}
+}
 .nav-cursor{display:inline-block;width:9px;height:1em;background:var(--accent);animation:blink 1s step-end infinite;vertical-align:middle}
 
 .nav-links{display:none;list-style:none;margin-left:auto}
@@ -1517,11 +1527,11 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0 1.5rem}
   line-height:1;white-space:nowrap;
 }
 #lang-btn:hover{border-color:var(--accent);color:var(--accent)}
-#lang-btn .flag{font-size:.9rem;line-height:1}
+#lang-btn .flag{display:inline-flex;align-items:center;line-height:1;flex-shrink:0}
 #lang-dropdown{
   position:absolute;top:calc(100% + .5rem);right:0;
   background:rgba(8,8,12,.98);border:1px solid var(--glow-color);
-  border-radius:6px;min-width:150px;
+  border-radius:6px;min-width:170px;
   display:none;flex-direction:column;
   z-index:700;overflow:hidden;
   box-shadow:0 12px 32px rgba(0,0,0,.6);
@@ -1538,7 +1548,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0 1.5rem}
 }
 .lang-opt:hover{background:var(--glow-color);color:var(--accent)}
 .lang-opt.active{color:var(--accent);background:var(--glow-color)}
-.lang-opt .flag{font-size:.9rem}
+.lang-opt .flag{display:inline-flex;align-items:center;flex-shrink:0}
 
 /* ── Custom Cursor (disabled) ── */
 #ps-cursor-dot{display:none}
@@ -1777,18 +1787,24 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0 1.5rem}
           </div>
         </li>
       </ul>
+      <!-- Right side controls -->
+      <div class="nav-right">
       <!-- Language Selector -->
       <div id="lang-selector">
         <button id="lang-btn" aria-label="Selecionar idioma" onclick="toggleLangDropdown()">
-          <span class="flag" id="lang-flag">🇵🇹</span>
+          <span class="flag" id="lang-flag">
+            <svg id="lang-flag-svg" width="18" height="13" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><!-- PT default --><rect width="6" height="13" fill="#006600"/><rect x="6" width="12" height="13" fill="#FF0000"/><circle cx="9" cy="6.5" r="2.5" fill="#FFCC00" stroke="#003399" stroke-width=".5"/></svg>
+          </span>
           <span id="lang-code">PT</span>
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div id="lang-dropdown">
-          <button class="lang-opt active" data-lang="pt" onclick="setLang('pt')"><span class="flag">🇵🇹</span> PT — Português</button>
-          <button class="lang-opt" data-lang="en" onclick="setLang('en')"><span class="flag">🇬🇧</span> EN — English</button>
-          <button class="lang-opt" data-lang="es" onclick="setLang('es')"><span class="flag">🇪🇸</span> ES — Español</button>
-          <button class="lang-opt" data-lang="fr" onclick="setLang('fr')"><span class="flag">🇫🇷</span> FR — Français</button>
+          <button class="lang-opt active" data-lang="pt" onclick="setLang('pt')"><span class="flag"><svg width="18" height="13" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="6" height="13" fill="#006600"/><rect x="6" width="12" height="13" fill="#FF0000"/><circle cx="9" cy="6.5" r="2.5" fill="#FFCC00" stroke="#003399" stroke-width=".5"/></svg></span> PT — Português</button>
+          <button class="lang-opt" data-lang="en" onclick="setLang('en')"><span class="flag"><svg width="18" height="13" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="13" fill="#012169"/><path d="M0,0 L18,13 M18,0 L0,13" stroke="#fff" stroke-width="2.6"/><path d="M0,0 L18,13 M18,0 L0,13" stroke="#C8102E" stroke-width="1.5"/><path d="M9,0 V13 M0,6.5 H18" stroke="#fff" stroke-width="4.3"/><path d="M9,0 V13 M0,6.5 H18" stroke="#C8102E" stroke-width="2.6"/></svg></span> EN — English</button>
+          <button class="lang-opt" data-lang="de" onclick="setLang('de')"><span class="flag"><svg width="18" height="13" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="4.33" fill="#000"/><rect y="4.33" width="18" height="4.34" fill="#DD0000"/><rect y="8.67" width="18" height="4.33" fill="#FFCE00"/></svg></span> DE — Deutsch</button>
+          <button class="lang-opt" data-lang="fr" onclick="setLang('fr')"><span class="flag"><svg width="18" height="13" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="6" height="13" fill="#002395"/><rect x="6" width="6" height="13" fill="#fff"/><rect x="12" width="6" height="13" fill="#ED2939"/></svg></span> FR — Français</button>
+          <button class="lang-opt" data-lang="es" onclick="setLang('es')"><span class="flag"><svg width="18" height="13" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="13" fill="#c60b1e"/><rect y="3" width="18" height="7" fill="#ffc400"/></svg></span> ES — Español</button>
+          <button class="lang-opt" data-lang="it" onclick="setLang('it')"><span class="flag"><svg width="18" height="13" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="6" height="13" fill="#009246"/><rect x="6" width="6" height="13" fill="#fff"/><rect x="12" width="6" height="13" fill="#CE2B37"/></svg></span> IT — Italiano</button>
         </div>
       </div>
 
@@ -1807,6 +1823,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0 1.5rem}
       <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
+      </div><!-- /nav-right -->
     </div>
   </div>
 </nav>
@@ -4177,13 +4194,14 @@ document.addEventListener('keydown', function(e) {
 
 /* Responsive */
 @media(max-width:500px){
-  #cg-modal{border-radius:16px 16px 0 0;margin-bottom:0;max-height:75vh;overflow-y:auto}
+  #cg-modal{border-radius:16px 16px 0 0;margin-bottom:0;max-height:85vh;overflow-y:auto}
   #cg-overlay{align-items:flex-end;padding:0}
   .cg-body{padding:1.25rem 1.25rem 1rem}
   .cg-title{font-size:1.1rem;line-height:1.3}
   .cg-sub{font-size:.8rem}
   .cg-perks{display:none}
   .cg-btn-primary{font-size:.8rem;padding:.8rem 1.25rem}
+  #cg-modal{max-width:100%;width:100%}
 }
 
 /* ══════════════════════════════════════════════════
@@ -4866,11 +4884,190 @@ var TRANSLATIONS = {
     popup_footer: 'Paulo Silva · En ligne · Aveiro, PT',
     tag_elearning: 'Bientôt',
     h2_elearning: 'Cours <span>E-Learning</span><br/>avec Certificat',
+  },
+
+  de: {
+    nav_servicos: 'Leistungen',
+    nav_dicas: 'IT-Tipps',
+    nav_portfolio: 'Portfolio',
+    nav_sobre: 'Über mich',
+    nav_elearning: 'E-Learning',
+    nav_contacto: 'Kontakt',
+    nav_srv_it: 'IT-Beratung',
+    nav_srv_so: 'Betriebssysteme',
+    nav_srv_fullstack: 'Full Stack Dev',
+    nav_srv_frontend: 'Front-End',
+    nav_srv_backend: 'Back-End',
+    nav_srv_social: 'Social Media',
+    nav_srv_design: 'Grafikdesign',
+    nav_srv_redes: 'Netzwerkinfrastruktur',
+    nav_dicas_all: 'Alle Tipps',
+    nav_dicas_os: 'Betriebssysteme',
+    nav_dicas_code: 'Programmierung',
+    nav_dicas_design: 'Design',
+    nav_dicas_net: 'Netzwerke',
+    hero_badge_online: '● ONLINE',
+    hero_slogan: 'Vom Code zum Design.<br/>Sichtbare Ergebnisse.',
+    hero_desc: 'Spezialist für IT, Full-Stack-Entwicklung und IT-Beratung. Ich helfe Privatpersonen und Unternehmen, das Beste aus der Technologie herauszuholen — vom Code bis zum Design, von Social Media bis zur Infrastruktur.',
+    hero_btn_call: 'Gespräch vereinbaren',
+    hero_btn_orcamento: 'Angebot anfragen',
+    hero_btn_servicos: 'Leistungen ansehen →',
+    hero_photo_badge: 'Verfügbar für Projekte',
+    typed_phrases: ['Full Stack Developer','IT-Berater','Grafikdesign','Social-Media-Management','Betriebssysteme'],
+    tag_destaque: 'Top-Leistungen',
+    h2_destaque: 'Was ich<br/><span>für Sie tun kann</span>',
+    p_destaque: 'Umfassende Technologielösungen für Privatpersonen und Unternehmen.',
+    srv1_title: 'IT-Support',
+    srv1_desc: 'Diagnose, Problemlösung und persönlicher technischer Support.',
+    srv2_title: 'Full Stack Dev',
+    srv2_desc: 'Vollständige Websites und Apps von Grund auf, integriertes Front- und Back-End.',
+    srv3_title: 'Grafikdesign',
+    srv3_desc: 'Visuelle Identität, Logos und digitale sowie gedruckte Materialien.',
+    srv4_title: 'Social Media',
+    srv4_desc: 'Strategie, Content-Erstellung und Verwaltung Ihrer Social-Media-Kanäle.',
+    btn_ver_todos: 'Alle Leistungen ansehen →',
+    tag_processo: 'Prozess',
+    h2_processo: 'Wie wir <span>arbeiten</span>',
+    p_processo: 'Vom ersten Kontakt bis zur Lieferung — transparent und einfach.',
+    proc1_title: 'Erster Kontakt',
+    proc1_desc: 'Schreiben Sie uns per WhatsApp oder E-Mail — ohne Verpflichtung, ohne Fachjargon.',
+    proc2_title: 'Analyse & Angebot',
+    proc2_desc: 'Detaillierte Analyse und Angebot mit Umfang, Zeitplan und Kosten. Keine Überraschungen.',
+    proc3_title: 'Umsetzung',
+    proc3_desc: 'Arbeit mit vollem Fokus und ständiger Kommunikation während des gesamten Prozesses.',
+    proc4_title: 'Lieferung & Support',
+    proc4_desc: 'Lieferung mit Dokumentation und Einweisung. Verfügbar für Support und zukünftige Updates.',
+    tag_portfolio: 'Portfolio',
+    h2_portfolio: 'Abgeschlossene <span>Arbeiten</span>',
+    btn_ver_portfolio: 'Portfolio ansehen →',
+    tag_sobre: 'Über mich',
+    h2_sobre: 'Geboren um<br/><span>einen Unterschied zu machen</span>',
+    tag_contacto: 'Kontakt',
+    h2_contacto: 'Lassen Sie uns<br/><span>zusammenarbeiten</span>',
+    contact_btn_wa: 'Auf WhatsApp schreiben',
+    contact_btn_email: 'E-Mail senden',
+    chat_greeting: 'Hallo, ich bin Paulo Silva.<br/>Ich helfe Ihnen gerne mit <strong>IT, Webentwicklung, Design</strong> oder technischen Fragen.',
+    chat_label: '// Thema wählen',
+    chat_btn_web: 'Webentwicklung',
+    chat_btn_it: 'IT-Beratung / Support',
+    chat_btn_design: 'Grafikdesign',
+    chat_btn_social: 'Social Media',
+    chat_wa: 'Auf WhatsApp schreiben',
+    chat_email: 'E-Mail senden',
+    chat_resp_web: 'Super! Ich entwickle moderne Websites, Apps und Landing Pages. Kontaktieren Sie mich auf WhatsApp, um über Ihr Projekt zu sprechen.',
+    chat_resp_it: 'Natürlich! Ich biete technischen Support, Wartung und IT-Beratung. Schreiben Sie mir auf WhatsApp.',
+    chat_resp_design: 'Perfekt! Ich erstelle visuelle Identitäten, Logos und Grafiken. Sprechen wir auf WhatsApp?',
+    chat_resp_social: 'Gerne! Ich verwalte Social-Media-Kanäle und erstelle Inhalte. Kontaktieren Sie mich auf WhatsApp.',
+    popup_badge: 'Kostenloses Gespräch',
+    popup_title: '30 Min. mit Ihnen,<br/><span>kostenlos.</span>',
+    popup_sub: 'Sprechen Sie direkt mit Paulo Silva über Ihr Projekt, Problem oder Ihre Idee. Ohne Verpflichtung, ohne versteckte Bedingungen.',
+    popup_perk1: '100% kostenlos — keine Überraschungen danach',
+    popup_perk2: 'Google Meet, Zoom oder Telefon — Ihre Wahl',
+    popup_perk3: 'Antwort in wenigen Minuten bestätigt',
+    popup_perk4: 'Web, IT, Design oder Social Media — alles inklusive',
+    popup_cta: 'Jetzt buchen — kostenlos',
+    popup_dismiss: 'Nicht jetzt, danke',
+    popup_footer: 'Paulo Silva · Online · Aveiro, PT',
+    tag_elearning: 'Demnächst',
+    h2_elearning: '<span>E-Learning</span>-Kurse<br/>mit Zertifikat',
+  },
+
+  it: {
+    nav_servicos: 'Servizi',
+    nav_dicas: 'Consigli IT',
+    nav_portfolio: 'Portfolio',
+    nav_sobre: 'Chi sono',
+    nav_elearning: 'E-Learning',
+    nav_contacto: 'Contatti',
+    nav_srv_it: 'Consulenza IT',
+    nav_srv_so: 'Sistemi operativi',
+    nav_srv_fullstack: 'Full Stack Dev',
+    nav_srv_frontend: 'Front-End',
+    nav_srv_backend: 'Back-End',
+    nav_srv_social: 'Social Media',
+    nav_srv_design: 'Graphic Design',
+    nav_srv_redes: 'Infrastruttura di rete',
+    nav_dicas_all: 'Tutti i consigli',
+    nav_dicas_os: 'Sistemi operativi',
+    nav_dicas_code: 'Programmazione',
+    nav_dicas_design: 'Design',
+    nav_dicas_net: 'Reti',
+    hero_badge_online: '● ONLINE',
+    hero_slogan: 'Dal codice al design.<br/>Risultati visibili.',
+    hero_desc: 'Specialista in informatica, sviluppo full stack e consulenza IT. Aiuto privati e aziende a sfruttare al massimo la tecnologia — dal codice al design, dai social media all\'infrastruttura.',
+    hero_btn_call: 'Prenota una chiamata',
+    hero_btn_orcamento: 'Richiedi un preventivo',
+    hero_btn_servicos: 'Vedi i servizi →',
+    hero_photo_badge: 'Disponibile per progetti',
+    typed_phrases: ['Full Stack Developer','Consulente IT','Graphic Design','Gestione Social Media','Sistemi operativi'],
+    tag_destaque: 'Servizi principali',
+    h2_destaque: 'Cosa posso fare<br/><span>per te</span>',
+    p_destaque: 'Soluzioni tecnologiche complete per privati e aziende.',
+    srv1_title: 'Supporto IT',
+    srv1_desc: 'Diagnosi, risoluzione dei problemi e supporto tecnico personalizzato.',
+    srv2_title: 'Full Stack Dev',
+    srv2_desc: 'Siti web e applicazioni complete da zero, front-end e back-end integrati.',
+    srv3_title: 'Graphic Design',
+    srv3_desc: 'Identità visiva, loghi e materiali digitali e stampati.',
+    srv4_title: 'Social Media',
+    srv4_desc: 'Strategia, creazione di contenuti e gestione dei tuoi social media.',
+    btn_ver_todos: 'Vedi tutti i servizi →',
+    tag_processo: 'Processo',
+    h2_processo: 'Come <span>lavoriamo</span>',
+    p_processo: 'Dal primo contatto alla consegna — trasparente e semplice.',
+    proc1_title: 'Primo contatto',
+    proc1_desc: 'Invia un messaggio via WhatsApp o email — senza impegno, senza gergo tecnico.',
+    proc2_title: 'Analisi & Proposta',
+    proc2_desc: 'Analisi dettagliata e proposta con ambito, tempi e costi. Nessuna sorpresa.',
+    proc3_title: 'Esecuzione',
+    proc3_desc: 'Lavoro con piena concentrazione e comunicazione costante durante tutto il processo.',
+    proc4_title: 'Consegna & Supporto',
+    proc4_desc: 'Consegna con documentazione e formazione. Disponibile per supporto e aggiornamenti futuri.',
+    tag_portfolio: 'Portfolio',
+    h2_portfolio: 'Lavori <span>completati</span>',
+    btn_ver_portfolio: 'Vedi il portfolio →',
+    tag_sobre: 'Chi sono',
+    h2_sobre: 'Nato per<br/><span>fare la differenza</span>',
+    tag_contacto: 'Contatti',
+    h2_contacto: 'Lavoriamo<br/><span>insieme</span>',
+    contact_btn_wa: 'Scrivi su WhatsApp',
+    contact_btn_email: 'Invia un\'email',
+    chat_greeting: 'Ciao, sono Paulo Silva.<br/>Posso aiutarti con <strong>IT, sviluppo web, design</strong> o qualsiasi domanda tecnica.',
+    chat_label: '// Scegli un argomento',
+    chat_btn_web: 'Sviluppo Web',
+    chat_btn_it: 'Consulenza IT / Supporto',
+    chat_btn_design: 'Graphic Design',
+    chat_btn_social: 'Social Media',
+    chat_wa: 'Scrivi su WhatsApp',
+    chat_email: 'Invia un\'email',
+    chat_resp_web: 'Ottimo! Sviluppo siti web, app e landing page moderne. Contattami su WhatsApp per parlare del tuo progetto.',
+    chat_resp_it: 'Certo! Offro supporto tecnico, manutenzione e consulenza IT. Scrivimi su WhatsApp.',
+    chat_resp_design: 'Perfetto! Creo identità visive, loghi e materiali grafici. Ne parliamo su WhatsApp?',
+    chat_resp_social: 'Certo! Gestisco i social media e creo contenuti. Contattami su WhatsApp per saperne di più.',
+    popup_badge: 'Chiamata Gratuita',
+    popup_title: '30 min con te,<br/><span>senza costi.</span>',
+    popup_sub: 'Parla direttamente con Paulo Silva del tuo progetto, problema o idea. Senza impegno, senza condizioni nascoste.',
+    popup_perk1: '100% gratuito — nessuna sorpresa dopo',
+    popup_perk2: 'Google Meet, Zoom o telefono — a tua scelta',
+    popup_perk3: 'Risposta confermata in pochi minuti',
+    popup_perk4: 'Web, IT, Design o Social Media — tutto incluso',
+    popup_cta: 'Prenota ora — è gratuito',
+    popup_dismiss: 'Non adesso, grazie',
+    popup_footer: 'Paulo Silva · Online · Aveiro, PT',
+    tag_elearning: 'Presto',
+    h2_elearning: 'Corsi <span>E-Learning</span><br/>con Certificato',
   }
 };
 
-var LANG_FLAGS = { pt: '🇵🇹', en: '🇬🇧', es: '🇪🇸', fr: '🇫🇷' };
-var LANG_CODES = { pt: 'PT', en: 'EN', es: 'ES', fr: 'FR' };
+var LANG_FLAGS = {
+  pt: '<svg width="18" height="13" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="6" height="13" fill="#006600"/><rect x="6" width="12" height="13" fill="#FF0000"/><circle cx="9" cy="6.5" r="2.5" fill="#FFCC00" stroke="#003399" stroke-width=".5"/></svg>',
+  en: '<svg width="18" height="13" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="13" fill="#012169"/><path d="M0,0 L18,13 M18,0 L0,13" stroke="#fff" stroke-width="2.6"/><path d="M0,0 L18,13 M18,0 L0,13" stroke="#C8102E" stroke-width="1.5"/><path d="M9,0 V13 M0,6.5 H18" stroke="#fff" stroke-width="4.3"/><path d="M9,0 V13 M0,6.5 H18" stroke="#C8102E" stroke-width="2.6"/></svg>',
+  de: '<svg width="18" height="13" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="4.33" fill="#000"/><rect y="4.33" width="18" height="4.34" fill="#DD0000"/><rect y="8.67" width="18" height="4.33" fill="#FFCE00"/></svg>',
+  fr: '<svg width="18" height="13" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="6" height="13" fill="#002395"/><rect x="6" width="6" height="13" fill="#fff"/><rect x="12" width="6" height="13" fill="#ED2939"/></svg>',
+  es: '<svg width="18" height="13" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="13" fill="#c60b1e"/><rect y="3" width="18" height="7" fill="#ffc400"/></svg>',
+  it: '<svg width="18" height="13" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="6" height="13" fill="#009246"/><rect x="6" width="6" height="13" fill="#fff"/><rect x="12" width="6" height="13" fill="#CE2B37"/></svg>'
+};
+var LANG_CODES = { pt: 'PT', en: 'EN', de: 'DE', fr: 'FR', es: 'ES', it: 'IT' };
 var currentLang = localStorage.getItem('ps_lang') || 'pt';
 
 function toggleLangDropdown(){
@@ -4887,7 +5084,7 @@ document.addEventListener('click', function(e){
 function setLang(lang){
   currentLang = lang;
   localStorage.setItem('ps_lang', lang);
-  document.getElementById('lang-flag').textContent = LANG_FLAGS[lang];
+  document.getElementById('lang-flag').innerHTML = LANG_FLAGS[lang];
   document.getElementById('lang-code').textContent = LANG_CODES[lang];
   document.querySelectorAll('.lang-opt').forEach(function(b){
     b.classList.toggle('active', b.dataset.lang === lang);
