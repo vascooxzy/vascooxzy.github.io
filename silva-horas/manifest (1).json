@@ -1,0 +1,33 @@
+{
+  "name": "Silva Horas: Tech-Check",
+  "short_name": "Silva Horas",
+  "description": "Controlo de ponto pessoal — Paulo Silva Tech",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#070d0a",
+  "theme_color": "#00ff88",
+  "orientation": "portrait-primary",
+  "lang": "pt-PT",
+  "categories": ["productivity", "utilities"],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Abrir App",
+      "url": "./index.html",
+      "description": "Abrir Silva Horas"
+    }
+  ]
+}
