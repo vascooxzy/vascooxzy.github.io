@@ -4185,6 +4185,237 @@ document.addEventListener('keydown', function(e) {
   .cg-perks{display:none}
   .cg-btn-primary{font-size:.8rem;padding:.8rem 1.25rem}
 }
+
+/* ══════════════════════════════════════════════════
+   SILVA HORAS POPUP
+══════════════════════════════════════════════════ */
+#sh-popup {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 8400;
+  width: calc(100vw - 3rem);
+  max-width: 320px;
+  background: #0d1610;
+  border: 1px solid rgba(0,255,136,0.25);
+  border-radius: 6px;
+  box-shadow: 0 24px 64px rgba(0,0,0,.85), 0 0 40px rgba(0,255,136,0.08);
+  transform: translateY(140%);
+  opacity: 0;
+  transition: transform .48s cubic-bezier(.22,1,.36,1), opacity .35s ease;
+  pointer-events: none;
+  overflow: hidden;
+  font-family: var(--mono);
+}
+#sh-popup.visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+/* top accent bar */
+#sh-popup::before {
+  content: '';
+  display: block;
+  height: 2px;
+  background: linear-gradient(90deg, #00ff88, #00cc6a, transparent);
+}
+
+/* scanline texture */
+#sh-popup::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,255,136,0.012) 2px,
+    rgba(0,255,136,0.012) 4px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+#sh-popup > * { position: relative; z-index: 1; }
+
+.sh-close {
+  position: absolute;
+  top: .7rem; right: .75rem;
+  background: none;
+  border: 1px solid rgba(0,255,136,0.2);
+  border-radius: 3px;
+  color: #5a8a70;
+  width: 22px; height: 22px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: border-color .2s, color .2s;
+  z-index: 2;
+}
+.sh-close:hover { border-color: #00ff88; color: #00ff88; }
+
+.sh-body { padding: 1.1rem 1.25rem 1rem; }
+
+.sh-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  font-size: .55rem;
+  color: #00ff88;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  margin-bottom: .7rem;
+}
+.sh-tag-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #00ff88;
+  box-shadow: 0 0 6px #00ff88;
+  animation: shBlink 1.6s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes shBlink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+.sh-icon-row {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin-bottom: .85rem;
+}
+.sh-app-icon {
+  width: 44px; height: 44px;
+  background: #070d0a;
+  border: 1.5px solid rgba(0,255,136,0.35);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  color: #00ff88;
+  flex-shrink: 0;
+  box-shadow: 0 0 14px rgba(0,255,136,0.15);
+  animation: shGlow 2.5s ease-in-out infinite;
+}
+@keyframes shGlow {
+  0%,100% { box-shadow: 0 0 10px rgba(0,255,136,0.12); }
+  50%      { box-shadow: 0 0 22px rgba(0,255,136,0.3); }
+}
+.sh-app-info { line-height: 1.25; }
+.sh-app-name {
+  font-size: .88rem;
+  font-weight: 700;
+  color: #00ff88;
+  letter-spacing: .04em;
+}
+.sh-app-sub {
+  font-size: .58rem;
+  color: #5a8a70;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-top: .15rem;
+}
+
+.sh-desc {
+  font-family: var(--sans);
+  font-size: .78rem;
+  color: #8ab89a;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.sh-features {
+  display: flex;
+  flex-direction: column;
+  gap: .38rem;
+  margin-bottom: 1rem;
+}
+.sh-feat {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .68rem;
+  color: #c8fae0;
+  letter-spacing: .02em;
+}
+.sh-feat svg { color: #00ff88; flex-shrink: 0; }
+
+.sh-btns {
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+}
+.sh-btn-primary {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+  padding: .55rem .9rem;
+  background: #00ff88;
+  color: #070d0a;
+  font-family: var(--mono);
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: transform .15s, box-shadow .15s;
+}
+.sh-btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0,255,136,0.3);
+}
+.sh-btn-dismiss {
+  font-family: var(--mono);
+  font-size: .6rem;
+  color: #5a8a70;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: .4rem;
+  letter-spacing: .04em;
+  transition: color .2s;
+  flex-shrink: 0;
+}
+.sh-btn-dismiss:hover { color: #c8fae0; }
+
+.sh-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .6rem 1.25rem;
+  border-top: 1px solid rgba(0,255,136,0.1);
+  background: rgba(0,255,136,0.03);
+}
+.sh-footer-left {
+  font-size: .55rem;
+  color: #5a8a70;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.sh-footer-right {
+  display: flex;
+  gap: .3rem;
+}
+.sh-plat {
+  font-size: .5rem;
+  padding: .15rem .45rem;
+  border: 1px solid;
+  letter-spacing: .06em;
+  border-radius: 2px;
+}
+.sh-plat.android { border-color: #34a853; color: #34a853; }
+.sh-plat.ios     { border-color: #007aff; color: #007aff; }
+.sh-plat.pwa     { border-color: #00ff88; color: #00ff88; }
+
+@media(max-width: 480px) {
+  #sh-popup {
+    bottom: 0; right: 0; left: 0;
+    max-width: 100%;
+    border-radius: 14px 14px 0 0;
+    border-left: none; border-right: none; border-bottom: none;
+    width: 100%;
+  }
+}
 </style>
 
 <div id="cg-overlay" role="dialog" aria-modal="true" aria-label="Oferta de chamada gratuita" aria-hidden="true">
@@ -4906,6 +5137,115 @@ function applyTranslations(lang){
   document.addEventListener('click', function(e){
     var p = document.getElementById('pwa-popup');
     if(p && p.classList.contains('visible') && !p.contains(e.target)) closePwaPopup();
+  });
+})();
+</script>
+
+<!-- ══════════════════════════════════════════════
+     SILVA HORAS: TECH-CHECK POPUP
+══════════════════════════════════════════════ -->
+<div id="sh-popup" role="dialog" aria-label="Silva Horas: Tech-Check — Nova App">
+
+  <button class="sh-close" onclick="closeShPopup()" aria-label="Fechar">
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+
+  <div class="sh-body">
+
+    <div class="sh-tag">
+      <span class="sh-tag-dot"></span>
+      Nova Ferramenta · Paulo Silva Tech
+    </div>
+
+    <div class="sh-icon-row">
+      <div class="sh-app-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M12 7v5l3 3"/>
+        </svg>
+      </div>
+      <div class="sh-app-info">
+        <div class="sh-app-name">SILVA HORAS</div>
+        <div class="sh-app-sub">Tech-Check · Controlo de Ponto</div>
+      </div>
+    </div>
+
+    <p class="sh-desc">
+      Regista as tuas horas de trabalho, calcula totais automáticos e exporta relatórios em PDF — tudo offline, sem conta, sem dados na cloud.
+    </p>
+
+    <div class="sh-features">
+      <div class="sh-feat">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Entrada, almoço e saída — cálculo automático
+      </div>
+      <div class="sh-feat">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Total acumulado mensal em [h]:mm
+      </div>
+      <div class="sh-feat">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Exportar relatório PDF com um clique
+      </div>
+      <div class="sh-feat">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        100% offline · dados guardados no browser
+      </div>
+    </div>
+
+    <div class="sh-btns">
+      <a href="silva-horas/index.html" class="sh-btn-primary" onclick="closeShPopup()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        Abrir App
+      </a>
+      <button class="sh-btn-dismiss" onclick="closeShPopup()">Agora não</button>
+    </div>
+
+  </div>
+
+  <div class="sh-footer">
+    <span class="sh-footer-left">Grátis · Aveiro, PT</span>
+    <div class="sh-footer-right">
+      <span class="sh-plat android">Android</span>
+      <span class="sh-plat ios">iOS</span>
+      <span class="sh-plat pwa">PWA</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var SH_KEY = 'sh_popup_shown';
+
+  function closeShPopup(){
+    var p = document.getElementById('sh-popup');
+    if(p){ p.classList.remove('visible'); sessionStorage.setItem(SH_KEY,'1'); }
+  }
+  window.closeShPopup = closeShPopup;
+
+  // Aparece 6s depois do popup da chamada gratuita (que aparece aos 8s desktop / 30s mobile)
+  // Desktop: 8s + 20s = 28s | Mobile: 30s + 25s = 55s
+  if(!sessionStorage.getItem(SH_KEY)){
+    var delay = window.innerWidth < 768 ? 55000 : 28000;
+    setTimeout(function(){
+      var p = document.getElementById('sh-popup');
+      // Só mostra se o cg-overlay já estiver fechado
+      var cgOverlay = document.getElementById('cg-overlay');
+      var cgVisible = cgOverlay && cgOverlay.classList.contains('visible');
+      if(p && !cgVisible) {
+        p.classList.add('visible');
+      } else if(p) {
+        // Aguarda mais 8s se o outro popup ainda estiver aberto
+        setTimeout(function(){ p.classList.add('visible'); }, 8000);
+      }
+    }, delay);
+  }
+
+  // Fechar ao clicar fora
+  document.addEventListener('click', function(e){
+    var p = document.getElementById('sh-popup');
+    if(p && p.classList.contains('visible') && !p.contains(e.target)) closeShPopup();
   });
 })();
 </script>
