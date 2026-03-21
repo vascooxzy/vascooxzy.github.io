@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>⚡ 8NDER SHIRTS — Catálogo </title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts: Barlow Condensed (display) + DM Sans (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ========================
+       HEADER / NAV
+  ========================= -->
+  <header class="site-header">
+    <nav class="nav-inner">
+
+      <!-- Logo -->
+      <a href="#" class="logo" aria-label="Volt Shirts - Início">
+        <!-- SVG Raio / mascote -->
+        <svg class="logo-bolt" viewBox="0 0 32 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <polygon points="18,0 4,26 14,26 14,48 28,22 18,22" fill="white"/>
+          <polygon points="18,0 4,26 14,26 14,48 28,22 18,22" fill="url(#boltGradHeader)" opacity="0.35"/>
+          <defs>
+            <linearGradient id="boltGradHeader" x1="4" y1="0" x2="28" y2="48" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#fff"/>
+              <stop offset="100%" stop-color="#888"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="logo-text">VOLT<span class="logo-sub">SHIRTS</span></span>
+      </a>
+
+      <!-- Nav links (desktop) -->
+      <ul class="nav-links">
+        <li><a href="#catalogo">Catálogo</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+
+      <!-- Ícones direita -->
+      <div class="nav-actions">
+        <!-- Pesquisa toggle mobile -->
+        <button class="icon-btn" id="searchToggle" aria-label="Pesquisar">
+          <!-- SVG Lupa -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="7"/>
+            <line x1="17" y1="17" x2="23" y2="23"/>
+          </svg>
+        </button>
+        <!-- Carrinho (ícone futuro) -->
+        <button class="icon-btn" aria-label="Carrinho">
+          <!-- SVG Carrinho -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 01-8 0"/>
+          </svg>
+        </button>
+        <!-- Menu hamburguer mobile -->
+        <button class="icon-btn hamburger" id="menuToggle" aria-label="Menu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Menu mobile dropdown -->
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+      <ul>
+        <li><a href="#catalogo">Catálogo</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ========================
+       HERO
+  ========================= -->
+  <section class="hero" aria-label="Destaque principal">
+    <!-- Fundo decorativo: raios SVG grandes -->
+    <div class="hero-bg-bolt" aria-hidden="true">
+      <svg viewBox="0 0 120 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="68,0 16,98 52,98 52,180 104,82 68,82" fill="white" opacity="0.04"/>
+      </svg>
+    </div>
+    <div class="hero-bg-bolt hero-bg-bolt--right" aria-hidden="true">
+      <svg viewBox="0 0 120 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="68,0 16,98 52,98 52,180 104,82 68,82" fill="white" opacity="0.03"/>
+      </svg>
+    </div>
+
+    <div class="hero-content">
+      <!-- Mascote animado -->
+      <div class="hero-bolt" aria-hidden="true">
+        <svg class="bolt-mascot" viewBox="0 0 64 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon class="bolt-fill" points="36,0 8,52 28,52 28,96 56,44 36,44" fill="white"/>
+          <polygon points="36,0 8,52 28,52 28,96 56,44 36,44" fill="url(#boltHero)" opacity="0.5"/>
+          <defs>
+            <linearGradient id="boltHero" x1="8" y1="0" x2="56" y2="96" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#ffffff"/>
+              <stop offset="100%" stop-color="#444444"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
+      <div class="hero-text">
+        <p class="hero-eyebrow">Coleção 2024 / 25</p>
+        <h1 class="hero-title">Camisas<br/><em>Autênticas</em></h1>
+        <p class="hero-desc">Os maiores clubes do mundo. Qualidade premium. Entrega garantida.</p>
+        <a href="#catalogo" class="btn btn--primary">
+          <span>Ver Catálogo</span>
+          <!-- raio inline no botão -->
+          <svg class="btn-bolt" viewBox="0 0 16 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="9,0 2,13 7,13 7,24 14,11 9,11" fill="currentColor"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">200+</span><span class="stat-label">Camisas</span></div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat"><span class="stat-num">50+</span><span class="stat-label">Clubes</span></div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Originais</span></div>
+    </div>
+  </section>
+
+  <!-- ========================
+       CATÁLOGO
+  ========================= -->
+  <section class="catalog-section" id="catalogo">
+
+    <!-- Toolbar: pesquisa + filtros -->
+    <div class="catalog-toolbar">
+      <div class="search-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"/>
+          <line x1="17" y1="17" x2="23" y2="23"/>
+        </svg>
+        <input
+          type="search"
+          id="searchInput"
+          class="search-input"
+          placeholder="Pesquisar time, época, versão…"
+          aria-label="Pesquisar camisas"
+        />
+      </div>
+
+      <!-- Filtros por liga/time -->
+      <div class="filter-wrap" role="group" aria-label="Filtrar por liga">
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="premier">Premier League</button>
+        <button class="filter-btn" data-filter="laliga">La Liga</button>
+        <button class="filter-btn" data-filter="seriea">Serie A</button>
+        <button class="filter-btn" data-filter="ligue1">Ligue 1</button>
+        <button class="filter-btn" data-filter="bundesliga">Bundesliga</button>
+        <button class="filter-btn" data-filter="brasil">Brasil</button>
+      </div>
+
+      <!-- Contagem resultados -->
+      <p class="results-count" id="resultsCount" aria-live="polite"></p>
+    </div>
+
+    <!-- Grid de cards -->
+    <div class="cards-grid" id="cardsGrid" role="list">
+      <!-- Cards gerados via JS -->
+    </div>
+
+    <!-- Estado vazio -->
+    <div class="empty-state" id="emptyState" hidden>
+      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <polygon points="36,4 10,34 26,34 26,60 54,30 38,30" fill="white" opacity="0.15"/>
+      </svg>
+      <p>Nenhuma camisa encontrada.<br/>Tente outro termo.</p>
+    </div>
+
+  </section>
+
+  <!-- ========================
+       SOBRE
+  ========================= -->
+  <section class="about-section" id="sobre">
+    <div class="about-inner">
+      <div class="about-bolt" aria-hidden="true">
+        <svg viewBox="0 0 48 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="27,0 6,39 21,39 21,72 42,33 27,33" fill="white" opacity="0.08"/>
+        </svg>
+      </div>
+      <div class="about-content">
+        <p class="section-label">
+          <svg viewBox="0 0 16 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="label-bolt">
+            <polygon points="9,0 2,13 7,13 7,24 14,11 9,11" fill="white"/>
+          </svg>
+          Sobre a Volt
+        </p>
+        <h2 class="about-title">A camisa certa<br/>para cada emoção.</h2>
+        <p class="about-desc">A Volt Shirts nasceu da paixão pelo futebol e pelo estilo. Curámos as melhores camisas dos maiores clubes do mundo — titulares, alternativas e edições especiais — para que uses com orgulho dentro e fora de campo.</p>
+      </div>
+      <div class="about-features">
+        <div class="feature">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <div><strong>100% Originais</strong><p>Autenticidade garantida em cada peça.</p></div>
+        </div>
+        <div class="feature">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="3" width="15" height="13" rx="1"/>
+            <path d="M16 8h4l3 3v5h-7V8z"/>
+            <circle cx="5.5" cy="18.5" r="2.5"/>
+            <circle cx="18.5" cy="18.5" r="2.5"/>
+          </svg>
+          <div><strong>Envio Rápido</strong><p>Entrega em 2–5 dias úteis.</p></div>
+        </div>
+        <div class="feature">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 12 20 22 4 22 4 12"/>
+            <rect x="2" y="7" width="20" height="5" rx="1"/>
+            <line x1="12" y1="22" x2="12" y2="7"/>
+            <path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/>
+            <path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/>
+          </svg>
+          <div><strong>Edições Especiais</strong><p>Peças exclusivas e de colecionador.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================
+       FOOTER
+  ========================= -->
+  <footer class="site-footer" id="contato">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#" class="logo" aria-label="Volt Shirts">
+          <svg class="logo-bolt" viewBox="0 0 32 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <polygon points="18,0 4,26 14,26 14,48 28,22 18,22" fill="white" opacity="0.7"/>
+          </svg>
+          <span class="logo-text">VOLT<span class="logo-sub">SHIRTS</span></span>
+        </a>
+        <p>O melhor catálogo de camisas de futebol premium.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="#catalogo">Catálogo</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#">Tamanhos</a></li>
+          <li><a href="#">Devoluções</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Contacto</h4>
+        <p>geral@voltshirts.pt</p>
+        <p>+351 910 000 000</p>
+        <div class="social-links">
+          <!-- Instagram SVG -->
+          <a href="#" class="social-btn" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+          <!-- Twitter / X SVG -->
+          <a href="#" class="social-btn" aria-label="X / Twitter">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <!-- TikTok SVG -->
+          <a href="#" class="social-btn" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.87a8.18 8.18 0 004.78 1.53V7.1a4.85 4.85 0 01-1.01-.41z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Volt Shirts. Todos os direitos reservados.</p>
+      <p>Feito com
+        <svg viewBox="0 0 16 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="footer-bolt" aria-hidden="true">
+          <polygon points="9,0 2,13 7,13 7,24 14,11 9,11" fill="white" opacity="0.5"/>
+        </svg>
+        e paixão pelo futebol.
+      </p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
