@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt">
 <head>
 <meta charset="UTF-8"/>
@@ -466,6 +466,33 @@ nav.scrolled{background:var(--bg);border-color:var(--border);backdrop-filter:blu
 .nav-links.open .nav-dd-arrow{transition:transform .2s;display:inline-block;font-size:.6rem;margin-left:.35rem}
 .nav-links.open .nav-item.open .nav-dd-arrow{transform:rotate(180deg)}
 
+/* ── Mobile menu bottom lang picker ── */
+.mobile-lang-bar{
+  display:none;
+  margin-top:auto;
+  padding-top:1.5rem;
+  border-top:1px solid var(--border);
+}
+.mobile-lang-label{
+  font-family:var(--mono);font-size:.58rem;color:var(--muted);
+  letter-spacing:.16em;text-transform:uppercase;margin-bottom:.75rem;
+}
+.mobile-lang-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;
+}
+.mobile-lang-btn{
+  display:flex;flex-direction:column;align-items:center;gap:.3rem;
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:4px;padding:.5rem .25rem .4rem;
+  cursor:pointer;transition:border-color .15s,background .15s;
+  font-family:var(--mono);font-size:.6rem;color:var(--muted);
+  letter-spacing:.04em;
+}
+.mobile-lang-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--glow-color)}
+.mobile-lang-btn.active{border-color:var(--accent);color:var(--accent);background:var(--glow-color)}
+.mobile-lang-btn svg{display:block;border-radius:2px}
+.nav-links.open .mobile-lang-bar{display:block}
+
 @media(min-width:768px){
   .nav-links{display:flex;align-items:center;gap:1.75rem}
   .nav-toggle{display:none}
@@ -734,6 +761,8 @@ html.light .hero-slogan{color:var(--text)}
 .btn-wa:hover{background:#1ebe5a;transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,211,102,.3)}
 .btn-o-link{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:.75rem;color:var(--muted);letter-spacing:.06em;padding:.4rem 0;border-bottom:1px solid var(--border);transition:color .2s,border-color .2s;align-self:center}
 .btn-o-link:hover{color:var(--accent);border-color:var(--accent)}
+.btn-silva-horas{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1.1rem;border:1.5px solid #00ff88;color:#00ff88;font-family:var(--mono);font-size:.75rem;font-weight:700;border-radius:2px;letter-spacing:.06em;text-decoration:none;transition:background .2s,color .2s,transform .2s,box-shadow .2s;background:rgba(0,255,136,0.06);white-space:nowrap}
+.btn-silva-horas:hover{background:#00ff88;color:#070d0a;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,255,136,0.3)}
 .btn-wa-hero{display:inline-flex;align-items:center;gap:.6rem;padding:.95rem 2rem;background:#25D366;color:#fff;font-family:var(--mono);font-size:.82rem;font-weight:700;border-radius:2px;letter-spacing:.05em;transition:background .2s,transform .2s,box-shadow .2s;animation:glow 3s ease-in-out infinite}
 .btn-wa-hero:hover{background:#1fc95c;transform:translateY(-2px);box-shadow:0 10px 30px rgba(37,211,102,.35)}
 .hero-social-proof{display:flex;align-items:center;gap:1.25rem;margin-top:1.75rem;flex-wrap:wrap}
@@ -1766,6 +1795,22 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0 1.5rem}
         <li><a href="#" data-p="portfolio" onclick="goTo('portfolio');return false;">Portfólio</a></li>
         <li><a href="#" data-p="sobre" onclick="goTo('sobre');return false;">Sobre</a></li>
         <li><a href="#" data-p="elearning" onclick="goTo('elearning');return false;" style="color:var(--accent2)">E-Learning</a></li>
+        <li class="nav-item">
+          <a href="#" class="nav-dd-toggle" onclick="return false;">Apps <span class="nav-dd-arrow">▾</span></a>
+          <div class="nav-dropdown">
+            <div class="nav-dd-inner">
+              <div class="nav-dd-label">// Ferramentas</div>
+              <a href="silva-horas/index.html">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+                <span>Silva Horas: Tech-Check</span>
+              </a>
+              <a href="pwa.html">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                <span>Instalar como App (PWA)</span>
+              </a>
+            </div>
+          </div>
+        </li>
         <li class="nav-item nav-item-right">
           <a href="#" class="nav-cta nav-dd-toggle" onclick="return false;">[ Contactar ] <span class="nav-dd-arrow">▾</span></a>
           <div class="nav-dropdown">
@@ -1784,6 +1829,36 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0 1.5rem}
                 <span>Instagram</span>
               </a>
             </div>
+          </div>
+        </li>
+        <!-- Mobile-only language selector at bottom of menu -->
+        <li class="mobile-lang-bar" id="mobile-lang-bar">
+          <div class="mobile-lang-label">// Idioma · Language</div>
+          <div class="mobile-lang-grid">
+            <button class="mobile-lang-btn active" data-lang="pt" onclick="setLang('pt');closeMobileMenu()">
+              <svg width="24" height="17" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="6" height="13" fill="#006600"/><rect x="6" width="12" height="13" fill="#FF0000"/><circle cx="9" cy="6.5" r="2.5" fill="#FFCC00" stroke="#003399" stroke-width=".5"/></svg>
+              PT
+            </button>
+            <button class="mobile-lang-btn" data-lang="en" onclick="setLang('en');closeMobileMenu()">
+              <svg width="24" height="17" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="13" fill="#012169"/><path d="M0,0 L18,13 M18,0 L0,13" stroke="#fff" stroke-width="2.6"/><path d="M0,0 L18,13 M18,0 L0,13" stroke="#C8102E" stroke-width="1.5"/><path d="M9,0 V13 M0,6.5 H18" stroke="#fff" stroke-width="4.3"/><path d="M9,0 V13 M0,6.5 H18" stroke="#C8102E" stroke-width="2.6"/></svg>
+              EN
+            </button>
+            <button class="mobile-lang-btn" data-lang="de" onclick="setLang('de');closeMobileMenu()">
+              <svg width="24" height="17" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="4.33" fill="#000"/><rect y="4.33" width="18" height="4.34" fill="#DD0000"/><rect y="8.67" width="18" height="4.33" fill="#FFCE00"/></svg>
+              DE
+            </button>
+            <button class="mobile-lang-btn" data-lang="fr" onclick="setLang('fr');closeMobileMenu()">
+              <svg width="24" height="17" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="6" height="13" fill="#002395"/><rect x="6" width="6" height="13" fill="#fff"/><rect x="12" width="6" height="13" fill="#ED2939"/></svg>
+              FR
+            </button>
+            <button class="mobile-lang-btn" data-lang="es" onclick="setLang('es');closeMobileMenu()">
+              <svg width="24" height="17" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="13" fill="#c60b1e"/><rect y="3" width="18" height="7" fill="#ffc400"/></svg>
+              ES
+            </button>
+            <button class="mobile-lang-btn" data-lang="it" onclick="setLang('it');closeMobileMenu()">
+              <svg width="24" height="17" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="6" height="13" fill="#009246"/><rect x="6" width="6" height="13" fill="#fff"/><rect x="12" width="6" height="13" fill="#CE2B37"/></svg>
+              IT
+            </button>
           </div>
         </li>
       </ul>
@@ -1809,7 +1884,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0 1.5rem}
       </div>
 
       <!-- Theme Switch -->
-      <a href="pwa.html" class="nav-link-pwa" style="font-family:var(--mono);font-size:.62rem;color:#25D366;letter-spacing:.1em;border:1px solid rgba(37,211,102,.4);padding:.22rem .65rem;border-radius:2px;display:inline-flex;align-items:center;gap:.35rem;transition:background .2s" title="Instalar como App"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>App</a>
+      <a href="./" class="nav-link-pwa" style="font-family:var(--mono);font-size:.62rem;color:#25D366;letter-spacing:.1em;border:1px solid rgba(37,211,102,.4);padding:.22rem .65rem;border-radius:2px;display:inline-flex;align-items:center;gap:.35rem;transition:background .2s" title="Instalar como App"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>App</a>
         <div id="theme-switch" onclick="toggleTheme()" title="Modo claro / escuro" aria-label="Alternar tema" role="button" tabindex="0">
         <span class="sw-icon moon">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
@@ -1873,6 +1948,10 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0 1.5rem}
             <a href="#" onclick="goTo('servicos');return false;" class="btn-o-link" aria-label="Ver serviços disponíveis">
               Ver Serviços
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <a href="silva-horas/index.html" class="btn-silva-horas" aria-label="Abrir Silva Horas: Tech-Check">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+              Silva Horas
             </a>
           </div>
           <div class="hero-social-proof">
@@ -5081,12 +5160,24 @@ document.addEventListener('click', function(e){
   }
 });
 
+function closeMobileMenu(){
+  var nl = document.getElementById('nav-links');
+  var nt = document.getElementById('nav-toggle');
+  if(nl){ nl.classList.remove('open'); }
+  if(nt){ nt.classList.remove('open'); nt.setAttribute('aria-expanded','false'); }
+}
+
 function setLang(lang){
   currentLang = lang;
   localStorage.setItem('ps_lang', lang);
   document.getElementById('lang-flag').innerHTML = LANG_FLAGS[lang];
   document.getElementById('lang-code').textContent = LANG_CODES[lang];
+  // sync desktop dropdown
   document.querySelectorAll('.lang-opt').forEach(function(b){
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+  // sync mobile grid
+  document.querySelectorAll('.mobile-lang-btn').forEach(function(b){
     b.classList.toggle('active', b.dataset.lang === lang);
   });
   document.getElementById('lang-dropdown').classList.remove('open');
@@ -5304,7 +5395,7 @@ function applyTranslations(lang){
   <div class="pwa-popup-title">Instala como App!</div>
   <div class="pwa-popup-desc">O site já está disponível como Progressive Web App — sem passar pela App Store.</div>
   <div class="pwa-popup-btns">
-    <a href="pwa.html" class="pwa-popup-cta">
+    <a href="./" class="pwa-popup-cta">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       Ver como instalar
     </a>
