@@ -466,32 +466,218 @@ nav.scrolled{background:var(--bg);border-color:var(--border);backdrop-filter:blu
 .nav-links.open .nav-dd-arrow{transition:transform .2s;display:inline-block;font-size:.6rem;margin-left:.35rem}
 .nav-links.open .nav-item.open .nav-dd-arrow{transform:rotate(180deg)}
 
-/* ── Mobile menu bottom lang picker ── */
-.mobile-lang-bar{
-  display:none;
-  margin-top:auto;
-  padding-top:1.5rem;
-  border-top:1px solid var(--border);
+/* ── Mobile menu bottom lang picker — REMOVIDO, substituído por painel ── */
+.mobile-lang-bar{ display:none!important; }
+
+/* ══════════════════════════════════════════════════
+   LANGUAGE PANEL — full-screen overlay mobile
+══════════════════════════════════════════════════ */
+#lang-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform .35s cubic-bezier(.22,1,.36,1);
+  overflow-y: auto;
 }
-.mobile-lang-label{
-  font-family:var(--mono);font-size:.58rem;color:var(--muted);
-  letter-spacing:.16em;text-transform:uppercase;margin-bottom:.75rem;
+#lang-panel.open { transform: translateX(0); }
+
+.lp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 1;
 }
-.mobile-lang-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;
+.lp-title {
+  font-family: var(--mono);
+  font-size: .72rem;
+  color: var(--accent);
+  letter-spacing: .16em;
+  text-transform: uppercase;
 }
-.mobile-lang-btn{
-  display:flex;flex-direction:column;align-items:center;gap:.3rem;
-  background:var(--bg2);border:1px solid var(--border);
-  border-radius:4px;padding:.5rem .25rem .4rem;
-  cursor:pointer;transition:border-color .15s,background .15s;
-  font-family:var(--mono);font-size:.6rem;color:var(--muted);
-  letter-spacing:.04em;
+.lp-back {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  font-family: var(--mono);
+  font-size: .65rem;
+  color: var(--muted);
+  background: none;
+  border: 1px solid var(--border);
+  padding: .3rem .75rem;
+  cursor: pointer;
+  transition: color .15s, border-color .15s;
+  border-radius: 2px;
 }
-.mobile-lang-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--glow-color)}
-.mobile-lang-btn.active{border-color:var(--accent);color:var(--accent);background:var(--glow-color)}
-.mobile-lang-btn svg{display:block;border-radius:2px}
-.nav-links.open .mobile-lang-bar{display:block}
+.lp-back:hover { color: var(--accent); border-color: var(--accent); }
+
+.lp-search-wrap {
+  padding: .75rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+.lp-search {
+  width: 100%;
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: .72rem;
+  padding: .55rem .85rem;
+  outline: none;
+  letter-spacing: .04em;
+  transition: border-color .15s;
+  border-radius: 2px;
+}
+.lp-search:focus { border-color: var(--accent); }
+.lp-search::placeholder { color: var(--muted); }
+
+.lp-region-label {
+  font-family: var(--mono);
+  font-size: .55rem;
+  color: var(--muted);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  padding: .85rem 1.25rem .35rem;
+}
+
+.lp-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: .3rem;
+  padding: 0 1.25rem 1.25rem;
+}
+
+.lp-lang-btn {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  padding: .65rem .85rem;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+  border-radius: 3px;
+  text-align: left;
+}
+.lp-lang-btn:hover { border-color: var(--accent2); background: var(--glow-color); }
+.lp-lang-btn.active { border-color: var(--accent); background: var(--glow-color); }
+.lp-lang-btn .lp-flag { border-radius: 2px; flex-shrink: 0; line-height: 0; }
+.lp-lang-text { display: flex; flex-direction: column; gap: .1rem; }
+.lp-lang-code { font-family: var(--mono); font-size: .62rem; font-weight: 700; color: var(--accent); letter-spacing: .08em; }
+.lp-lang-name { font-family: var(--sans); font-size: .72rem; color: var(--muted); line-height: 1.1; }
+.lp-lang-btn.active .lp-lang-name { color: var(--text); }
+.lp-lang-btn.hidden { display: none; }
+
+/* Mobile lang trigger button — inside open nav */
+.mobile-lang-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: .65rem 0;
+  border-bottom: 1px solid var(--border);
+  background: none;
+  border-left: none; border-right: none; border-top: none;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -.01em;
+  transition: color .15s;
+}
+.mobile-lang-trigger:hover { color: var(--accent); }
+.mobile-lang-trigger-right {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-family: var(--mono);
+  font-size: .65rem;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+/* ══════════════════════════════════════════════════
+   DESKTOP NAV DROPDOWN — redesigned
+══════════════════════════════════════════════════ */
+.nav-item:hover .nav-dropdown,
+.nav-item.open .nav-dropdown{
+  opacity:1;pointer-events:auto;
+  transform:translateY(0);
+}
+/* Wide dropdown for lang on desktop */
+#lang-selector .nav-dropdown-wide {
+  min-width: 420px;
+  left: auto;
+  right: 0;
+}
+#lang-selector:hover .nav-dropdown-wide,
+#lang-selector.open .nav-dropdown-wide {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.nav-dropdown-wide {
+  position: absolute;
+  top: 100%;
+  padding-top: 10px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4px);
+  transition: opacity .2s ease, transform .2s ease;
+  z-index: 600;
+}
+.nav-dd-wide-inner {
+  background: rgba(8,8,12,.98);
+  border: 1px solid var(--glow-color);
+  border-radius: 10px;
+  padding: 1rem;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 20px 50px rgba(0,0,0,.7);
+}
+.nav-dd-wide-inner::before {
+  content: '';
+  position: absolute;
+  top: 5px; right: 22px;
+  width: 10px; height: 10px;
+  background: rgba(8,8,12,.98);
+  border-left: 1px solid var(--glow-color);
+  border-top: 1px solid var(--glow-color);
+  transform: rotate(45deg);
+}
+.nav-dd-lang-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .3rem;
+}
+.nav-dd-lang-opt {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  padding: .5rem .65rem;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+  width: 100%;
+  text-align: left;
+}
+.nav-dd-lang-opt:hover { background: var(--glow-color); border-color: var(--glow-color); }
+.nav-dd-lang-opt.active { border-color: var(--accent); background: var(--glow-color); }
+.nav-dd-lang-opt .flag { border-radius: 2px; flex-shrink: 0; line-height: 0; }
+.nav-dd-lang-opt-text { display: flex; flex-direction: column; }
+.nav-dd-lang-opt-code { font-family: var(--mono); font-size: .6rem; font-weight: 700; color: var(--accent); letter-spacing: .06em; }
+.nav-dd-lang-opt-name { font-family: var(--sans); font-size: .7rem; color: var(--muted); }
 
 @media(min-width:768px){
   .nav-links{display:flex;align-items:center;gap:1.75rem}
@@ -1831,41 +2017,22 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0 1.5rem}
             </div>
           </div>
         </li>
-        <!-- Mobile-only language selector at bottom of menu -->
-        <li class="mobile-lang-bar" id="mobile-lang-bar">
-          <div class="mobile-lang-label">// Idioma · Language</div>
-          <div class="mobile-lang-grid">
-            <button class="mobile-lang-btn active" data-lang="pt" onclick="setLang('pt');closeMobileMenu()">
-              <svg width="24" height="17" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="6" height="13" fill="#006600"/><rect x="6" width="12" height="13" fill="#FF0000"/><circle cx="9" cy="6.5" r="2.5" fill="#FFCC00" stroke="#003399" stroke-width=".5"/></svg>
-              PT
-            </button>
-            <button class="mobile-lang-btn" data-lang="en" onclick="setLang('en');closeMobileMenu()">
-              <svg width="24" height="17" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="13" fill="#012169"/><path d="M0,0 L18,13 M18,0 L0,13" stroke="#fff" stroke-width="2.6"/><path d="M0,0 L18,13 M18,0 L0,13" stroke="#C8102E" stroke-width="1.5"/><path d="M9,0 V13 M0,6.5 H18" stroke="#fff" stroke-width="4.3"/><path d="M9,0 V13 M0,6.5 H18" stroke="#C8102E" stroke-width="2.6"/></svg>
-              EN
-            </button>
-            <button class="mobile-lang-btn" data-lang="de" onclick="setLang('de');closeMobileMenu()">
-              <svg width="24" height="17" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="4.33" fill="#000"/><rect y="4.33" width="18" height="4.34" fill="#DD0000"/><rect y="8.67" width="18" height="4.33" fill="#FFCE00"/></svg>
-              DE
-            </button>
-            <button class="mobile-lang-btn" data-lang="fr" onclick="setLang('fr');closeMobileMenu()">
-              <svg width="24" height="17" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="6" height="13" fill="#002395"/><rect x="6" width="6" height="13" fill="#fff"/><rect x="12" width="6" height="13" fill="#ED2939"/></svg>
-              FR
-            </button>
-            <button class="mobile-lang-btn" data-lang="es" onclick="setLang('es');closeMobileMenu()">
-              <svg width="24" height="17" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="13" fill="#c60b1e"/><rect y="3" width="18" height="7" fill="#ffc400"/></svg>
-              ES
-            </button>
-            <button class="mobile-lang-btn" data-lang="it" onclick="setLang('it');closeMobileMenu()">
-              <svg width="24" height="17" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="6" height="13" fill="#009246"/><rect x="6" width="6" height="13" fill="#fff"/><rect x="12" width="6" height="13" fill="#CE2B37"/></svg>
-              IT
-            </button>
-          </div>
+        <!-- Mobile: botão Língua que abre painel -->
+        <li style="list-style:none">
+          <button class="mobile-lang-trigger" onclick="openLangPanel()">
+            Língua
+            <span class="mobile-lang-trigger-right">
+              <span id="mob-lang-flag-wrap"></span>
+              <span id="mob-lang-code-label">PT</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </button>
         </li>
       </ul>
       <!-- Right side controls -->
       <div class="nav-right">
-      <!-- Language Selector -->
-      <div id="lang-selector">
+      <!-- Language Selector — desktop wide dropdown -->
+      <div id="lang-selector" style="position:relative">
         <button id="lang-btn" aria-label="Selecionar idioma" onclick="toggleLangDropdown()">
           <span class="flag" id="lang-flag">
             <svg id="lang-flag-svg" width="18" height="13" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><!-- PT default --><rect width="6" height="13" fill="#006600"/><rect x="6" width="12" height="13" fill="#FF0000"/><circle cx="9" cy="6.5" r="2.5" fill="#FFCC00" stroke="#003399" stroke-width=".5"/></svg>
@@ -1873,13 +2040,13 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0 1.5rem}
           <span id="lang-code">PT</span>
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
-        <div id="lang-dropdown">
-          <button class="lang-opt active" data-lang="pt" onclick="setLang('pt')"><span class="flag"><svg width="18" height="13" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="6" height="13" fill="#006600"/><rect x="6" width="12" height="13" fill="#FF0000"/><circle cx="9" cy="6.5" r="2.5" fill="#FFCC00" stroke="#003399" stroke-width=".5"/></svg></span> PT — Português</button>
-          <button class="lang-opt" data-lang="en" onclick="setLang('en')"><span class="flag"><svg width="18" height="13" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="13" fill="#012169"/><path d="M0,0 L18,13 M18,0 L0,13" stroke="#fff" stroke-width="2.6"/><path d="M0,0 L18,13 M18,0 L0,13" stroke="#C8102E" stroke-width="1.5"/><path d="M9,0 V13 M0,6.5 H18" stroke="#fff" stroke-width="4.3"/><path d="M9,0 V13 M0,6.5 H18" stroke="#C8102E" stroke-width="2.6"/></svg></span> EN — English</button>
-          <button class="lang-opt" data-lang="de" onclick="setLang('de')"><span class="flag"><svg width="18" height="13" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="4.33" fill="#000"/><rect y="4.33" width="18" height="4.34" fill="#DD0000"/><rect y="8.67" width="18" height="4.33" fill="#FFCE00"/></svg></span> DE — Deutsch</button>
-          <button class="lang-opt" data-lang="fr" onclick="setLang('fr')"><span class="flag"><svg width="18" height="13" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="6" height="13" fill="#002395"/><rect x="6" width="6" height="13" fill="#fff"/><rect x="12" width="6" height="13" fill="#ED2939"/></svg></span> FR — Français</button>
-          <button class="lang-opt" data-lang="es" onclick="setLang('es')"><span class="flag"><svg width="18" height="13" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="13" fill="#c60b1e"/><rect y="3" width="18" height="7" fill="#ffc400"/></svg></span> ES — Español</button>
-          <button class="lang-opt" data-lang="it" onclick="setLang('it')"><span class="flag"><svg width="18" height="13" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="6" height="13" fill="#009246"/><rect x="6" width="6" height="13" fill="#fff"/><rect x="12" width="6" height="13" fill="#CE2B37"/></svg></span> IT — Italiano</button>
+        <div class="nav-dropdown-wide" id="lang-dropdown">
+          <div class="nav-dd-wide-inner">
+            <div class="nav-dd-label" style="padding:.25rem .25rem .75rem;font-size:.58rem">// Selecionar Idioma</div>
+            <div class="nav-dd-lang-grid" id="desktop-lang-grid">
+              <!-- populated by JS -->
+            </div>
+          </div>
         </div>
       </div>
 
@@ -5430,9 +5597,223 @@ function applyTranslations(lang){
 </script>
 
 <!-- ══════════════════════════════════════════════
-     SILVA HORAS: TECH-CHECK POPUP
+     LANGUAGE PANEL — full screen mobile
 ══════════════════════════════════════════════ -->
-<div id="sh-popup" role="dialog" aria-label="Silva Horas: Tech-Check — Nova App">
+<div id="lang-panel" role="dialog" aria-label="Selecionar Idioma" aria-hidden="true">
+  <div class="lp-header">
+    <span class="lp-title">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:6px"><circle cx="12" cy="12" r="9"/><path d="M12 3a14 14 0 010 18M3 12h18"/></svg>
+      Idioma · Language
+    </span>
+    <button class="lp-back" onclick="closeLangPanel()">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Voltar
+    </button>
+  </div>
+  <div class="lp-search-wrap">
+    <input class="lp-search" id="lp-search" type="text" placeholder="Pesquisar idioma..." oninput="filterLangPanel(this.value)" autocomplete="off" />
+  </div>
+  <div id="lp-body"><!-- populated by JS --></div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════
+// LANGUAGE DATA — all supported languages
+// ══════════════════════════════════════════════════════════
+var ALL_LANGS = [
+  // ── Línguas com tradução completa no site ──
+  { code:'pt', name:'Português',    native:'Português',  region:'Europa',    flag: '<svg width="22" height="15" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="6" height="13" fill="#006600"/><rect x="6" width="12" height="13" fill="#FF0000"/><circle cx="9" cy="6.5" r="2.5" fill="#FFCC00" stroke="#003399" stroke-width=".5"/></svg>', supported:true },
+  { code:'en', name:'English',      native:'English',    region:'Europa',    flag: '<svg width="22" height="15" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="13" fill="#012169"/><path d="M0,0 L18,13 M18,0 L0,13" stroke="#fff" stroke-width="2.6"/><path d="M0,0 L18,13 M18,0 L0,13" stroke="#C8102E" stroke-width="1.5"/><path d="M9,0 V13 M0,6.5 H18" stroke="#fff" stroke-width="4.3"/><path d="M9,0 V13 M0,6.5 H18" stroke="#C8102E" stroke-width="2.6"/></svg>', supported:true },
+  { code:'es', name:'Español',      native:'Español',    region:'Europa',    flag: '<svg width="22" height="15" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="13" fill="#c60b1e"/><rect y="3" width="18" height="7" fill="#ffc400"/></svg>', supported:true },
+  { code:'fr', name:'Français',     native:'Français',   region:'Europa',    flag: '<svg width="22" height="15" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="6" height="13" fill="#002395"/><rect x="6" width="6" height="13" fill="#fff"/><rect x="12" width="6" height="13" fill="#ED2939"/></svg>', supported:true },
+  { code:'de', name:'Deutsch',      native:'Deutsch',    region:'Europa',    flag: '<svg width="22" height="15" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="4.33" fill="#000"/><rect y="4.33" width="18" height="4.34" fill="#DD0000"/><rect y="8.67" width="18" height="4.33" fill="#FFCE00"/></svg>', supported:true },
+  { code:'it', name:'Italiano',     native:'Italiano',   region:'Europa',    flag: '<svg width="22" height="15" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="6" height="13" fill="#009246"/><rect x="6" width="6" height="13" fill="#fff"/><rect x="12" width="6" height="13" fill="#CE2B37"/></svg>', supported:true },
+  // ── Outras línguas europeias ──
+  { code:'nl', name:'Nederlands',   native:'Nederlands', region:'Europa',    flag: '<svg width="22" height="15" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="4.33" fill="#AE1C28"/><rect y="4.33" width="18" height="4.34" fill="#fff"/><rect y="8.67" width="18" height="4.33" fill="#21468B"/></svg>', supported:false },
+  { code:'pl', name:'Polski',       native:'Polski',     region:'Europa',    flag: '<svg width="22" height="15" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="6.5" fill="#fff"/><rect y="6.5" width="18" height="6.5" fill="#DC143C"/></svg>', supported:false },
+  { code:'ru', name:'Русский',      native:'Русский',    region:'Europa',    flag: '<svg width="22" height="15" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="4.33" fill="#fff"/><rect y="4.33" width="18" height="4.34" fill="#0039A6"/><rect y="8.67" width="18" height="4.33" fill="#D52B1E"/></svg>', supported:false },
+  { code:'uk', name:'Українська',   native:'Українська', region:'Europa',    flag: '<svg width="22" height="15" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="6.5" fill="#005BBB"/><rect y="6.5" width="18" height="6.5" fill="#FFD500"/></svg>', supported:false },
+  { code:'ro', name:'Română',       native:'Română',     region:'Europa',    flag: '<svg width="22" height="15" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="6" height="13" fill="#002B7F"/><rect x="6" width="6" height="13" fill="#FCD116"/><rect x="12" width="6" height="13" fill="#CE1126"/></svg>', supported:false },
+  { code:'sv', name:'Svenska',      native:'Svenska',    region:'Europa',    flag: '<svg width="22" height="15" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="13" fill="#006AA7"/><rect x="6" width="3" height="13" fill="#FECC02"/><rect y="5" width="18" height="3" fill="#FECC02"/></svg>', supported:false },
+  { code:'el', name:'Ελληνικά',     native:'Ελληνικά',   region:'Europa',    flag: '<svg width="22" height="15" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="13" fill="#0D5EAF"/><rect y="0" width="18" height="1.44" fill="#fff"/><rect y="2.89" width="18" height="1.44" fill="#fff"/><rect y="5.78" width="18" height="1.44" fill="#fff"/><rect y="8.67" width="18" height="1.44" fill="#fff"/><rect y="11.56" width="18" height="1.44" fill="#fff"/><rect width="7.2" height="7.22" fill="#0D5EAF"/><rect x="2.7" width="1.8" height="7.22" fill="#fff"/><rect y="2.72" width="7.2" height="1.78" fill="#fff"/></svg>', supported:false },
+  // ── América ──
+  { code:'br', name:'Português BR', native:'Português',  region:'América',   flag: '<svg width="22" height="15" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="13" fill="#009C3B"/><polygon points="9,1 17,6.5 9,12 1,6.5" fill="#FFDF00"/><circle cx="9" cy="6.5" r="2.8" fill="#002776"/></svg>', supported:false },
+  { code:'mx', name:'Español MX',   native:'Español',    region:'América',   flag: '<svg width="22" height="15" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="6" height="13" fill="#006847"/><rect x="6" width="6" height="13" fill="#fff"/><rect x="12" width="6" height="13" fill="#CE1126"/></svg>', supported:false },
+  // ── Ásia / Médio Oriente ──
+  { code:'zh', name:'中文',          native:'中文',        region:'Ásia',      flag: '<svg width="22" height="15" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="13" fill="#DE2910"/><polygon points="3,1.5 3.9,4.2 1,2.5 5,2.5 2.1,4.2" fill="#FFDE00"/></svg>', supported:false },
+  { code:'ja', name:'日本語',         native:'日本語',       region:'Ásia',      flag: '<svg width="22" height="15" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="13" fill="#fff"/><circle cx="9" cy="6.5" r="3.5" fill="#BC002D"/></svg>', supported:false },
+  { code:'ar', name:'العربية',       native:'العربية',    region:'Ásia',      flag: '<svg width="22" height="15" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="4.33" fill="#000"/><rect y="4.33" width="18" height="4.34" fill="#fff"/><rect y="8.67" width="18" height="4.33" fill="#007A3D"/><rect width="5" height="13" fill="#CE1126"/></svg>', supported:false },
+  { code:'hi', name:'हिन्दी',         native:'हिन्दी',      region:'Ásia',      flag: '<svg width="22" height="15" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="4.33" fill="#FF9933"/><rect y="4.33" width="18" height="4.34" fill="#fff"/><rect y="8.67" width="18" height="4.33" fill="#138808"/><circle cx="9" cy="6.5" r="1.8" fill="none" stroke="#000080" stroke-width=".7"/></svg>', supported:false },
+  // ── África ──
+  { code:'sw', name:'Kiswahili',    native:'Kiswahili',  region:'África',    flag: '<svg width="22" height="15" viewBox="0 0 18 13" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="4.33" fill="#006600"/><rect y="4.33" width="18" height="4.34" fill="#fff"/><rect y="8.67" width="18" height="4.33" fill="#CC0000"/><polygon points="0,0 7,6.5 0,13" fill="#000"/></svg>', supported:false },
+];
+
+var currentLangCode = localStorage.getItem('ps_lang') || 'pt';
+
+// ── Gerar flag SVG para um dado código ──
+function getFlagSvg(code) {
+  var l = ALL_LANGS.find(function(x){ return x.code === code; });
+  return l ? l.flag : '';
+}
+
+// ── Atualizar o botão do nav (desktop + mobile indicator) ──
+function updateLangBtn(code) {
+  var l = ALL_LANGS.find(function(x){ return x.code === code; });
+  if (!l) return;
+  var flagSvgEl = document.getElementById('lang-flag-svg');
+  if (flagSvgEl) flagSvgEl.outerHTML = l.flag.replace('<svg ', '<svg id="lang-flag-svg" ');
+  var codeEl = document.getElementById('lang-code');
+  if (codeEl) codeEl.textContent = l.code.toUpperCase().slice(0,2);
+  // mobile indicator
+  var mobWrap = document.getElementById('mob-lang-flag-wrap');
+  if (mobWrap) mobWrap.innerHTML = l.flag;
+  var mobCode = document.getElementById('mob-lang-code-label');
+  if (mobCode) mobCode.textContent = l.code.toUpperCase().slice(0,2);
+}
+
+// ── Renderizar grid desktop ──
+function renderDesktopLangGrid() {
+  var grid = document.getElementById('desktop-lang-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  ALL_LANGS.forEach(function(l) {
+    var btn = document.createElement('button');
+    btn.className = 'nav-dd-lang-opt' + (l.code === currentLangCode ? ' active' : '');
+    btn.innerHTML =
+      '<span class="flag">' + l.flag + '</span>' +
+      '<span class="nav-dd-lang-opt-text">' +
+        '<span class="nav-dd-lang-opt-code">' + l.code.toUpperCase().slice(0,2) + '</span>' +
+        '<span class="nav-dd-lang-opt-name">' + l.name + '</span>' +
+      '</span>';
+    btn.onclick = function() {
+      if (l.supported) {
+        setLang(l.code);
+      } else {
+        // UI feedback — coming soon
+        btn.style.opacity = '.5';
+        setTimeout(function(){ btn.style.opacity = ''; }, 800);
+        var codeEl = document.getElementById('lang-code');
+        if(codeEl) { var prev = codeEl.textContent; codeEl.textContent = '···'; setTimeout(function(){ codeEl.textContent = prev; }, 900); }
+      }
+      var dd = document.getElementById('lang-dropdown');
+      if(dd) dd.classList.remove('open');
+    };
+    grid.appendChild(btn);
+  });
+}
+
+// ── Renderizar painel mobile ──
+function renderLangPanel() {
+  var body = document.getElementById('lp-body');
+  if (!body) return;
+  // Group by region
+  var regions = {};
+  ALL_LANGS.forEach(function(l) {
+    if (!regions[l.region]) regions[l.region] = [];
+    regions[l.region].push(l);
+  });
+  body.innerHTML = '';
+  Object.keys(regions).forEach(function(region) {
+    var label = document.createElement('div');
+    label.className = 'lp-region-label';
+    label.textContent = '// ' + region;
+    body.appendChild(label);
+    var grid = document.createElement('div');
+    grid.className = 'lp-grid';
+    regions[region].forEach(function(l) {
+      var btn = document.createElement('button');
+      btn.className = 'lp-lang-btn' + (l.code === currentLangCode ? ' active' : '');
+      btn.setAttribute('data-search', (l.name + ' ' + l.native + ' ' + l.code).toLowerCase());
+      btn.innerHTML =
+        '<span class="lp-flag">' + l.flag + '</span>' +
+        '<span class="lp-lang-text">' +
+          '<span class="lp-lang-code">' + l.code.toUpperCase().slice(0,2) + (l.supported ? '' : ' <span style="font-size:.5rem;opacity:.5">em breve</span>') + '</span>' +
+          '<span class="lp-lang-name">' + l.name + '</span>' +
+        '</span>';
+      btn.onclick = function() {
+        if (l.supported) {
+          setLang(l.code);
+          closeLangPanel();
+          closeMobileMenu();
+        } else {
+          btn.style.borderColor = 'var(--muted)';
+          setTimeout(function(){ btn.style.borderColor = ''; }, 700);
+        }
+      };
+      grid.appendChild(btn);
+    });
+    body.appendChild(grid);
+  });
+}
+
+function openLangPanel() {
+  var p = document.getElementById('lang-panel');
+  if(p){ p.classList.add('open'); p.setAttribute('aria-hidden','false'); }
+  document.getElementById('lp-search').value = '';
+  filterLangPanel('');
+}
+window.openLangPanel = openLangPanel;
+
+function closeLangPanel() {
+  var p = document.getElementById('lang-panel');
+  if(p){ p.classList.remove('open'); p.setAttribute('aria-hidden','true'); }
+}
+window.closeLangPanel = closeLangPanel;
+
+function filterLangPanel(q) {
+  var term = q.toLowerCase().trim();
+  document.querySelectorAll('#lp-body .lp-lang-btn').forEach(function(btn) {
+    var match = !term || btn.getAttribute('data-search').includes(term);
+    btn.classList.toggle('hidden', !match);
+  });
+  // Hide region labels if all items in that group are hidden
+  document.querySelectorAll('#lp-body .lp-grid').forEach(function(grid) {
+    var anyVisible = Array.from(grid.querySelectorAll('.lp-lang-btn')).some(function(b){ return !b.classList.contains('hidden'); });
+    var label = grid.previousElementSibling;
+    if(label && label.classList.contains('lp-region-label')) label.style.display = anyVisible ? '' : 'none';
+    grid.style.display = anyVisible ? '' : 'none';
+  });
+}
+window.filterLangPanel = filterLangPanel;
+
+// Override toggleLangDropdown to work with new structure
+window.toggleLangDropdown = function() {
+  var dd = document.getElementById('lang-dropdown');
+  if(dd) dd.classList.toggle('open');
+};
+
+// Close desktop dropdown on outside click
+document.addEventListener('click', function(e) {
+  var sel = document.getElementById('lang-selector');
+  var dd = document.getElementById('lang-dropdown');
+  if(dd && dd.classList.contains('open') && sel && !sel.contains(e.target)) {
+    dd.classList.remove('open');
+  }
+});
+
+// ── Bootstrap ──
+(function init() {
+  updateLangBtn(currentLangCode);
+  renderDesktopLangGrid();
+  renderLangPanel();
+
+  // Patch existing setLang to also update our UI
+  var _origSetLang = window.setLang;
+  window.setLang = function(code) {
+    currentLangCode = code;
+    localStorage.setItem('ps_lang', code);
+    updateLangBtn(code);
+    renderDesktopLangGrid();
+    renderLangPanel();
+    var dd = document.getElementById('lang-dropdown');
+    if(dd) dd.classList.remove('open');
+    if(_origSetLang) _origSetLang(code);
+  };
+})();
+</script>
+
+<!-- ══════════════════════════════════════════════
+     SILVA HORAS: TECH-CHECK POPUP
 
   <button class="sh-close" onclick="closeShPopup()" aria-label="Fechar">
     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
