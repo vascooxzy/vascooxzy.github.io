@@ -27,6 +27,14 @@
         price    — preço em euros (número)
         img      — URL da imagem (coloque fotos em imagens/ e referencie aqui)
    ══════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════
+   NOTA SOBRE IMAGENS:
+   - O campo `img` usa imgPlaceholder(team) como fallback automático
+   - Para usar uma imagem real: substitui o valor por um caminho local
+     ex: img: "imagens/man-city-home.jpg"
+   - Ou por um URL directo de imagem (JPG/PNG/WEBP)
+     ex: img: "https://exemplo.com/camisa.jpg"
+   ══════════════════════════════════════════════════════════ */
 const SHIRTS = [
   {
     id: 1,
@@ -38,7 +46,7 @@ const SHIRTS = [
     sizes: ["S","M","L","XL","!XXL"],
     desc: "Azul celeste icónico com detalhes técnicos Puma. Patch de campeão incluído.",
     price: 99.99,
-    img: "imagens/man-city-home.jpg"
+    img: null   // null = usa placeholder SVG automático com cores do clube
   },
   {
     id: 2,
@@ -50,7 +58,7 @@ const SHIRTS = [
     sizes: ["S","M","!L","XL"],
     desc: "Amarelo clássico em homenagem ao icónico kit dos anos 70. Adidas.",
     price: 94.99,
-    img: "imagens/arsenal-away.jpg"
+    img: null
   },
   {
     id: 3,
@@ -62,7 +70,7 @@ const SHIRTS = [
     sizes: ["XS","S","M","L","XL","XXL"],
     desc: "O vermelho de Anfield. Nike Dri-FIT ADV com tecnologia de controlo de temperatura.",
     price: 104.99,
-    img: "imagens/liverpool-home.jpg"
+    img: null
   },
   {
     id: 4,
@@ -74,7 +82,7 @@ const SHIRTS = [
     sizes: ["S","M","L","XL"],
     desc: "Branco imaculado com listras douradas subtis. Adidas. 14 UCL.",
     price: 109.99,
-    img: "imagens/real-madrid-home.jpg"
+    img: null
   },
   {
     id: 5,
@@ -86,7 +94,7 @@ const SHIRTS = [
     sizes: ["S","M","L","!XL","!XXL"],
     desc: "Listras blaugrana redefinidas com tecido Nike Aeroswift para desempenho máximo.",
     price: 104.99,
-    img: "imagens/barca-home.jpg"
+    img: null
   },
   {
     id: 6,
@@ -98,7 +106,7 @@ const SHIRTS = [
     sizes: ["M","L","XL"],
     desc: "Preto elegante com detalhes vermelhos. Edição limitada 120º aniversário.",
     price: 94.99,
-    img: "imagens/atletico-third.jpg"
+    img: null
   },
   {
     id: 7,
@@ -110,7 +118,7 @@ const SHIRTS = [
     sizes: ["XS","S","M","L","XL"],
     desc: "O clássico preto e branco que definiu uma era. Adidas Authentic.",
     price: 99.99,
-    img: "imagens/juventus-home.jpg"
+    img: null
   },
   {
     id: 8,
@@ -122,7 +130,7 @@ const SHIRTS = [
     sizes: ["S","M","L"],
     desc: "Branco com listras azul-preto. Nike x Inter — elegância nerazzurri.",
     price: 94.99,
-    img: "imagens/inter-away.jpg"
+    img: null
   },
   {
     id: 9,
@@ -134,7 +142,7 @@ const SHIRTS = [
     sizes: ["S","M","L","XL","XXL"],
     desc: "Azul de Paris com a Torre Eiffel gravada no tecido. Nike edição premium.",
     price: 109.99,
-    img: "imagens/psg-home.jpg"
+    img: null
   },
   {
     id: 10,
@@ -146,7 +154,7 @@ const SHIRTS = [
     sizes: ["S","M","L"],
     desc: "Rosa vibrante — um dos kits alternativos mais comentados da temporada.",
     price: 84.99,
-    img: "imagens/lyon-away.jpg"
+    img: null
   },
   {
     id: 11,
@@ -158,7 +166,7 @@ const SHIRTS = [
     sizes: ["S","M","L","XL","!XXL"],
     desc: "Vermelho clássico com textura geométrica Adidas. O rei do futebol alemão.",
     price: 99.99,
-    img: "imagens/bayern-home.jpg"
+    img: null
   },
   {
     id: 12,
@@ -170,7 +178,7 @@ const SHIRTS = [
     sizes: ["XS","S","M","L","XL"],
     desc: "Amarelo sinal que ilumina o Signal Iduna Park. Puma Authentic.",
     price: 94.99,
-    img: "imagens/bvb-home.jpg"
+    img: null
   },
   {
     id: 13,
@@ -182,7 +190,7 @@ const SHIRTS = [
     sizes: ["P","M","G","GG"],
     desc: "Nação Rubro-Negra. Adidas com listras horizontais vermelhas e pretas. Mengão é mundial.",
     price: 79.99,
-    img: "imagens/flamengo-home.jpg"
+    img: null
   },
   {
     id: 14,
@@ -194,7 +202,7 @@ const SHIRTS = [
     sizes: ["P","M","G","!GG"],
     desc: "Branco com verde e dourado. Puma — homenagem aos títulos libertadores.",
     price: 79.99,
-    img: "imagens/palmeiras-away.jpg"
+    img: null
   },
   {
     id: 15,
@@ -206,7 +214,7 @@ const SHIRTS = [
     sizes: ["S","M","L","XL"],
     desc: "Dourado arrojado no kit de terceiro. Nike x Chelsea — apenas 5000 unidades.",
     price: 114.99,
-    img: "imagens/chelsea-third.jpg"
+    img: null
   },
   {
     id: 16,
@@ -218,7 +226,7 @@ const SHIRTS = [
     sizes: ["S","M","L"],
     desc: "Edição 125º aniversário. Rossoneri com patch comemorativo em ouro.",
     price: 124.99,
-    img: "imagens/milan-special.jpg"
+    img: null
   }
 ];
 
@@ -252,20 +260,115 @@ const renderSizes = (sizes) =>
     return `<span class="size-chip${out ? ' out' : ''}" title="${out ? 'Esgotado' : 'Disponível'}">${label}</span>`;
   }).join('');
 
-/** Placeholder SVG para imagens em falta */
+/**
+ * Gera um placeholder SVG realista para cada clube.
+ * Cada entrada define: cor principal, cor secundária, iniciais, padrão de camisa.
+ * Usado quando não existe imagem real na pasta imagens/.
+ */
+const CLUB_STYLES = {
+  // Premier League
+  "Manchester City":  { bg: "#6CABDD", stripe: "#1C2C5B", text: "#fff", pattern: "stripes_v", initials: "MC" },
+  "Arsenal":          { bg: "#EF0107", stripe: "#ffffff", text: "#fff", pattern: "stripes_sleeve", initials: "AFC" },
+  "Liverpool":        { bg: "#C8102E", stripe: "#F6EB61", text: "#fff", pattern: "pinstripes", initials: "LFC" },
+  "Chelsea":          { bg: "#034694", stripe: "#ffffff", text: "#fff", pattern: "plain", initials: "CFC" },
+  // La Liga
+  "Real Madrid":      { bg: "#ffffff", stripe: "#000000", text: "#000", pattern: "plain", initials: "RM" },
+  "FC Barcelona":     { bg: "#A50044", stripe: "#004D98", text: "#fff", pattern: "stripes_v_dual", initials: "FCB" },
+  "Atlético Madrid":  { bg: "#272E61", stripe: "#CB3524", text: "#fff", pattern: "stripes_h", initials: "ATM" },
+  // Serie A
+  "Juventus":         { bg: "#000000", stripe: "#ffffff", text: "#fff", pattern: "stripes_v_half", initials: "JUV" },
+  "Inter de Milão":   { bg: "#010E80", stripe: "#000000", text: "#fff", pattern: "stripes_v_dual", initials: "INT" },
+  "AC Milan":         { bg: "#FB090B", stripe: "#000000", text: "#fff", pattern: "stripes_v_dual", initials: "ACM" },
+  // Ligue 1
+  "PSG":              { bg: "#003F7C", stripe: "#EF1923", text: "#fff", pattern: "stripes_v_center", initials: "PSG" },
+  "Olympique Lyon":   { bg: "#ffffff", stripe: "#1F1F1F", text: "#000", pattern: "plain", initials: "OL" },
+  // Bundesliga
+  "Bayern Munique":   { bg: "#DC052D", stripe: "#ffffff", text: "#fff", pattern: "stripes_sleeve", initials: "FCB" },
+  "Borussia Dortmund":{ bg: "#FDE100", stripe: "#000000", text: "#000", pattern: "plain", initials: "BVB" },
+  // Brasil
+  "Flamengo":         { bg: "#E3001B", stripe: "#000000", text: "#fff", pattern: "stripes_h_thick", initials: "FLA" },
+  "Palmeiras":        { bg: "#006437", stripe: "#ffffff", text: "#fff", pattern: "stripes_sleeve", initials: "PAL" },
+};
+
 const imgPlaceholder = (team) => {
-  const initials = team.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
-  return `data:image/svg+xml,${encodeURIComponent(`
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 420">
-      <rect width="320" height="420" fill="#181818"/>
-      <!-- Camisa estilizada -->
-      <path d="M90,60 L60,90 L80,100 L80,360 L240,360 L240,100 L260,90 L230,60 L200,80 C190,50 170,40 160,40 C150,40 130,50 120,80 Z" fill="#222" stroke="#333" stroke-width="2"/>
-      <!-- Raio decorativo -->
-      <polygon points="172,130 148,174 164,174 164,210 188,166 172,166" fill="#fff" opacity="0.15"/>
-      <!-- Iniciais -->
-      <text x="160" y="290" font-family="sans-serif" font-size="38" font-weight="900" fill="#fff" opacity="0.5" text-anchor="middle" letter-spacing="3">${initials}</text>
-    </svg>
-  `)}`;
+  const s = CLUB_STYLES[team] || { bg: "#181818", stripe: "#333", text: "#fff", pattern: "plain", initials: team.slice(0,3).toUpperCase() };
+  const bg = s.bg, stripe = s.stripe, textCol = s.text;
+  const init = s.initials;
+
+  // Padrão da camisa (stripes/plain)
+  let patternDef = '';
+  let patternFill = 'none';
+
+  if (s.pattern === 'stripes_v') {
+    patternDef = `<defs><pattern id="p" x="0" y="0" width="20" height="1" patternUnits="userSpaceOnUse"><rect width="10" height="1" fill="${stripe}" opacity="0.35"/></pattern></defs>`;
+    patternFill = 'url(#p)';
+  } else if (s.pattern === 'stripes_v_dual') {
+    patternDef = `<defs><pattern id="p" x="0" y="0" width="40" height="1" patternUnits="userSpaceOnUse"><rect x="0" width="20" height="1" fill="${bg}"/><rect x="20" width="20" height="1" fill="${stripe}"/></pattern></defs>`;
+    patternFill = 'url(#p)';
+  } else if (s.pattern === 'stripes_v_half') {
+    // Metade preta, metade branca (Juventus)
+    patternDef = '';
+    patternFill = 'none';
+  } else if (s.pattern === 'stripes_h' || s.pattern === 'stripes_h_thick') {
+    const h = s.pattern === 'stripes_h_thick' ? 28 : 18;
+    patternDef = `<defs><pattern id="p" x="0" y="0" width="1" height="${h*2}" patternUnits="userSpaceOnUse"><rect width="1" height="${h}" fill="${stripe}" opacity="0.55"/></pattern></defs>`;
+    patternFill = 'url(#p)';
+  } else if (s.pattern === 'pinstripes') {
+    patternDef = `<defs><pattern id="p" x="0" y="0" width="12" height="1" patternUnits="userSpaceOnUse"><rect x="5" width="2" height="1" fill="${stripe}" opacity="0.25"/></pattern></defs>`;
+    patternFill = 'url(#p)';
+  } else if (s.pattern === 'stripes_v_center') {
+    patternDef = `<defs><pattern id="p" x="0" y="0" width="60" height="1" patternUnits="userSpaceOnUse"><rect x="20" width="20" height="1" fill="${stripe}" opacity="0.6"/></pattern></defs>`;
+    patternFill = 'url(#p)';
+  }
+
+  // Camisa SVG detalhada
+  const shirtPath = "M95,70 L58,105 L82,118 L82,370 L238,370 L238,118 L262,105 L225,70 L196,88 C186,54 174,42 160,42 C146,42 134,54 124,88 Z";
+  const collarPath = "M124,88 C134,54 146,42 160,42 C174,42 186,54 196,88 C186,78 174,72 160,72 C146,72 134,78 124,88 Z";
+
+  // Divisão metade (Juventus style)
+  const halfLeft  = s.pattern === 'stripes_v_half' ? `<clipPath id="cl"><path d="${shirtPath}"/></clipPath><rect x="82" y="42" width="78" height="328" fill="${bg}" clip-path="url(#cl)"/><rect x="160" y="42" width="78" height="328" fill="${stripe}" clip-path="url(#cl)"/>` : '';
+
+  // Manga colorida (sleeve accent)
+  const sleeveAccent = s.pattern === 'stripes_sleeve' ? `
+    <polygon points="82,118 58,105 82,180" fill="${stripe}" opacity="0.5"/>
+    <polygon points="238,118 262,105 238,180" fill="${stripe}" opacity="0.5"/>
+  ` : '';
+
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 420">
+    <!-- Fundo -->
+    <rect width="320" height="420" fill="#111"/>
+    ${patternDef}
+
+    ${s.pattern === 'stripes_v_half' ? halfLeft : `
+    <!-- Corpo da camisa (cor base) -->
+    <path d="${shirtPath}" fill="${bg}"/>
+    <!-- Padrão overlay -->
+    ${patternFill !== 'none' ? `<path d="${shirtPath}" fill="${patternFill}"/>` : ''}
+    `}
+
+    <!-- Detalhes manga -->
+    ${sleeveAccent}
+
+    <!-- Contorno da camisa -->
+    <path d="${shirtPath}" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+
+    <!-- Gola -->
+    <path d="${collarPath}" fill="${stripe}" opacity="0.7"/>
+    <path d="${collarPath}" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+
+    <!-- Raio decorativo no peito -->
+    <polygon points="168,145 148,183 163,183 163,218 184,180 169,180"
+      fill="${textCol}" opacity="0.12"/>
+
+    <!-- Iniciais do clube -->
+    <text x="160" y="310"
+      font-family="Arial Black, sans-serif"
+      font-size="32" font-weight="900"
+      fill="${textCol}" opacity="0.45"
+      text-anchor="middle" letter-spacing="2">${init}</text>
+  </svg>`;
+
+  return `data:image/svg+xml,${encodeURIComponent(svg)}`;
 };
 
 /* ══════════════════════════════════════════════════════════
@@ -292,7 +395,7 @@ const createCardHTML = (shirt, index) => {
       <!-- Imagem -->
       <div class="card-img">
         <img
-          src="${shirt.img}"
+          src="${shirt.img || imgPlaceholder(shirt.team)}"
           alt="Camisa ${shirt.team} ${shirt.version} ${shirt.season}"
           loading="lazy"
           onerror="this.src='${imgPlaceholder(shirt.team)}'"
