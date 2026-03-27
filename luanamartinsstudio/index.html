@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luana Martins Studio | Estética & Beleza</title>
+  <meta name="description" content="Luana Martins Studio — Especialista em extensão de pestanas, design de sobrancelhas e tratamentos estéticos. Realçando a sua beleza com profissionalismo e cuidado." />
+  <meta name="keywords" content="extensão de pestanas, design de sobrancelhas, limpeza de pele, estética, beleza, Luana Martins Studio" />
+  <meta property="og:title" content="Luana Martins Studio | Estética & Beleza" />
+  <meta property="og:description" content="Especialista em estética e transformação da autoestima." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --black:       #0A0A0A;
+      --black-soft:  #111111;
+      --black-card:  #161616;
+      --black-mid:   #1E1E1E;
+      --gold:        #C9A96E;
+      --gold-light:  #E2C99A;
+      --gold-dark:   #A07840;
+      --gold-pale:   rgba(201,169,110,0.08);
+      --white:       #FFFFFF;
+      --text-muted:  rgba(255,255,255,0.40);
+      --text-sub:    rgba(255,255,255,0.62);
+      --border:      rgba(201,169,110,0.18);
+      --border-b:    rgba(201,169,110,0.42);
+      --shadow:      0 12px 48px rgba(0,0,0,0.55);
+      --shadow-gold: 0 8px 32px rgba(201,169,110,0.22);
+      --r:           2px;
+      --rl:          8px;
+      --ease:        0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Jost',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;font-weight:300;line-height:1.7}
+    h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;font-weight:400;line-height:1.15}
+    a{text-decoration:none;color:inherit}
+    img{max-width:100%;display:block}
+    ::-webkit-scrollbar{width:4px}
+    ::-webkit-scrollbar-track{background:var(--black)}
+    ::-webkit-scrollbar-thumb{background:var(--gold-dark);border-radius:2px}
+
+    /* ── BUTTONS ── */
+    .btn-gold{background:var(--gold);color:var(--black);padding:.88rem 2.4rem;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-family:'Jost',sans-serif;font-weight:600;border:none;cursor:pointer;border-radius:var(--r);transition:background .3s,transform .2s,box-shadow .3s;display:inline-flex;align-items:center;gap:.5rem}
+    .btn-gold:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:var(--shadow-gold)}
+    .btn-ghost{background:transparent;color:var(--text-sub);padding:.88rem 2rem;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-family:'Jost',sans-serif;font-weight:400;border:1px solid var(--border-b);cursor:pointer;border-radius:var(--r);transition:border-color .3s,color .3s,transform .2s}
+    .btn-ghost:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+    .btn-gold-lg{background:var(--gold);color:var(--black);padding:1.1rem 3rem;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;font-family:'Jost',sans-serif;font-weight:600;border:none;cursor:pointer;border-radius:var(--r);transition:background .3s,transform .2s,box-shadow .3s;display:inline-flex;align-items:center;gap:.7rem}
+    .btn-gold-lg:hover{background:var(--gold-light);transform:translateY(-3px);box-shadow:0 12px 40px rgba(201,169,110,.35)}
+    .btn-ghost-lg{background:transparent;color:var(--text-sub);padding:1.1rem 2.4rem;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;font-family:'Jost',sans-serif;font-weight:400;border:1px solid var(--border-b);cursor:pointer;border-radius:var(--r);transition:border-color .3s,color .3s,transform .2s}
+    .btn-ghost-lg:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-3px)}
+
+    /* ── SECTION COMMON ── */
+    .section-tag{display:inline-block;font-size:.65rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:.9rem}
+    .section-title{font-size:clamp(2rem,3.5vw,3rem);color:var(--white);margin-bottom:.9rem}
+    .section-sub{font-size:.88rem;color:var(--text-sub);max-width:500px;margin:0 auto;line-height:1.85}
+    .section-header{text-align:center;margin-bottom:3.5rem}
+    .gold-line{width:44px;height:1px;background:var(--gold);margin:1.2rem auto 0}
+    .gold-rule-top{position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+
+    /* ── NAV ── */
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:rgba(10,10,10,.85);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);transition:var(--ease)}
+    .nav-logo-svg{height:36px;width:auto}
+    .nav-links{display:flex;gap:2rem;list-style:none;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase}
+    .nav-links a{color:var(--text-sub);transition:color .3s;position:relative}
+    .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+    .nav-links a:hover{color:var(--gold)}
+    .nav-links a:hover::after{transform:scaleX(1)}
+    .nav-cta{background:var(--gold) !important;color:var(--black) !important;padding:.48rem 1.4rem !important;font-weight:600 !important;border-radius:var(--r) !important;transition:background .3s,transform .2s !important}
+    .nav-cta:hover{background:var(--gold-light) !important;transform:translateY(-1px)}
+    .nav-cta::after{display:none !important}
+    .nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+    .nav-toggle span{width:24px;height:1.5px;background:var(--gold);display:block;transition:var(--ease)}
+
+    /* mobile menu */
+    .mobile-menu{display:none;position:fixed;top:70px;left:0;right:0;bottom:0;background:var(--black-soft);z-index:199;flex-direction:column;align-items:center;justify-content:center;gap:2rem}
+    .mobile-menu.open{display:flex}
+    .mobile-menu a{font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--white);font-weight:300;transition:color .3s}
+    .mobile-menu a:hover{color:var(--gold)}
+
+    /* ── HERO ── */
+    #hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
+    .hero-left{display:flex;flex-direction:column;justify-content:center;padding:110px 6% 80px 8%;position:relative;z-index:2;background:var(--black-soft)}
+    .hero-left::after{content:'';position:absolute;right:0;top:10%;bottom:10%;width:1px;background:linear-gradient(to bottom,transparent,var(--gold),transparent)}
+    .hero-badge{display:inline-flex;align-items:center;gap:.7rem;font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:1.8rem;opacity:0;animation:fadeUp .9s .2s forwards}
+    .hero-badge::before{content:'';width:36px;height:1px;background:var(--gold)}
+    .hero-headline{font-size:clamp(2.6rem,4.5vw,4.5rem);font-weight:300;color:var(--white);margin-bottom:1.4rem;opacity:0;animation:fadeUp .9s .35s forwards}
+    .hero-headline em{font-style:italic;color:var(--gold)}
+    .hero-sub{font-size:.92rem;color:var(--text-sub);max-width:380px;line-height:1.85;margin-bottom:2.6rem;opacity:0;animation:fadeUp .9s .5s forwards}
+    .hero-actions{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;opacity:0;animation:fadeUp .9s .65s forwards}
+    .hero-stats{display:flex;gap:2.5rem;margin-top:3.5rem;opacity:0;animation:fadeUp .9s .8s forwards;padding-top:2.5rem;border-top:1px solid var(--border)}
+    .stat-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--gold);line-height:1;margin-bottom:.25rem}
+    .stat-lbl{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted)}
+    .stat-div{width:1px;background:var(--border);align-self:stretch}
+    .hero-right{position:relative;overflow:hidden;background:var(--black-mid);display:flex;align-items:center;justify-content:center}
+    .hero-right::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 40% 60%,rgba(201,169,110,.1) 0%,transparent 65%);pointer-events:none}
+    .hero-card{position:absolute;bottom:40px;left:-24px;z-index:3;background:rgba(10,10,10,.92);backdrop-filter:blur(16px);border:1px solid var(--border-b);border-radius:var(--rl);padding:1.1rem 1.5rem;box-shadow:var(--shadow);opacity:0;animation:fadeUp .9s 1.1s forwards}
+    .hero-card-stars{display:flex;gap:2px;margin-bottom:.35rem}
+    .hero-card-star{color:var(--gold);font-size:.82rem}
+    .hero-card-text{font-size:.76rem;color:var(--text-sub)}
+    .hero-card-text strong{color:var(--white);display:block;margin-bottom:.15rem;font-weight:500}
+
+    /* ── SOBRE ── */
+    #sobre{background:var(--black-soft);padding:100px 5%;position:relative}
+    .sobre-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5.5rem;align-items:center}
+    .sobre-img-wrap{position:relative}
+    .sobre-frame{position:absolute;top:20px;left:20px;right:-20px;bottom:-20px;border:1px solid var(--border-b);border-radius:var(--rl);z-index:0}
+    .sobre-img-box{position:relative;z-index:1;width:100%;height:530px;border-radius:var(--rl);background:linear-gradient(160deg,#1c1510,#0a0a0a);display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);overflow:hidden}
+    .sobre-badge-box{position:absolute;z-index:2;bottom:28px;right:-18px;background:var(--gold);color:var(--black);padding:1.2rem 1.6rem;border-radius:var(--rl);text-align:center;box-shadow:0 8px 32px rgba(201,169,110,.45)}
+    .sobre-badge-num{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:500;line-height:1;display:block}
+    .sobre-badge-lbl{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+    .sobre-content .section-tag,.sobre-content .section-title,.sobre-content .gold-line{text-align:left;margin-left:0;margin-right:auto}
+    .sobre-text{font-size:.92rem;color:var(--text-sub);line-height:1.9;margin:1.4rem 0}
+    .sobre-feats{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:1.8rem}
+    .sobre-feat{display:flex;align-items:center;gap:.6rem;font-size:.8rem;color:var(--text-sub)}
+    .feat-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0}
+
+    /* ── SERVICOS ── */
+    #servicos{background:var(--black);padding:100px 5%;position:relative}
+    .servicos-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem}
+    .s-card{background:var(--black-card);border:1px solid var(--border);border-radius:var(--rl);padding:2.2rem;transition:transform .35s,box-shadow .35s,border-color .35s;position:relative;overflow:hidden}
+    .s-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold-dark),var(--gold-light));transform:scaleX(0);transform-origin:left;transition:transform .4s}
+    .s-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,0,0,.5);border-color:var(--border-b)}
+    .s-card:hover::before{transform:scaleX(1)}
+    .s-icon{width:48px;height:48px;border:1px solid var(--border-b);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1.4rem}
+    .s-icon svg{width:22px;height:22px}
+    .s-name{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--white);margin-bottom:.6rem}
+    .s-desc{font-size:.83rem;color:var(--text-sub);line-height:1.75;margin-bottom:1.2rem}
+    .s-bens{list-style:none;margin-bottom:1.5rem}
+    .s-bens li{font-size:.76rem;color:var(--text-muted);padding:.28rem 0;display:flex;align-items:center;gap:.5rem}
+    .s-bens li::before{content:'—';color:var(--gold);font-size:.65rem}
+    .s-link{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:.4rem;transition:gap .3s}
+    .s-card:hover .s-link{gap:.7rem}
+    .s-card-dark{background:linear-gradient(160deg,#1a1208,#111);border-color:rgba(201,169,110,.3)}
+
+    /* ── FIDELIDADE ── */
+    #fidelidade{background:var(--black-soft);padding:100px 5%;position:relative;overflow:hidden}
+    #fidelidade::after{content:'';position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(201,169,110,.07) 0%,transparent 65%);pointer-events:none}
+    .fid-inner{max-width:900px;margin:0 auto;position:relative;z-index:1}
+    .novidade-pill{display:inline-flex;align-items:center;gap:.5rem;background:var(--gold);color:var(--black);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;padding:.35rem 1rem;border-radius:20px;margin-bottom:1.2rem}
+    .novidade-pulse{width:6px;height:6px;border-radius:50%;background:var(--black);animation:blink 1.4s infinite}
+    .fid-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,4vw,3.6rem);font-weight:300;color:var(--white);margin-bottom:.8rem}
+    .fid-title em{font-style:italic;color:var(--gold)}
+    .fid-sub{font-size:.9rem;color:var(--text-sub);line-height:1.85;margin-bottom:3rem;max-width:560px}
+    /* card */
+    .fid-card{background:var(--black);border:1px solid var(--border-b);border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.6);max-width:680px}
+    .fid-card-head{background:var(--black-mid);padding:1.6rem 2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+    .fid-card-head::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold-dark),var(--gold-light),var(--gold-dark))}
+    .fid-card-head-logo{height:38px}
+    .fid-card-head-lbl{font-family:'Cormorant Garamond',serif;font-size:1rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
+    .fid-card-body{padding:2rem}
+    .fid-card-hint{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:1.6rem}
+    .fid-circles{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-bottom:1.4rem}
+    .fid-circle{width:58px;height:58px;border-radius:50%;border:1.5px solid var(--border-b);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:.72rem;color:var(--text-muted);transition:border-color .3s,background .3s;cursor:default}
+    .fid-circle:hover{border-color:var(--gold);background:rgba(201,169,110,.06)}
+    .fid-reward{width:66px;height:66px;border-radius:50%;background:var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(201,169,110,.4)}
+    .fid-reward-pct{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:500;color:var(--black);line-height:1}
+    .fid-reward-off{font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.65);font-weight:600}
+    .fid-cta-row{display:flex;align-items:center;justify-content:space-between;padding-top:1.4rem;border-top:1px solid var(--border);flex-wrap:wrap;gap:1rem}
+    .fid-note{font-size:.75rem;color:var(--text-muted);line-height:1.55;max-width:300px}
+    .fid-note strong{color:var(--gold);font-weight:500}
+    .fid-steps{margin-top:3rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+    .fid-step{background:var(--black-card);border:1px solid var(--border);border-radius:var(--rl);padding:1.6rem;text-align:center;transition:border-color .3s,transform .3s}
+    .fid-step:hover{border-color:var(--gold);transform:translateY(-4px)}
+    .fid-step-n{font-family:'Cormorant Garamond',serif;font-size:2.4rem;color:var(--gold);line-height:1;margin-bottom:.6rem}
+    .fid-step-t{font-size:.8rem;letter-spacing:.08em;color:var(--white);font-weight:500;margin-bottom:.4rem}
+    .fid-step-d{font-size:.76rem;color:var(--text-muted);line-height:1.6}
+
+    /* ── PORTFOLIO ── */
+    #portfolio{background:var(--black);padding:100px 5%;position:relative}
+    .port-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem}
+    .port-item{border-radius:var(--rl);overflow:hidden;position:relative;cursor:pointer;background:var(--black-mid)}
+    .port-item:first-child{grid-column:span 2;grid-row:span 2}
+    .port-item:last-child{grid-column:span 2}
+    .port-ph{width:100%;padding-bottom:100%;background:var(--black-mid);position:relative}
+    .port-item:first-child .port-ph{padding-bottom:50%}
+    .port-item:last-child .port-ph{padding-bottom:40%}
+    .port-ph-in{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem}
+    .port-ph-in svg{width:38px;opacity:.18}
+    .port-ph-lbl{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.22)}
+    .port-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.82) 0%,transparent 55%);opacity:0;transition:opacity .35s;display:flex;align-items:flex-end;padding:1.2rem}
+    .port-item:hover .port-ov{opacity:1}
+    .port-ov-t{color:rgba(255,255,255,.85);font-size:.78rem}
+    .port-ov-t span{display:block;font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--white);margin-bottom:.2rem}
+    .port-ig{text-align:center;margin-top:2rem}
+    .port-ig a{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid rgba(201,169,110,.3);padding-bottom:2px;transition:color .3s,border-color .3s}
+    .port-ig a:hover{color:var(--gold-light);border-color:var(--gold-light)}
+
+    /* ── DEPOIMENTOS ── */
+    #depoimentos{background:var(--black-soft);padding:100px 5%;position:relative}
+    .dep-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+    .dep-card{background:var(--black-card);border:1px solid var(--border);border-radius:var(--rl);padding:2rem;transition:transform .35s,border-color .35s}
+    .dep-card:hover{transform:translateY(-4px);border-color:var(--border-b)}
+    .dep-stars{color:var(--gold);font-size:.82rem;letter-spacing:2px;margin-bottom:1rem}
+    .dep-quote{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:rgba(255,255,255,.85);line-height:1.65;margin-bottom:1.4rem}
+    .dep-author{display:flex;align-items:center;gap:.8rem}
+    .dep-av{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--gold);background:var(--black-mid);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold)}
+    .dep-name{font-size:.85rem;color:var(--white);font-weight:500}
+    .dep-service{font-size:.7rem;color:var(--text-muted);letter-spacing:.05em}
+
+    /* ── CTA AGEN ── */
+    #agendamento{padding:110px 5%;background:var(--black);position:relative;overflow:hidden;text-align:center}
+    #agendamento::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(201,169,110,.06) 0%,transparent 65%);pointer-events:none}
+    .agen-inner{max-width:700px;margin:0 auto;position:relative;z-index:1}
+    .agen-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2.6rem}
+
+    /* ── CONTACTOS ── */
+    #contactos{background:var(--black-soft);padding:100px 5%;position:relative}
+    .contactos-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+    .c-left .section-tag,.c-left .section-title,.c-left .gold-line{text-align:left;margin-left:0;margin-right:auto}
+    .c-left .section-sub{text-align:left;margin:1rem 0 0;max-width:100%}
+    .c-list{margin-top:2rem;display:flex;flex-direction:column;gap:1rem}
+    .c-row{display:flex;align-items:flex-start;gap:1rem;background:var(--black-card);border:1px solid var(--border);border-radius:var(--rl);padding:1.1rem 1.3rem;transition:border-color .3s,transform .3s}
+    .c-row:hover{border-color:var(--gold);transform:translateX(4px)}
+    .c-icon{width:38px;height:38px;flex-shrink:0;background:var(--gold-pale);border:1px solid var(--border-b);border-radius:50%;display:flex;align-items:center;justify-content:center}
+    .c-icon svg{width:16px;height:16px}
+    .c-lbl{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.2rem}
+    .c-val{font-size:.9rem;color:var(--white)}
+    .c-val a:hover{color:var(--gold)}
+    .soc-row{display:flex;gap:.7rem;margin-top:1.6rem}
+    .soc-btn{width:42px;height:42px;border-radius:50%;border:1px solid var(--border);background:var(--black-card);display:flex;align-items:center;justify-content:center;transition:border-color .3s,transform .3s}
+    .soc-btn svg{width:18px;height:18px}
+    .soc-btn:hover{border-color:var(--gold);transform:translateY(-3px)}
+    .mapa-box{border-radius:var(--rl);overflow:hidden;border:1px solid var(--border);background:var(--black-mid);height:360px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem}
+    .mapa-box svg{width:48px;opacity:.25}
+    .mapa-box-t{font-size:.78rem;color:var(--text-muted);letter-spacing:.06em}
+
+    /* ── FOOTER ── */
+    footer{background:var(--black-mid);padding:52px 5% 28px;border-top:1px solid var(--border)}
+    .ft-top{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:2rem;border-bottom:1px solid var(--border);margin-bottom:1.8rem;flex-wrap:wrap;gap:2rem}
+    .ft-logo-svg{height:44px}
+    .ft-tagline{font-size:.72rem;color:var(--text-muted);letter-spacing:.08em;margin-top:.5rem}
+    .ft-links{display:flex;gap:1.6rem;flex-wrap:wrap;align-items:center}
+    .ft-links a{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);transition:color .3s}
+    .ft-links a:hover{color:var(--gold)}
+    .ft-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    .ft-copy{font-size:.7rem;color:rgba(255,255,255,.18)}
+    .ft-socs{display:flex;gap:.6rem}
+    .ft-soc{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;transition:border-color .3s}
+    .ft-soc svg{width:14px;height:14px}
+    .ft-soc:hover{border-color:var(--gold)}
+
+    /* ── WA FLOAT ── */
+    .wa-float{position:fixed;bottom:26px;right:26px;z-index:999;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(37,211,102,.45);cursor:pointer;animation:pulse-wa 2.5s infinite;transition:transform .3s}
+    .wa-float svg{width:26px;height:26px}
+    .wa-float:hover{transform:scale(1.12);animation:none}
+    .wa-tip{position:absolute;right:64px;background:var(--black);color:var(--white);font-size:.7rem;letter-spacing:.06em;white-space:nowrap;padding:.4rem .85rem;border:1px solid var(--border);border-radius:var(--r);opacity:0;transform:translateX(8px);transition:opacity .3s,transform .3s;pointer-events:none}
+    .wa-float:hover .wa-tip{opacity:1;transform:translateX(0)}
+
+    /* ── PORTFOLIO TABS ── */
+    .port-tabs{max-width:1200px;margin:0 auto 2.5rem;display:flex;gap:.8rem;flex-wrap:wrap}
+    .port-tab{background:var(--black-card);border:1px solid var(--border);border-radius:var(--rl);padding:.7rem 1.6rem;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;font-family:'Jost',sans-serif;font-weight:500;color:var(--text-sub);cursor:pointer;display:inline-flex;align-items:center;gap:.5rem;transition:background .3s,border-color .3s,color .3s}
+    .port-tab svg{width:16px;height:16px;flex-shrink:0}
+    .port-tab:hover{border-color:var(--gold);color:var(--gold)}
+    .port-tab.active{background:var(--gold);border-color:var(--gold);color:var(--black)}
+    .port-tab-content{display:none;max-width:1200px;margin:0 auto}
+    .port-tab-content.active{display:block}
+    .port-real-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem}
+    .port-real-item{border-radius:var(--rl);overflow:hidden;position:relative;cursor:pointer;background:var(--black-mid);aspect-ratio:9/16}
+    .port-real-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s}
+    .port-real-item:hover img{transform:scale(1.04)}
+    .port-real-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.82) 0%,transparent 50%);opacity:0;transition:opacity .35s;display:flex;align-items:flex-end;padding:1.2rem}
+    .port-real-item:hover .port-real-ov{opacity:1}
+    .port-real-ov-t{color:rgba(255,255,255,.85);font-size:.78rem}
+    .port-real-ov-t span{display:block;font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--white);margin-bottom:.2rem}
+    .port-ph-empty{max-width:1200px;margin:0 auto;border:1px dashed var(--border);border-radius:var(--rl);padding:4rem 2rem;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:var(--black-card)}
+    @media(max-width:900px){.port-real-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:600px){.port-real-grid{grid-template-columns:1fr}.port-tabs{gap:.5rem}.port-tab{padding:.6rem 1rem;font-size:.68rem}}
+
+    /* ── KEYFRAMES ── */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+    @keyframes pulse-wa{0%,100%{box-shadow:0 6px 24px rgba(37,211,102,.45)}50%{box-shadow:0 6px 32px rgba(37,211,102,.7),0 0 0 10px rgba(37,211,102,.1)}}
+
+    /* ── SCROLL REVEAL ── */
+    .rv{opacity:0;transform:translateY(26px);transition:opacity .75s ease,transform .75s ease}
+    .rvl{opacity:0;transform:translateX(-26px);transition:opacity .75s ease,transform .75s ease}
+    .rvr{opacity:0;transform:translateX(26px);transition:opacity .75s ease,transform .75s ease}
+    .rv.vis,.rvl.vis,.rvr.vis{opacity:1;transform:none}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:900px){
+      #hero{grid-template-columns:1fr}
+      .hero-right{height:55vw;min-height:260px}
+      .hero-left{padding:100px 5% 60px}
+      .hero-left::after{display:none}
+      .sobre-grid{grid-template-columns:1fr;gap:3rem}
+      .sobre-frame{display:none}
+      .sobre-badge-box{right:12px;bottom:12px}
+      .sobre-img-box{height:360px}
+      .port-grid{grid-template-columns:repeat(2,1fr)}
+      .port-item:first-child{grid-column:span 2}
+      .port-item:last-child{grid-column:span 2}
+      .dep-grid{grid-template-columns:1fr}
+      .fid-steps{grid-template-columns:1fr}
+      .contactos-grid{grid-template-columns:1fr;gap:3rem}
+      .nav-links{display:none}
+      .nav-toggle{display:flex}
+    }
+    @media(max-width:600px){
+      .hero-headline{font-size:2.4rem}
+      .hero-stats{gap:1.2rem;flex-wrap:wrap}
+      .stat-div{display:none}
+      .sobre-feats{grid-template-columns:1fr}
+      .port-grid{grid-template-columns:1fr}
+      .port-item:first-child,.port-item:last-child{grid-column:span 1}
+      .ft-top{flex-direction:column}
+      .ft-bottom{flex-direction:column;align-items:flex-start}
+      .agen-actions{flex-direction:column;align-items:center}
+      .fid-circles{gap:.7rem}
+      .fid-circle{width:50px;height:50px}
+      .fid-reward{width:58px;height:58px}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ NAVBAR ═══ -->
+<nav id="navbar">
+  <a href="#hero">
+    <svg class="nav-logo-svg" viewBox="0 0 240 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="28" cy="28" r="22" stroke="white" stroke-width="1.2" fill="none"/>
+      <line x1="0" y1="28" x2="9" y2="28" stroke="white" stroke-width="1" stroke-linecap="round"/>
+      <line x1="47" y1="28" x2="56" y2="28" stroke="white" stroke-width="1" stroke-linecap="round"/>
+      <text x="15" y="35" font-family="Georgia,serif" font-style="italic" font-size="20" fill="white">Lm</text>
+      <text x="68" y="24" font-family="Georgia,serif" font-size="12" fill="white" letter-spacing="3.5">LUANA MARTINS</text>
+      <text x="68" y="40" font-family="Georgia,serif" font-size="9" fill="rgba(201,169,110,0.8)" letter-spacing="6">STUDIO</text>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#fidelidade">Fidelidade</a></li>
+    <li><a href="#portfolio">Resultados</a></li>
+    <li><a href="#depoimentos">Avaliações</a></li>
+    <li><a href="#contactos">Contactos</a></li>
+    <li><a href="https://wa.me/351935251839?text=Olá!%20Gostaria%20de%20agendar%20um%20serviço." class="nav-cta" target="_blank">Agendar</a></li>
+  </ul>
+  <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#sobre"       onclick="closeMM()">Sobre</a>
+  <a href="#servicos"    onclick="closeMM()">Serviços</a>
+  <a href="#fidelidade"  onclick="closeMM()">Fidelidade</a>
+  <a href="#portfolio"   onclick="closeMM()">Resultados</a>
+  <a href="#depoimentos" onclick="closeMM()">Avaliações</a>
+  <a href="#contactos"   onclick="closeMM()">Contactos</a>
+  <a href="https://wa.me/351935251839?text=Olá!%20Gostaria%20de%20agendar%20um%20serviço." class="btn-gold" target="_blank">Agendar Agora</a>
+</div>
+
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-badge">Studio de Beleza Premium</div>
+    <h1 class="hero-headline">Realçando a sua<br/><em>beleza natural</em><br/>com cuidado</h1>
+    <p class="hero-sub">Especialista em estética e transformação da autoestima. Cada detalhe pensado exclusivamente para si.</p>
+    <div class="hero-actions">
+      <a href="https://wa.me/351935251839?text=Olá!%20Gostaria%20de%20agendar%20um%20serviço." class="btn-gold" target="_blank">Agendar Agora</a>
+      <a href="#servicos" class="btn-ghost">Ver Serviços</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">500+</div><div class="stat-lbl">Clientes felizes</div></div>
+      <div class="stat-div"></div>
+      <div><div class="stat-num">6+</div><div class="stat-lbl">Anos experiência</div></div>
+      <div class="stat-div"></div>
+      <div><div class="stat-num">100%</div><div class="stat-lbl">Dedicação</div></div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <!-- Large watermark LM logo -->
+    <svg viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:55%;max-width:340px;opacity:.06">
+      <circle cx="130" cy="130" r="115" stroke="white" stroke-width="2" fill="none"/>
+      <line x1="0" y1="130" x2="22" y2="130" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="238" y1="130" x2="260" y2="130" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+      <text x="70" y="155" font-family="Georgia,serif" font-style="italic" font-size="90" fill="white">Lm</text>
+    </svg>
+    <div class="hero-card">
+      <div class="hero-card-stars">
+        <span class="hero-card-star">&#9733;</span><span class="hero-card-star">&#9733;</span><span class="hero-card-star">&#9733;</span><span class="hero-card-star">&#9733;</span><span class="hero-card-star">&#9733;</span>
+      </div>
+      <div class="hero-card-text"><strong>Avaliação 5 estrelas</strong>"O melhor studio da cidade!"</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SOBRE ═══ -->
+<section id="sobre">
+  <div class="gold-rule-top"></div>
+  <div class="sobre-grid">
+    <div class="sobre-img-wrap rvl">
+      <div class="sobre-frame"></div>
+      <div class="sobre-img-box">
+        <svg viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:60%;opacity:.12">
+          <circle cx="90" cy="90" r="80" stroke="white" stroke-width="1.5" fill="none"/>
+          <line x1="0" y1="90" x2="15" y2="90" stroke="white" stroke-width="1" stroke-linecap="round"/>
+          <line x1="165" y1="90" x2="180" y2="90" stroke="white" stroke-width="1" stroke-linecap="round"/>
+          <text x="44" y="114" font-family="Georgia,serif" font-style="italic" font-size="72" fill="white">Lm</text>
+        </svg>
+      </div>
+      <div class="sobre-badge-box">
+        <span class="sobre-badge-num">6+</span>
+        <span class="sobre-badge-lbl">Anos de experiência</span>
+      </div>
+    </div>
+
+    <div class="rvr">
+      <div class="section-tag">Sobre Mim</div>
+      <h2 class="section-title">Olá, sou a<br/>Luana Martins</h2>
+      <div class="gold-line"></div>
+      <p class="sobre-text">Desde sempre apaixonada por beleza e bem-estar, dediquei-me a criar um espaço onde cada cliente se sente especial e cuidada. O Luana Martins Studio nasceu do desejo de transformar não só a aparência, mas também a autoestima de cada pessoa.</p>
+      <p class="sobre-text" style="margin-top:-.6rem">Com formação especializada e anos de experiência, ofereço tratamentos personalizados que realçam a beleza natural — com técnicas refinadas, produtos premium e um atendimento acolhedor e atencioso.</p>
+      <div class="sobre-feats">
+        <div class="sobre-feat"><div class="feat-dot"></div><span>Formação especializada</span></div>
+        <div class="sobre-feat"><div class="feat-dot"></div><span>Produtos premium</span></div>
+        <div class="sobre-feat"><div class="feat-dot"></div><span>Atendimento personalizado</span></div>
+        <div class="sobre-feat"><div class="feat-dot"></div><span>Ambiente acolhedor</span></div>
+        <div class="sobre-feat"><div class="feat-dot"></div><span>Técnicas modernas</span></div>
+        <div class="sobre-feat"><div class="feat-dot"></div><span>Higiene rigorosa</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SERVIÇOS ═══ -->
+<section id="servicos">
+  <div class="gold-rule-top"></div>
+  <div class="section-header rv">
+    <div class="section-tag">O que ofereço</div>
+    <h2 class="section-title">Serviços de Excelência</h2>
+    <p class="section-sub">Cada tratamento é realizado com técnica refinada e total dedicação para realçar a sua beleza.</p>
+    <div class="gold-line"></div>
+  </div>
+  <div class="servicos-grid">
+
+    <div class="s-card rv">
+      <div class="s-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="12" cy="13" rx="9" ry="4.5"/>
+          <circle cx="12" cy="13" r="2"/>
+          <path d="M9 9.5C8.5 7 8.8 5 10 4M12 9c0-2.5.4-4.2 1-5.2M15 9.5c.5-2.2.2-4-1-5"/>
+        </svg>
+      </div>
+      <h3 class="s-name">Extensão de Pestanas</h3>
+      <p class="s-desc">Técnica fio a fio ou volume russo para um olhar intenso e duradouro, adaptado ao formato dos seus olhos.</p>
+      <ul class="s-bens">
+        <li>Olhar mais expressivo sem maquilhagem</li>
+        <li>Duração de 3 a 4 semanas</li>
+        <li>Técnica personalizada ao seu rosto</li>
+      </ul>
+      <a href="https://wa.me/351935251839?text=Olá!%20Quero%20saber%20mais%20sobre%20extensão%20de%20pestanas." class="s-link" target="_blank">Saber mais</a>
+    </div>
+
+    <div class="s-card rv" style="transition-delay:.1s">
+      <div class="s-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.4" stroke-linecap="round">
+          <path d="M3 9c2.5-4 6-5 9-3.5s7.5.5 9 2.5"/>
+          <path d="M3 15c2.5-4 6-5 9-3.5s7.5.5 9 2.5"/>
+        </svg>
+      </div>
+      <h3 class="s-name">Design de Sobrancelhas</h3>
+      <p class="s-desc">Design personalizado para sobrancelhas perfeitas que emolduram e definem o seu rosto de forma natural.</p>
+      <ul class="s-bens">
+        <li>Resultado natural e duradouro</li>
+        <li>Formato ideal para o seu rosto</li>
+        <li>Preenche falhas e assimetrias</li>
+      </ul>
+      <a href="https://wa.me/351935251839?text=Olá!%20Quero%20saber%20mais%20sobre%20design%20de%20sobrancelhas." class="s-link" target="_blank">Saber mais</a>
+    </div>
+
+    <div class="s-card rv" style="transition-delay:.2s">
+      <div class="s-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.4" stroke-linecap="round">
+          <path d="M7 3c0 0 1 2 1 5s-2 5-2 8c0 2 1.5 4 4 4s4-2 4-4c0-3-2-5-2-8s1-5 1-5"/>
+          <path d="M11 3c0 0 1 1.5 1 4" stroke-width="1"/>
+        </svg>
+      </div>
+      <h3 class="s-name">Henna de Sobrancelhas</h3>
+      <p class="s-desc">Coloração natural com henna para sobrancelhas mais preenchidas e definidas, com resultado duradouro e aspeto natural.</p>
+      <ul class="s-bens">
+        <li>Efeito preenchido e natural</li>
+        <li>Duração até 4 semanas</li>
+        <li>Fórmula segura e vegetal</li>
+      </ul>
+      <a href="https://wa.me/351935251839?text=Olá!%20Quero%20saber%20mais%20sobre%20henna%20de%20sobrancelhas." class="s-link" target="_blank">Saber mais</a>
+    </div>
+
+    <div class="s-card s-card-dark rv" style="transition-delay:.3s">
+      <div class="s-icon" style="border-color:rgba(201,169,110,.45)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.4" stroke-linecap="round">
+          <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+        </svg>
+      </div>
+      <h3 class="s-name">Serviço personalizado?</h3>
+      <p class="s-desc">Entre em contacto para personalizar o seu tratamento. Estou aqui para ajudar a realçar a sua beleza.</p>
+      <a href="https://wa.me/351935251839?text=Olá%20Luana!%20Gostaria%20de%20saber%20mais%20sobre%20os%20seus%20serviços." class="btn-gold" style="margin-top:1rem" target="_blank">Falar comigo</a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══ CARTÃO FIDELIDADE ═══ -->
+<section id="fidelidade">
+  <div class="gold-rule-top"></div>
+  <div class="fid-inner">
+    <div class="rv">
+      <div class="novidade-pill"><div class="novidade-pulse"></div>Novidade</div>
+      <h2 class="fid-title">Cartão Fidelidade<br/><em>para as nossas clientes</em></h2>
+      <p class="fid-sub">
+        Apresentamos o nosso <strong style="color:var(--gold);font-weight:500">Cartão Fidelidade</strong> exclusivo para visitas presenciais ao studio! Acumule visitas e seja recompensada com <strong style="color:var(--gold);font-weight:500">50% de desconto</strong> na sua 5.ª visita — porque a sua fidelidade merece ser celebrada.
+      </p>
+    </div>
+
+    <div class="fid-card rv">
+      <div class="fid-card-head">
+        <svg class="fid-card-head-logo" viewBox="0 0 210 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="23" cy="23" r="19" stroke="white" stroke-width="1" fill="none"/>
+          <line x1="0" y1="23" x2="7" y2="23" stroke="white" stroke-width=".8" stroke-linecap="round"/>
+          <line x1="39" y1="23" x2="46" y2="23" stroke="white" stroke-width=".8" stroke-linecap="round"/>
+          <text x="12" y="29" font-family="Georgia,serif" font-style="italic" font-size="18" fill="white">Lm</text>
+          <text x="56" y="20" font-family="Georgia,serif" font-size="10" fill="white" letter-spacing="3.5">LUANA MARTINS</text>
+          <text x="56" y="35" font-family="Georgia,serif" font-size="8" fill="rgba(201,169,110,0.75)" letter-spacing="5">STUDIO</text>
+        </svg>
+        <div class="fid-card-head-lbl">Cartão Fidelidade</div>
+      </div>
+      <div class="fid-card-body">
+        <div class="fid-card-hint">Complete as visitas e ganhe desconto</div>
+        <div class="fid-circles">
+          <div class="fid-circle">1</div>
+          <div class="fid-circle">2</div>
+          <div class="fid-circle">3</div>
+          <div class="fid-circle">4</div>
+          <div class="fid-reward">
+            <div class="fid-reward-pct">50%</div>
+            <div class="fid-reward-off">desconto</div>
+          </div>
+        </div>
+        <div class="fid-cta-row">
+          <div class="fid-note">
+            Visite-nos <strong>4 vezes</strong> e na sua <strong>5.ª visita</strong> recebe <strong>50% de desconto</strong> no serviço à sua escolha. Exclusivo para visitas presenciais.
+          </div>
+          <a href="https://wa.me/351935251839?text=Olá%20Luana!%20Quero%20saber%20mais%20sobre%20o%20Cartão%20Fidelidade." class="btn-gold" target="_blank">Quero o meu cartão</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="fid-steps">
+      <div class="fid-step rv">
+        <div class="fid-step-n">01</div>
+        <div class="fid-step-t">Visite o Studio</div>
+        <div class="fid-step-d">Em cada visita presencial ao Luana Martins Studio recebe um carimbo no seu cartão.</div>
+      </div>
+      <div class="fid-step rv" style="transition-delay:.15s">
+        <div class="fid-step-n">04</div>
+        <div class="fid-step-t">Acumule Visitas</div>
+        <div class="fid-step-d">Depois de 4 visitas o seu cartão fica completo e está pronta para a recompensa.</div>
+      </div>
+      <div class="fid-step rv" style="transition-delay:.3s">
+        <div class="fid-step-n">50%</div>
+        <div class="fid-step-t">Ganhe o Desconto</div>
+        <div class="fid-step-d">Na 5.ª visita escolha qualquer serviço e aproveite <strong style="color:var(--gold)">50% de desconto</strong>.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ PORTFOLIO ═══ -->
+<section id="portfolio">
+  <div class="gold-rule-top"></div>
+  <div class="section-header rv">
+    <div class="section-tag">Resultados Reais</div>
+    <h2 class="section-title">O Nosso Portfólio</h2>
+    <p class="section-sub">Cada transformação conta uma história. Confie no trabalho e nos resultados que falam por si.</p>
+    <div class="gold-line"></div>
+  </div>
+
+  <!-- TAB NAVIGATION -->
+  <div class="port-tabs rv">
+    <button class="port-tab active" onclick="switchTab('pestanas')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><ellipse cx="12" cy="13" rx="9" ry="4.5"/><circle cx="12" cy="13" r="2"/><path d="M9 9.5C8.5 7 8.8 5 10 4M12 9c0-2.5.4-4.2 1-5.2M15 9.5c.5-2.2.2-4-1-5"/></svg>
+      Extensão de Pestanas
+    </button>
+    <button class="port-tab" onclick="switchTab('sobrancelhas')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M3 9c2.5-4 6-5 9-3.5s7.5.5 9 2.5"/><path d="M3 15c2.5-4 6-5 9-3.5s7.5.5 9 2.5"/></svg>
+      Sobrancelhas & Henna
+    </button>
+  </div>
+
+  <!-- TAB: EXTENSÃO DE PESTANAS -->
+  <div class="port-tab-content active" id="tab-pestanas">
+    <div class="port-real-grid">
+      <div class="port-real-item rv">
+        <img src="1774569293858_5.png" alt="Extensão de Pestanas - Resultado 1" loading="lazy"/>
+        <div class="port-real-ov"><div class="port-real-ov-t"><span>Volume Russo</span>Resultados reais</div></div>
+      </div>
+      <div class="port-real-item rv" style="transition-delay:.08s">
+        <img src="1774569293876_7.png" alt="Extensão de Pestanas - Efeito Gatão" loading="lazy"/>
+        <div class="port-real-ov"><div class="port-real-ov-t"><span>Efeito Gatão</span>Resultados reais</div></div>
+      </div>
+      <div class="port-real-item rv" style="transition-delay:.16s">
+        <img src="1774569293877_1.png" alt="Extensão de Pestanas - Resultado 3" loading="lazy"/>
+        <div class="port-real-ov"><div class="port-real-ov-t"><span>Fio a Fio</span>Resultados reais</div></div>
+      </div>
+      <div class="port-real-item rv" style="transition-delay:.24s">
+        <img src="1774569293877_2.png" alt="Extensão de Pestanas - Resultado 4" loading="lazy"/>
+        <div class="port-real-ov"><div class="port-real-ov-t"><span>Volume Clássico</span>Resultados reais</div></div>
+      </div>
+      <div class="port-real-item rv" style="transition-delay:.32s">
+        <img src="1774569293877_3.png" alt="Extensão de Pestanas - Resultado 5" loading="lazy"/>
+        <div class="port-real-ov"><div class="port-real-ov-t"><span>Volume Natural</span>Resultados reais</div></div>
+      </div>
+      <div class="port-real-item rv" style="transition-delay:.4s">
+        <img src="1774569293878_4.png" alt="Extensão de Pestanas - Resultado 6" loading="lazy"/>
+        <div class="port-real-ov"><div class="port-real-ov-t"><span>Mega Volume</span>Resultados reais</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: SOBRANCELHAS & HENNA -->
+  <div class="port-tab-content" id="tab-sobrancelhas">
+    <div class="port-ph-empty">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1" style="width:48px;opacity:.15"><path d="M3 9c2.5-4 6-5 9-3.5s7.5.5 9 2.5"/><path d="M3 15c2.5-4 6-5 9-3.5s7.5.5 9 2.5"/></svg>
+      <p style="color:var(--text-muted);font-size:.82rem;margin-top:1rem;letter-spacing:.06em">Fotos em breve — siga-nos no Instagram para ver os resultados</p>
+      <a href="https://www.instagram.com/luanaamartinsstudio/" target="_blank" class="btn-gold" style="margin-top:1.5rem">Ver no Instagram</a>
+    </div>
+  </div>
+
+  <div class="port-ig rv">
+    <a href="https://www.instagram.com/luanaamartinsstudio/" target="_blank">Ver mais resultados no Instagram</a>
+  </div>
+</section>
+
+
+<!-- ═══ DEPOIMENTOS ═══ -->
+<section id="depoimentos">
+  <div class="gold-rule-top"></div>
+  <div class="section-header rv">
+    <div class="section-tag">O que dizem as clientes</div>
+    <h2 class="section-title">Avaliações Reais</h2>
+    <p class="section-sub">A satisfação das minhas clientes é o maior reconhecimento do meu trabalho.</p>
+    <div class="gold-line"></div>
+  </div>
+  <div class="dep-grid">
+    <div class="dep-card rv">
+      <div class="dep-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="dep-quote">"Fiz extensão de pestanas e fiquei absolutamente apaixonada! A Luana é super cuidadosa e o resultado ficou incrível. Definitivamente voltarei!"</p>
+      <div class="dep-author"><div class="dep-av">S</div><div><div class="dep-name">Sofia Almeida</div><div class="dep-service">Extensão de Pestanas</div></div></div>
+    </div>
+    <div class="dep-card rv" style="transition-delay:.12s">
+      <div class="dep-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="dep-quote">"O design de sobrancelhas transformou completamente o meu rosto! A Luana tem uma habilidade única e um carinho especial com as clientes."</p>
+      <div class="dep-author"><div class="dep-av">M</div><div><div class="dep-name">Margarida Costa</div><div class="dep-service">Design de Sobrancelhas</div></div></div>
+    </div>
+    <div class="dep-card rv" style="transition-delay:.24s">
+      <div class="dep-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="dep-quote">"Ambiente lindíssimo, profissionalismo impecável e mãos de fada! A limpeza de pele ficou perfeita e saí de lá com uma pele radiante."</p>
+      <div class="dep-author"><div class="dep-av">A</div><div><div class="dep-name">Ana Ferreira</div><div class="dep-service">Limpeza de Pele</div></div></div>
+    </div>
+    <div class="dep-card rv" style="transition-delay:.08s">
+      <div class="dep-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="dep-quote">"Sou cliente há mais de 2 anos e nunca fiquei desiludida. A Luana tem uma atenção ao detalhe extraordinária e faz-nos sentir especiais."</p>
+      <div class="dep-author"><div class="dep-av">I</div><div><div class="dep-name">Inês Rodrigues</div><div class="dep-service">Cliente Fiel</div></div></div>
+    </div>
+    <div class="dep-card rv" style="transition-delay:.2s">
+      <div class="dep-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="dep-quote">"Fui pela primeira vez e já estou marcada para a próxima! Profissionalismo, simpatia e um resultado que superou todas as expectativas."</p>
+      <div class="dep-author"><div class="dep-av">C</div><div><div class="dep-name">Catarina Silva</div><div class="dep-service">Tratamento Facial</div></div></div>
+    </div>
+    <div class="dep-card rv" style="transition-delay:.32s">
+      <div class="dep-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="dep-quote">"Um espaço de luxo acessível, onde me sinto sempre bem-vinda. A Luana tem uma energia incrível e os resultados são sempre impecáveis."</p>
+      <div class="dep-author"><div class="dep-av">B</div><div><div class="dep-name">Beatriz Santos</div><div class="dep-service">Extensão de Pestanas</div></div></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ CTA ═══ -->
+<section id="agendamento">
+  <div class="gold-rule-top"></div>
+  <div class="agen-inner rv">
+    <div class="section-tag">Pronta para transformar?</div>
+    <h2 class="section-title" style="font-size:clamp(2.4rem,5vw,4rem)">Marque o seu<br/><em style="color:var(--gold)">horário agora</em></h2>
+    <div class="gold-line"></div>
+    <p class="section-sub" style="margin-top:1.2rem">Dê o primeiro passo para se sentir ainda mais bonita e confiante. Estou à sua espera para criar a transformação que sempre desejou.</p>
+    <div class="agen-actions">
+      <a href="https://wa.me/351935251839?text=Olá%20Luana!%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20um%20horário." class="btn-gold-lg" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.522 5.847L.057 23.882l6.196-1.626A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.848 0-3.576-.476-5.076-1.312l-.364-.212-3.676.964.981-3.584-.233-.376A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Agendar pelo WhatsApp
+      </a>
+      <a href="https://www.instagram.com/luanaamartinsstudio/" class="btn-ghost-lg" target="_blank">Ver o nosso Instagram</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ CONTACTOS ═══ -->
+<section id="contactos">
+  <div class="gold-rule-top"></div>
+  <div class="contactos-grid">
+    <div class="c-left">
+      <div class="section-tag">Venha visitar-nos</div>
+      <h2 class="section-title">Contactos &amp;<br/>Localização</h2>
+      <div class="gold-line"></div>
+      <p class="section-sub">Estamos disponíveis para responder a todas as suas questões e ajudar a marcar o seu serviço.</p>
+      <div class="c-list">
+        <div class="c-row">
+          <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11 19.79 19.79 0 01.01 2.4 2 2 0 012 .22h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92v2z"/></svg></div>
+          <div><div class="c-lbl">Telefone / WhatsApp</div><div class="c-val"><a href="https://wa.me/351935251839" target="_blank">+351 935 251 839</a></div></div>
+        </div>
+        <div class="c-row">
+          <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="#C9A96E" stroke="none"/></svg></div>
+          <div><div class="c-lbl">Instagram</div><div class="c-val"><a href="https://www.instagram.com/luanaamartinsstudio/" target="_blank">@luanaamartinsstudio</a></div></div>
+        </div>
+        <div class="c-row">
+          <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></div>
+          <div><div class="c-lbl">Facebook / TikTok</div><div class="c-val"><a href="https://www.facebook.com/luanaamartinsstudio" target="_blank">luanaamartinsstudio</a></div></div>
+        </div>
+        <div class="c-row">
+          <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+          <div><div class="c-lbl">Horário</div><div class="c-val">Segunda a Sábado: 9h00 – 19h00</div></div>
+        </div>
+      </div>
+      <div class="soc-row">
+        <a href="https://www.instagram.com/luanaamartinsstudio/" class="soc-btn" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="#C9A96E" stroke="none"/></svg>
+        </a>
+        <a href="https://wa.me/351935251839" class="soc-btn" target="_blank">
+          <svg viewBox="0 0 24 24" fill="#C9A96E"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.522 5.847L.057 23.882l6.196-1.626A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.848 0-3.576-.476-5.076-1.312l-.364-.212-3.676.964.981-3.584-.233-.376A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/luanaamartinsstudio" class="soc-btn" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="mapa-box rvr">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#C9A96E" stroke-width="1" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <div class="mapa-box-t">Localização do Studio</div>
+      <a href="https://maps.google.com" target="_blank" class="btn-ghost">Ver no Google Maps</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="ft-top">
+    <div>
+      <svg class="ft-logo-svg" viewBox="0 0 240 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="28" cy="28" r="22" stroke="white" stroke-width="1.2" fill="none"/>
+        <line x1="0" y1="28" x2="9" y2="28" stroke="white" stroke-width="1" stroke-linecap="round"/>
+        <line x1="47" y1="28" x2="56" y2="28" stroke="white" stroke-width="1" stroke-linecap="round"/>
+        <text x="15" y="35" font-family="Georgia,serif" font-style="italic" font-size="20" fill="white">Lm</text>
+        <text x="68" y="24" font-family="Georgia,serif" font-size="12" fill="white" letter-spacing="3.5">LUANA MARTINS</text>
+        <text x="68" y="40" font-family="Georgia,serif" font-size="9" fill="rgba(201,169,110,0.75)" letter-spacing="6">STUDIO</text>
+      </svg>
+      <div class="ft-tagline">Estética &amp; Beleza Premium</div>
+    </div>
+    <div class="ft-links">
+      <a href="#sobre">Sobre</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#fidelidade">Fidelidade</a>
+      <a href="#portfolio">Portfólio</a>
+      <a href="#depoimentos">Avaliações</a>
+      <a href="#contactos">Contactos</a>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <div class="ft-copy">&copy; 2025 Luana Martins Studio. Todos os direitos reservados.</div>
+    <div class="ft-socs">
+      <a href="https://www.instagram.com/luanaamartinsstudio/" class="ft-soc" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(201,169,110,.55)" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="rgba(201,169,110,.55)" stroke="none"/></svg>
+      </a>
+      <a href="https://wa.me/351935251839" class="ft-soc" target="_blank">
+        <svg viewBox="0 0 24 24" fill="rgba(201,169,110,.55)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.522 5.847L.057 23.882l6.196-1.626A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.848 0-3.576-.476-5.076-1.312l-.364-.212-3.676.964.981-3.584-.233-.376A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      </a>
+      <a href="https://www.facebook.com/luanaamartinsstudio" class="ft-soc" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(201,169,110,.55)" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+
+<!-- WhatsApp float -->
+<a href="https://wa.me/351935251839?text=Olá%20Luana!%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20um%20serviço." class="wa-float" target="_blank">
+  <span class="wa-tip">Fale connosco!</span>
+  <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.522 5.847L.057 23.882l6.196-1.626A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.848 0-3.576-.476-5.076-1.312l-.364-.212-3.676.964.981-3.584-.233-.376A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+</a>
+
+<script>
+  function switchTab(name) {
+    document.querySelectorAll('.port-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.port-tab-content').forEach(c => c.classList.remove('active'));
+    document.getElementById('tab-'+name).classList.add('active');
+    document.querySelector('[onclick="switchTab(\''+name+'\')"]').classList.add('active');
+    // re-trigger scroll reveal for newly visible items
+    document.querySelectorAll('#tab-'+name+' .rv').forEach(el => { el.classList.remove('vis'); setTimeout(()=>io.observe(el),50); });
+  }
+
+
+  const mm = document.getElementById('mobileMenu');
+  let open = false;
+  function closeMM(){ open=false; mm.classList.remove('open'); }
+  toggle.addEventListener('click', () => { open=!open; mm.classList.toggle('open',open); });
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('vis'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.rv,.rvl,.rvr').forEach(el => io.observe(el));
+
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 40 ? 'rgba(10,10,10,.98)' : 'rgba(10,10,10,.85)';
+    nav.style.borderBottomColor = window.scrollY > 40 ? 'rgba(201,169,110,.3)' : 'rgba(201,169,110,.18)';
+  });
+</script>
+</body>
+</html>
