@@ -380,11 +380,19 @@ nav.scrolled{background:var(--bg);border-color:var(--border);backdrop-filter:blu
 /* Right side of navbar — groups controls + hamburger */
 .nav-right{display:flex;align-items:center;gap:.5rem;flex-shrink:0;min-width:0}
 
-/* Hide non-critical items on small screens so hamburger never gets pushed off */
-@media(max-width:500px){
+/* Navbar right side — responsive */
+/* Em mobile (<768px): lang e tema disponíveis no menu hamburger */
+@media(max-width:767px){
   .nav-link-pwa{display:none!important}
   #lang-selector{display:none!important}
   #theme-switch{display:none!important}
+}
+/* Tablet (768-900px): mostrar lang sem código, sem PWA */
+@media(min-width:768px) and (max-width:900px){
+  .nav-link-pwa{display:none!important}
+  #lang-btn{padding:.25rem .45rem}
+  #lang-code{display:none}
+  .nav-links{gap:1.2rem}
 }
 .nav-cursor{display:inline-block;width:9px;height:1em;background:var(--accent);animation:blink 1s step-end infinite;vertical-align:middle}
 
@@ -575,6 +583,30 @@ nav.scrolled{background:var(--bg);border-color:var(--border);backdrop-filter:blu
 .lp-lang-name { font-family: var(--sans); font-size: .72rem; color: var(--muted); line-height: 1.1; }
 .lp-lang-btn.active .lp-lang-name { color: var(--text); }
 .lp-lang-btn.hidden { display: none; }
+
+/* Mobile: theme toggle inside nav */
+.mobile-theme-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: .65rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.mobile-theme-label {
+  font-family: var(--sans);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.mobile-theme-controls {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+/* Only show mobile theme/lang items when menu is open */
+.mobile-only-item { display: none !important; }
+.nav-links.open .mobile-only-item { display: flex !important; }
 
 /* Mobile lang trigger button — inside open nav */
 .mobile-lang-trigger {
@@ -1909,78 +1941,78 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0 1.5rem}
       </a>
       <ul class="nav-links" id="nav-links">
         <li class="nav-item">
-          <a href="#" class="nav-dd-toggle" data-p="servicos" onclick="if(window.innerWidth<768){return false;}goTo('servicos');return false;">Serviços <span class="nav-dd-arrow">▾</span></a>
+          <a href="#" class="nav-dd-toggle" data-p="servicos" data-i18n-toggle="nav_servicos" onclick="if(window.innerWidth<768){return false;}goTo('servicos');return false;"><span data-i18n="nav_servicos">Serviços</span> <span class="nav-dd-arrow">▾</span></a>
           <div class="nav-dropdown">
             <div class="nav-dd-inner">
               <div class="nav-dd-label">// Serviços</div>
               <a href="#" onclick="goToService('srv-it');return false;">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-                <span>Consultório IT</span>
+                <span data-i18n="nav_srv_it">Consultório IT</span>
               </a>
               <a href="#" onclick="goToService('srv-so');return false;">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3"/></svg>
-                <span>Sistemas Operativos</span>
+                <span data-i18n="nav_srv_so">Sistemas Operativos</span>
               </a>
               <a href="#" onclick="goToService('srv-fullstack');return false;">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                <span>Full Stack Dev</span>
+                <span data-i18n="nav_srv_fullstack">Full Stack Dev</span>
               </a>
               <a href="#" onclick="goToService('srv-frontend');return false;">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 13.5V20a2 2 0 002 2h16a2 2 0 002-2V13.5"/><polyline points="2 9 12 3 22 9"/></svg>
-                <span>Frontend</span>
+                <span data-i18n="nav_srv_frontend">Frontend</span>
               </a>
               <a href="#" onclick="goToService('srv-backend');return false;">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5"/></svg>
-                <span>Backend</span>
+                <span data-i18n="nav_srv_backend">Backend</span>
               </a>
               <div class="nav-dd-sep"></div>
               <a href="#" onclick="goToService('srv-social');return false;">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg>
-                <span>Redes Sociais</span>
+                <span data-i18n="nav_srv_social">Redes Sociais</span>
               </a>
               <a href="#" onclick="goToService('srv-design');return false;">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-                <span>Design Gráfico</span>
+                <span data-i18n="nav_srv_design">Design Gráfico</span>
               </a>
               <a href="#" onclick="goToService('srv-redes');return false;">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a14 14 0 010 18M3 12h18"/></svg>
-                <span>Gestão de Redes</span>
+                <span data-i18n="nav_srv_redes">Gestão de Redes</span>
               </a>
             </div>
           </div>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-dd-toggle" onclick="if(window.innerWidth<768){return false;}goTo('dicas');return false;">Dicas IT <span class="nav-dd-arrow">▾</span></a>
+          <a href="#" class="nav-dd-toggle" onclick="if(window.innerWidth<768){return false;}goTo('dicas');return false;"><span data-i18n="nav_dicas">Dicas IT</span> <span class="nav-dd-arrow">▾</span></a>
           <div class="nav-dropdown">
             <div class="nav-dd-inner">
               <div class="nav-dd-label">// Dicas IT</div>
               <a href="#" onclick="goToDicas('all');return false;">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-                <span>Todas as Dicas</span>
+                <span data-i18n="nav_dicas_all">Todas as Dicas</span>
               </a>
               <div class="nav-dd-sep"></div>
               <a href="#" onclick="goToDicas('os');return false;">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-                <span>Sistema Operativo</span>
+                <span data-i18n="nav_dicas_os">Sistema Operativo</span>
               </a>
               <a href="#" onclick="goToDicas('code');return false;">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                <span>Programação</span>
+                <span data-i18n="nav_dicas_code">Programação</span>
               </a>
               <a href="#" onclick="goToDicas('design');return false;">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-                <span>Design</span>
+                <span data-i18n="nav_dicas_design">Design</span>
               </a>
               <a href="#" onclick="goToDicas('net');return false;">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a14 14 0 010 18M3 12h18"/></svg>
-                <span>Redes</span>
+                <span data-i18n="nav_dicas_net">Redes</span>
               </a>
             </div>
           </div>
         </li>
-        <li><a href="#" data-p="portfolio" onclick="goTo('portfolio');return false;">Portfólio</a></li>
-        <li><a href="#" data-p="sobre" onclick="goTo('sobre');return false;">Sobre</a></li>
-        <li><a href="#" data-p="elearning" onclick="goTo('elearning');return false;" style="color:var(--accent2)">E-Learning</a></li>
+        <li><a href="#" data-p="portfolio" onclick="goTo('portfolio');return false;"><span data-i18n="nav_portfolio">Portfólio</span></a></li>
+        <li><a href="#" data-p="sobre" onclick="goTo('sobre');return false;"><span data-i18n="nav_sobre">Sobre</span></a></li>
+        <li><a href="#" data-p="elearning" onclick="goTo('elearning');return false;" style="color:var(--accent2)"><span data-i18n="nav_elearning">E-Learning</span></a></li>
         <li class="nav-item">
           <a href="#" class="nav-dd-toggle" onclick="return false;">Apps <span class="nav-dd-arrow">▾</span></a>
           <div class="nav-dropdown">
@@ -2015,6 +2047,21 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0 1.5rem}
                 <span>Instagram</span>
               </a>
             </div>
+          </div>
+        </li>
+        <!-- Mobile: Theme Toggle -->
+        <li class="mobile-only-item mobile-theme-item" style="list-style:none">
+          <span class="mobile-theme-label">Tema</span>
+          <div class="mobile-theme-controls">
+            <span class="sw-icon moon" style="color:var(--text);opacity:1">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+            </span>
+            <div id="mobile-sw-track" onclick="toggleTheme()" style="position:relative;width:42px;height:22px;border-radius:999px;background:var(--bg3);border:1.5px solid var(--border2);cursor:pointer;flex-shrink:0">
+              <div id="mobile-sw-thumb" style="position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--text);transition:transform .3s;box-shadow:0 1px 4px rgba(0,0,0,.4)"></div>
+            </div>
+            <span class="sw-icon sun" style="color:var(--text);opacity:.35">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            </span>
           </div>
         </li>
         <!-- Mobile: botão Língua que abre painel -->
@@ -2101,8 +2148,8 @@ footer{border-top:1px solid var(--border);padding:2.5rem 0 1.5rem}
             <span style="color:var(--muted)">//</span>
             <span id="typed-text"></span><span class="typed-cur"></span>
           </div>
-          <p class="hero-slogan">O teu negócio merece tecnologia que funciona — eu faço isso acontecer.</p>
-          <p class="hero-desc">Especialista em informática, programação full stack e consultoria IT. Ajudo pessoas e empresas a tirar o máximo partido da tecnologia — do código ao design, das redes sociais à infraestrutura.</p>
+          <p class="hero-slogan" data-i18n="hero_slogan">O teu negócio merece tecnologia que funciona — eu faço isso acontecer.</p>
+          <p class="hero-desc" data-i18n="hero_desc">Especialista em informática, programação full stack e consultoria IT. Ajudo pessoas e empresas a tirar o máximo partido da tecnologia — do código ao design, das redes sociais à infraestrutura.</p>
           <div class="hero-btns">
             <a href="https://wa.me/351967263260?text=Olá%20Paulo%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20seus%20serviços!" target="_blank" rel="noopener" class="btn-wa-hero" aria-label="Fala comigo no WhatsApp">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -4225,6 +4272,15 @@ function toggleTheme() {
   localStorage.setItem('ps-theme', isLight ? 'light' : 'dark');
   var meta = document.querySelector('meta[name="theme-color"]');
   if(meta) meta.setAttribute('content', isLight ? '#ffffff' : '#080808');
+  syncMobileThemeToggle(isLight);
+}
+function syncMobileThemeToggle(isLight){
+  var thumb = document.getElementById('mobile-sw-thumb');
+  var moonIcons = document.querySelectorAll('.mobile-theme-item .sw-icon.moon');
+  var sunIcons  = document.querySelectorAll('.mobile-theme-item .sw-icon.sun');
+  if(thumb) thumb.style.transform = isLight ? 'translateX(20px)' : '';
+  moonIcons.forEach(function(i){ i.style.opacity = isLight ? '.35' : '1'; });
+  sunIcons.forEach(function(i){  i.style.opacity = isLight ? '1'   : '.35'; });
 }
 document.addEventListener('keydown', function(e) {
   if ((e.key === 'Enter' || e.key === ' ') && e.target && e.target.id === 'theme-switch') {
@@ -5360,32 +5416,17 @@ function applyTranslations(lang){
   // html lang attribute
   document.documentElement.lang = lang;
 
-  // ── NAV ──
-  var navLinks = document.querySelectorAll('#nav-links > li > a');
-  var navKeys = ['nav_servicos','nav_dicas','nav_portfolio','nav_sobre','nav_elearning'];
-  // The nav has: Serviços, Dicas IT, Portfólio, Sobre, E-Learning, (Contacto is in cta)
-  var ddToggles = document.querySelectorAll('.nav-dd-toggle');
-  if(ddToggles[0]) ddToggles[0].childNodes[0].textContent = T.nav_servicos + ' ';
-  if(ddToggles[1]) ddToggles[1].childNodes[0].textContent = T.nav_dicas + ' ';
-
-  var plainLinks = document.querySelectorAll('#nav-links > li:not(.nav-item) > a');
-  var plainKeys = ['nav_portfolio','nav_sobre','nav_elearning'];
-  plainLinks.forEach(function(el,i){ if(plainKeys[i]) el.textContent = T[plainKeys[i]]; });
-
-  // Dropdown service items
-  var srvItems = document.querySelectorAll('.nav-dd:first-of-type .nav-dd a span');
-  var srvKeys = ['nav_srv_it','nav_srv_so','nav_srv_fullstack','nav_srv_frontend','nav_srv_backend','nav_srv_social','nav_srv_design','nav_srv_redes'];
-  srvItems.forEach(function(el,i){ if(srvKeys[i]) el.textContent = T[srvKeys[i]]; });
-
-  // Dropdown dicas items
-  var dicasItems = document.querySelectorAll('.nav-item:nth-child(2) .nav-dd a span');
-  var dicasKeys = ['nav_dicas_all','nav_dicas_os','nav_dicas_code','nav_dicas_design','nav_dicas_net'];
-  dicasItems.forEach(function(el,i){ if(dicasKeys[i]) el.textContent = T[dicasKeys[i]]; });
+  // ── NAV — usar data-i18n para tradução robusta ──
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var key = el.getAttribute('data-i18n');
+    if(T[key] !== undefined) el.textContent = T[key];
+  });
 
   // ── HERO ──
   var badge = document.querySelector('.badge-g');
   if(badge) badge.textContent = T.hero_badge_online;
 
+  // hero slogan supports innerHTML (has <br/>)
   var slogan = document.querySelector('.hero-slogan');
   if(slogan) slogan.innerHTML = T.hero_slogan;
 
